@@ -2,7 +2,8 @@ group 'com.giphy.giphy_flutter_sdk'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.7.10'
+    // Buildscript is evaluated before everything else so we can't use getExtOrDefault
+    def kotlin_version = rootProject.ext.has("kotlinVersion") ? rootProject.ext.get("kotlinVersion") : project.properties["GiphyFlutterSDK.kotlinVersion"]
     repositories {
         google()
         mavenCentral()
@@ -24,12 +25,30 @@ allprojects {
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
+def getExt(name, prefix = 'GiphyFlutterSDK.') {
+    return rootProject.ext.has(prefix + name) ? rootProject.ext.get(prefix + name) : null
+}
+
+def getExtOrDefault(name) {
+    return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties["GiphyFlutterSDK." + name]
+}
+
+def getExtOrIntegerDefault(name) {
+    return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["GiphyFlutterSDK." + name]).toInteger()
+}
+
 android {
     if (project.android.hasProperty("namespace")) {
-        namespace 'com.giphy.giphy_flutter_sdk'
+        namespace 'com.giphyfluttersdk'
     }
 
-    compileSdkVersion 33
+    compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -46,12 +65,13 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion getExtOrIntegerDefault("minSdkVersion")
     }
 
     dependencies {
         testImplementation 'org.jetbrains.kotlin:kotlin-test'
         testImplementation 'org.mockito:mockito-core:5.0.0'
+        implementation 'com.giphy.sdk:ui:2.3.13-fresco-v2.5.0'
     }
 
     testOptions {
