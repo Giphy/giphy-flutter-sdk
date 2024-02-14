@@ -67,8 +67,6 @@ class GiphyFlutterTheme private constructor() {
             applyColorProperty("dialogOverlayBackgroundColor") { dialogOverlayBackgroundColor = it }
             applyColorProperty("retryButtonBackgroundColor") { retryButtonBackgroundColor = it }
             applyColorProperty("retryButtonTextColor") { retryButtonTextColor = it }
-
-            defaultTextColor = Color.BLACK.hashCode()
         }
 
         return theme
