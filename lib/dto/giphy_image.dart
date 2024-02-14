@@ -35,9 +35,9 @@ class GiphyImage {
       gifSize: json['size'] ?? 0,
       frames: json['frames'] ?? 0,
       mp4Url: json['mp4'],
-      mp4Size: json['mp4_size'] ?? 0,
+      mp4Size: json['mp4Size'] ?? 0,
       webPUrl: json['webp'],
-      webPSize: json['webp_size'] ?? 0,
+      webPSize: json['webPSize'] ?? 0,
       mediaId: json['mediaId'],
       renditionType: GiphyRenditionUtil.fromStringValue(json['renditionType'])
           as GiphyRendition?,
@@ -52,9 +52,9 @@ class GiphyImage {
       'size': gifSize,
       'frames': frames,
       'mp4': mp4Url,
-      'mp4_size': mp4Size,
+      'mp4Size': mp4Size,
       'webp': webPUrl,
-      'webp_size': webPSize,
+      'webPSize': webPSize,
       'mediaId': mediaId,
       'renditionType': GiphyRenditionUtil.toStringValue(renditionType),
     };

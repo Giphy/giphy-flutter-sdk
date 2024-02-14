@@ -11,15 +11,15 @@ class GiphyVideoPreviews {
 
   factory GiphyVideoPreviews.fromJson(Map<String, dynamic> json) {
     return GiphyVideoPreviews(
-      fixedWidth: GiphyVideoPreviewAsset.fromJson(json['fixed_width']),
-      fixedHeight: GiphyVideoPreviewAsset.fromJson(json['fixed_height']),
+      fixedWidth: GiphyVideoPreviewAsset.fromJson(json['fixedWidth']),
+      fixedHeight: GiphyVideoPreviewAsset.fromJson(json['fixedHeight']),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'fixed_width': fixedWidth.toJson(),
-      'fixed_height': fixedHeight.toJson(),
+      'fixedWidth': fixedWidth.toJson(),
+      'fixedHeight': fixedHeight.toJson(),
     };
   }
 }

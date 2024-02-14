@@ -25,7 +25,6 @@ class GiphyTheme {
   final Color? searchTextColor;
 
   // Suggestions
-  final bool? showSuggestionsBar;
   final Color? suggestionCellBackgroundColor;
   final Color? suggestionCellTextColor;
 
@@ -71,7 +70,6 @@ class GiphyTheme {
     this.searchBarPadding,
     this.searchPlaceholderTextColor,
     this.searchTextColor,
-    this.showSuggestionsBar,
     this.suggestionCellBackgroundColor,
     this.suggestionCellTextColor,
     this.tabBarBackgroundAlpha,
@@ -108,7 +106,6 @@ class GiphyTheme {
     double? searchBarPadding,
     Color? searchPlaceholderTextColor,
     Color? searchTextColor,
-    bool? showSuggestionsBar,
     Color? suggestionCellBackgroundColor,
     Color? suggestionCellTextColor,
     double? tabBarBackgroundAlpha,
@@ -144,7 +141,6 @@ class GiphyTheme {
       searchBarPadding: searchBarPadding,
       searchPlaceholderTextColor: searchPlaceholderTextColor,
       searchTextColor: searchTextColor,
-      showSuggestionsBar: showSuggestionsBar,
       suggestionCellBackgroundColor: suggestionCellBackgroundColor,
       suggestionCellTextColor: suggestionCellTextColor,
       tabBarBackgroundAlpha: tabBarBackgroundAlpha,
@@ -167,5 +163,49 @@ class GiphyTheme {
       retryButtonBackgroundColor: retryButtonBackgroundColor,
       retryButtonTextColor: retryButtonTextColor,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'preset': preset?.toString().split('.').last,
+      'handleBarColor': handleBarColor?.value,
+      'emojiDrawerGradientBottomColor': emojiDrawerGradientBottomColor?.value,
+      'emojiDrawerGradientTopColor': emojiDrawerGradientTopColor?.value,
+      'emojiDrawerScrollIndicatorStyle': emojiDrawerScrollIndicatorStyle != null
+          ? IndicatorStyleExtension.toStringValue(
+              emojiDrawerScrollIndicatorStyle!)
+          : null,
+      'emojiDrawerSeparatorColor': emojiDrawerSeparatorColor?.value,
+      'searchBackButtonColor': searchBackButtonColor?.value,
+      'searchBarBackgroundColor': searchBarBackgroundColor?.value,
+      'searchBarCornerRadius': searchBarCornerRadius,
+      'searchBarPadding': searchBarPadding,
+      'searchPlaceholderTextColor': searchPlaceholderTextColor?.value,
+      'searchTextColor': searchTextColor?.value,
+      'suggestionCellBackgroundColor': suggestionCellBackgroundColor?.value,
+      'suggestionCellTextColor': suggestionCellTextColor?.value,
+      'tabBarBackgroundAlpha': tabBarBackgroundAlpha,
+      'tabBarSwitchDefaultColor': tabBarSwitchDefaultColor?.value,
+      'tabBarSwitchSelectedColor': tabBarSwitchSelectedColor?.value,
+      'avatarPlaceholderColor': avatarPlaceholderColor?.value,
+      'confirmationBackButtonColor': confirmationBackButtonColor?.value,
+      'confirmationSelectButtonColor': confirmationSelectButtonColor?.value,
+      'confirmationSelectButtonTextColor':
+          confirmationSelectButtonTextColor?.value,
+      'confirmationViewOnGiphyColor': confirmationViewOnGiphyColor?.value,
+      'usernameColor': usernameColor?.value,
+      'backgroundColorForLoadingCells': backgroundColorForLoadingCells?.value,
+      'cellCornerRadius': cellCornerRadius,
+      'fixedSizeCells': fixedSizeCells,
+      'stickerBackgroundColor': stickerBackgroundColor?.value,
+      'keyboardAppearance': keyboardAppearance != null
+          ? KeyboardAppearanceExtension.toStringValue(keyboardAppearance!)
+          : null,
+      'backgroundColor': backgroundColor?.value,
+      'defaultTextColor': defaultTextColor?.value,
+      'dialogOverlayBackgroundColor': dialogOverlayBackgroundColor?.value,
+      'retryButtonBackgroundColor': retryButtonBackgroundColor?.value,
+      'retryButtonTextColor': retryButtonTextColor?.value,
+    };
   }
 }

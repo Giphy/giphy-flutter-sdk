@@ -1,6 +1,6 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-import 'giphy_flutter_sdk_platform_channel.dart';
+import 'giphy_flutter_sdk_method_channel.dart';
 
 abstract class GiphyFlutterSdkPlatform extends PlatformInterface {
   GiphyFlutterSdkPlatform() : super(token: _token);
@@ -17,7 +17,7 @@ abstract class GiphyFlutterSdkPlatform extends PlatformInterface {
   }
 
   Future<void> configure(
-      String apiKey, bool verificationMode, int videoCacheMaxBytes) {
+      String apiKey, bool verificationMode) {
     throw UnimplementedError('configure() has not been implemented.');
   }
 }
