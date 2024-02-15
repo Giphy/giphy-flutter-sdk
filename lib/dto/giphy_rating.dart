@@ -11,7 +11,7 @@ extension GiphyRatingExtension on GiphyRating {
         return GiphyRating.g;
       case 'pg':
         return GiphyRating.pg;
-      case 'pg-13':
+      case 'pg13':
         return GiphyRating.pg13;
       case 'unrated':
         return GiphyRating.unrated;
@@ -29,7 +29,7 @@ extension GiphyRatingExtension on GiphyRating {
       case GiphyRating.pg:
         return 'pg';
       case GiphyRating.pg13:
-        return 'pg-13';
+        return 'pg13';
       case GiphyRating.r:
         return 'r';
       case GiphyRating.unrated:

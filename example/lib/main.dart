@@ -1,8 +1,13 @@
-import 'package:flutter/material.dart';
-import 'dart:async';
+import 'dart:io';
 
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
+import 'package:giphy_flutter_sdk/dto/giphy_content_type.dart';
+import 'package:giphy_flutter_sdk/dto/giphy_rendition.dart';
+import 'package:giphy_flutter_sdk/dto/giphy_settings.dart';
+import 'package:giphy_flutter_sdk/dto/giphy_theme.dart';
+import 'package:giphy_flutter_sdk/giphy_dialog.dart';
 import 'package:giphy_flutter_sdk/giphy_flutter_sdk.dart';
+import 'config.dart' as config;
 
 void main() {
   runApp(const MyApp());
@@ -15,24 +20,43 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
-
+class _MyAppState extends State<MyApp> implements MediaSelectionListener {
   @override
   void initState() {
     super.initState();
     initPlatformState();
+    GiphyDialog.instance.addListener(this);
+  }
+
+  @override
+  void dispose() {
+    GiphyDialog.instance.removeListener(this);
+    super.dispose();
   }
 
   void initPlatformState() {
     try {
-      GiphyFlutterSDKConfig config = GiphyFlutterSDKConfig(
-        apiKey: 'YOUR_API_KEY', // Replace with your actual API key
-        // Optional: Set verificationMode and videoCacheMaxBytes
-      );
+      Map<String, String> platformApiKeyMap = {
+        'android': config.androidGiphyApiKey,
+        'iOS': config.iOSGiphyApiKey,
+      };
 
-      GiphyFlutterSDK.configure(config);
+      String? platform = Platform.isAndroid
+          ? 'android'
+          : Platform.isIOS
+              ? 'iOS'
+              : null;
+      if (platform != null && platformApiKeyMap.containsKey(platform)) {
+        String? apiKey = platformApiKeyMap[platform];
+        if (apiKey == null) {
+          throw Exception('API key for $platform is null');
+        }
+        GiphyFlutterSDK.configure(apiKey: apiKey);
+      } else {
+        throw Exception('Unsupported platform or API key not configured');
+      }
     } catch (e) {
-      // Handle any exceptions here
+      print(e);
     }
   }
 
@@ -49,9 +73,7 @@ class _MyAppState extends State<MyApp> {
             children: <Widget>[
               Text('Hello'),
               ElevatedButton(
-                onPressed: () {
-                  //GiphyFlutterSDK.show();
-                },
+                onPressed: showGiphyDialog,
                 child: Text('Open Giphy'),
               ),
             ],
@@ -59,5 +81,29 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
+  }
+
+  void showGiphyDialog() {
+    GiphyTheme theme = GiphyTheme.fromPreset(
+        preset: GiphyThemePreset.automatic,
+        searchTextColor: Colors.amberAccent);
+    GiphyDialog.instance.configure(
+        settings: GiphySettings(
+            theme: theme,
+            renditionType: GiphyRendition.fixedWidth,
+            stickerColumnCount: 4,
+            showSuggestionsBar: false,
+            mediaTypeConfig: [GiphyContentType.sticker, GiphyContentType.gif]));
+    GiphyDialog.instance.show();
+  }
+
+  @override
+  void onMediaSelect(String media) {
+    print("Selected media: $media");
+  }
+
+  @override
+  void onDismiss() {
+    print("Giphy dialog dismissed");
   }
 }
