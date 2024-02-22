@@ -13,7 +13,7 @@ class GiphyTheme {
   // Emoji drawer
   final Color? emojiDrawerGradientBottomColor;
   final Color? emojiDrawerGradientTopColor;
-  final IndicatorStyle? emojiDrawerScrollIndicatorStyle;
+  final GiphyIndicatorStyle? emojiDrawerScrollIndicatorStyle;
   final Color? emojiDrawerSeparatorColor;
 
   // Search bar
@@ -48,7 +48,7 @@ class GiphyTheme {
   final Color? stickerBackgroundColor;
 
   // Keyboard
-  final KeyboardAppearance? keyboardAppearance;
+  final GiphyKeyboardAppearance? keyboardAppearance;
 
   // Other
   final Color? backgroundColor;
@@ -98,7 +98,7 @@ class GiphyTheme {
     Color? handleBarColor,
     Color? emojiDrawerGradientBottomColor,
     Color? emojiDrawerGradientTopColor,
-    IndicatorStyle? emojiDrawerScrollIndicatorStyle,
+    GiphyIndicatorStyle? emojiDrawerScrollIndicatorStyle,
     Color? emojiDrawerSeparatorColor,
     Color? searchBackButtonColor,
     Color? searchBarBackgroundColor,
@@ -121,7 +121,7 @@ class GiphyTheme {
     double? cellCornerRadius,
     bool? fixedSizeCells,
     Color? stickerBackgroundColor,
-    KeyboardAppearance? keyboardAppearance,
+    GiphyKeyboardAppearance? keyboardAppearance,
     Color? backgroundColor,
     Color? defaultTextColor,
     Color? dialogOverlayBackgroundColor,
@@ -172,7 +172,7 @@ class GiphyTheme {
       'emojiDrawerGradientBottomColor': emojiDrawerGradientBottomColor?.value,
       'emojiDrawerGradientTopColor': emojiDrawerGradientTopColor?.value,
       'emojiDrawerScrollIndicatorStyle': emojiDrawerScrollIndicatorStyle != null
-          ? IndicatorStyleExtension.toStringValue(
+          ? GiphyIndicatorStyleExtension.toStringValue(
               emojiDrawerScrollIndicatorStyle!)
           : null,
       'emojiDrawerSeparatorColor': emojiDrawerSeparatorColor?.value,
@@ -199,7 +199,7 @@ class GiphyTheme {
       'fixedSizeCells': fixedSizeCells,
       'stickerBackgroundColor': stickerBackgroundColor?.value,
       'keyboardAppearance': keyboardAppearance != null
-          ? KeyboardAppearanceExtension.toStringValue(keyboardAppearance!)
+          ? GiphyKeyboardAppearanceExtension.toStringValue(keyboardAppearance!)
           : null,
       'backgroundColor': backgroundColor?.value,
       'defaultTextColor': defaultTextColor?.value,

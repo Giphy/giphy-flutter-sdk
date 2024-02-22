@@ -1,11 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:giphy_flutter_sdk/dto/giphy_content_type.dart';
+import 'package:giphy_flutter_sdk/dto/giphy_media.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_rendition.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_settings.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_theme.dart';
 import 'package:giphy_flutter_sdk/giphy_dialog.dart';
+import 'package:giphy_flutter_sdk/giphy_media_view.dart';
 import 'package:giphy_flutter_sdk/giphy_flutter_sdk.dart';
 import 'config.dart' as config;
 
@@ -20,7 +21,10 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> implements MediaSelectionListener {
+class _MyAppState extends State<MyApp> implements GiphyMediaSelectionListener {
+  Media? _selectedMedia;
+  final controller = GiphyMediaViewController();
+
   @override
   void initState() {
     super.initState();
@@ -64,18 +68,49 @@ class _MyAppState extends State<MyApp> implements MediaSelectionListener {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Giphy example app'),
         ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text('Hello'),
               ElevatedButton(
                 onPressed: showGiphyDialog,
-                child: Text('Open Giphy'),
+                child: const Text('Open Giphy Dialog'),
               ),
+              if (_selectedMedia != null) ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: AspectRatio(
+                    aspectRatio: _selectedMedia?.aspectRatio ?? 1.0,
+                    child: GiphyMediaView(
+                        controller: controller,
+                        media: _selectedMedia,
+                        autoPlay: true,
+                        renditionType: GiphyRendition.fixedWidth),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        controller.pause();
+                      },
+                      child: const Text('Pause'),
+                    ),
+                    const SizedBox(width: 8),
+                    ElevatedButton(
+                      onPressed: () {
+                        controller.resume();
+                      },
+                      child: const Text('Resume'),
+                    ),
+                  ],
+                ),
+              ],
             ],
           ),
         ),
@@ -91,15 +126,16 @@ class _MyAppState extends State<MyApp> implements MediaSelectionListener {
         settings: GiphySettings(
             theme: theme,
             renditionType: GiphyRendition.fixedWidth,
-            stickerColumnCount: 4,
-            showSuggestionsBar: false,
-            mediaTypeConfig: [GiphyContentType.sticker, GiphyContentType.gif]));
+            stickerColumnCount: 2,
+            showSuggestionsBar: true));
     GiphyDialog.instance.show();
   }
 
   @override
-  void onMediaSelect(String media) {
-    print("Selected media: $media");
+  void onMediaSelect(Media media) {
+    setState(() {
+      _selectedMedia = media;
+    });
   }
 
   @override

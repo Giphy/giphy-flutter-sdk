@@ -11,7 +11,7 @@ class GiphyAsset {
     this.format,
   });
 
-  factory GiphyAsset.fromJson(Map<String, dynamic> json) {
+  factory GiphyAsset.fromJson(Map<Object?, Object?> json) {
     return GiphyAsset(
       width: json['width'] as int? ?? 0,
       height: json['height'] as int? ?? 0,

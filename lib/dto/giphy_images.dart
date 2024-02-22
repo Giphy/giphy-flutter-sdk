@@ -46,51 +46,89 @@ class GiphyImages {
     this.mediaId,
   });
 
-  factory GiphyImages.fromJson(Map<String, dynamic> json) {
+  factory GiphyImages.fromJson(Map<Object?, Object?> json) {
     return GiphyImages(
       fixedHeight: GiphyImage.fromJson(
-          json[GiphyRenditionUtil.toStringValue(GiphyRendition.fixedHeight)]),
+          json[GiphyRenditionUtil.toStringValue(GiphyRendition.fixedHeight)]
+                  as Map<Object?, Object?>? ??
+              {}),
       fixedHeightStill: GiphyImage.fromJson(json[
-          GiphyRenditionUtil.toStringValue(GiphyRendition.fixedHeightStill)]),
+              GiphyRenditionUtil.toStringValue(
+                  GiphyRendition.fixedHeightStill)] as Map<Object?, Object?>? ??
+          {}),
       fixedHeightDownsampled: GiphyImage.fromJson(json[
-          GiphyRenditionUtil.toStringValue(
-              GiphyRendition.fixedHeightDownsampled)]),
+                  GiphyRenditionUtil.toStringValue(
+                      GiphyRendition.fixedHeightDownsampled)]
+              as Map<Object?, Object?>? ??
+          {}),
       fixedWidth: GiphyImage.fromJson(
-          json[GiphyRenditionUtil.toStringValue(GiphyRendition.fixedWidth)]),
-      fixedWidthStill: GiphyImage.fromJson(json[
-          GiphyRenditionUtil.toStringValue(GiphyRendition.fixedWidthStill)]),
+          json[GiphyRenditionUtil.toStringValue(GiphyRendition.fixedWidth)]
+                  as Map<Object?, Object?>? ??
+              {}),
+      fixedWidthStill: GiphyImage.fromJson(
+          json[GiphyRenditionUtil.toStringValue(GiphyRendition.fixedWidthStill)]
+                  as Map<Object?, Object?>? ??
+              {}),
       fixedWidthDownsampled: GiphyImage.fromJson(json[
-          GiphyRenditionUtil.toStringValue(
-              GiphyRendition.fixedWidthDownsampled)]),
+                  GiphyRenditionUtil.toStringValue(
+                      GiphyRendition.fixedWidthDownsampled)]
+              as Map<Object?, Object?>? ??
+          {}),
       fixedHeightSmall: GiphyImage.fromJson(json[
-          GiphyRenditionUtil.toStringValue(GiphyRendition.fixedHeightSmall)]),
+              GiphyRenditionUtil.toStringValue(
+                  GiphyRendition.fixedHeightSmall)] as Map<Object?, Object?>? ??
+          {}),
       fixedHeightSmallStill: GiphyImage.fromJson(json[
-          GiphyRenditionUtil.toStringValue(
-              GiphyRendition.fixedHeightSmallStill)]),
-      fixedWidthSmall: GiphyImage.fromJson(json[
-          GiphyRenditionUtil.toStringValue(GiphyRendition.fixedWidthSmall)]),
+                  GiphyRenditionUtil.toStringValue(
+                      GiphyRendition.fixedHeightSmallStill)]
+              as Map<Object?, Object?>? ??
+          {}),
+      fixedWidthSmall: GiphyImage.fromJson(
+          json[GiphyRenditionUtil.toStringValue(GiphyRendition.fixedWidthSmall)]
+                  as Map<Object?, Object?>? ??
+              {}),
       fixedWidthSmallStill: GiphyImage.fromJson(json[
-          GiphyRenditionUtil.toStringValue(
-              GiphyRendition.fixedWidthSmallStill)]),
+                  GiphyRenditionUtil.toStringValue(
+                      GiphyRendition.fixedWidthSmallStill)]
+              as Map<Object?, Object?>? ??
+          {}),
       downsized: GiphyImage.fromJson(
-          json[GiphyRenditionUtil.toStringValue(GiphyRendition.downsized)]),
-      downsizedStill: GiphyImage.fromJson(json[
-          GiphyRenditionUtil.toStringValue(GiphyRendition.downsizedStill)]),
-      downsizedLarge: GiphyImage.fromJson(json[
-          GiphyRenditionUtil.toStringValue(GiphyRendition.downsizedLarge)]),
-      downsizedMedium: GiphyImage.fromJson(json[
-          GiphyRenditionUtil.toStringValue(GiphyRendition.downsizedMedium)]),
+          json[GiphyRenditionUtil.toStringValue(GiphyRendition.downsized)]
+                  as Map<Object?, Object?>? ??
+              {}),
+      downsizedStill: GiphyImage.fromJson(
+          json[GiphyRenditionUtil.toStringValue(GiphyRendition.downsizedStill)]
+                  as Map<Object?, Object?>? ??
+              {}),
+      downsizedLarge: GiphyImage.fromJson(
+          json[GiphyRenditionUtil.toStringValue(GiphyRendition.downsizedLarge)]
+                  as Map<Object?, Object?>? ??
+              {}),
+      downsizedMedium: GiphyImage.fromJson(
+          json[GiphyRenditionUtil.toStringValue(GiphyRendition.downsizedMedium)]
+                  as Map<Object?, Object?>? ??
+              {}),
       original: GiphyImage.fromJson(
-          json[GiphyRenditionUtil.toStringValue(GiphyRendition.original)]),
+          json[GiphyRenditionUtil.toStringValue(GiphyRendition.original)]
+                  as Map<Object?, Object?>? ??
+              {}),
       originalStill: GiphyImage.fromJson(
-          json[GiphyRenditionUtil.toStringValue(GiphyRendition.originalStill)]),
+          json[GiphyRenditionUtil.toStringValue(GiphyRendition.originalStill)]
+                  as Map<Object?, Object?>? ??
+              {}),
       looping: GiphyImage.fromJson(
-          json[GiphyRenditionUtil.toStringValue(GiphyRendition.looping)]),
+          json[GiphyRenditionUtil.toStringValue(GiphyRendition.looping)]
+                  as Map<Object?, Object?>? ??
+              {}),
       preview: GiphyImage.fromJson(
-          json[GiphyRenditionUtil.toStringValue(GiphyRendition.preview)]),
-      downsizedSmall: GiphyImage.fromJson(json[
-          GiphyRenditionUtil.toStringValue(GiphyRendition.downsizedSmall)]),
-      mediaId: json['mediaId'],
+          json[GiphyRenditionUtil.toStringValue(GiphyRendition.preview)]
+                  as Map<Object?, Object?>? ??
+              {}),
+      downsizedSmall: GiphyImage.fromJson(
+          json[GiphyRenditionUtil.toStringValue(GiphyRendition.downsizedSmall)]
+                  as Map<Object?, Object?>? ??
+              {}),
+      mediaId: json['mediaId'] as String?,
     );
   }
 
