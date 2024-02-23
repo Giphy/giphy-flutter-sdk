@@ -9,7 +9,7 @@ class GiphyVideoPreviewAsset {
     this.url,
   });
 
-  factory GiphyVideoPreviewAsset.fromJson(Map<String, dynamic> json) {
+  factory GiphyVideoPreviewAsset.fromJson(Map<Object?, Object?> json) {
     return GiphyVideoPreviewAsset(
       width: json['width'] as int? ?? 0,
       height: json['height'] as int? ?? 0,

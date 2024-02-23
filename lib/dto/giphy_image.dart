@@ -27,33 +27,32 @@ class GiphyImage {
     this.renditionType,
   });
 
-  factory GiphyImage.fromJson(Map<String, dynamic> json) {
+  factory GiphyImage.fromJson(Map<Object?, Object?> json) {
     return GiphyImage(
-      gifUrl: json['url'],
-      width: json['width'] ?? 0,
-      height: json['height'] ?? 0,
-      gifSize: json['size'] ?? 0,
-      frames: json['frames'] ?? 0,
-      mp4Url: json['mp4'],
-      mp4Size: json['mp4Size'] ?? 0,
-      webPUrl: json['webp'],
-      webPSize: json['webPSize'] ?? 0,
-      mediaId: json['mediaId'],
-      renditionType: GiphyRenditionUtil.fromStringValue(json['renditionType'])
-          as GiphyRendition?,
+      gifUrl: json['gifUrl'] as String?,
+      width: json['width'] as int? ?? 0,
+      height: json['height'] as int? ?? 0,
+      gifSize: json['gifSize'] as int? ?? 0,
+      frames: json['frames'] as int? ?? 0,
+      mp4Url: json['mp4Url'] as String?,
+      mp4Size: json['mp4Size'] as int? ?? 0,
+      webPUrl: json['webPUrl'] as String?,
+      webPSize: json['webPSize'] as int? ?? 0,
+      mediaId: json['mediaId'] as String?,
+      renditionType: json['renditionType'] != null ? GiphyRenditionUtil.fromStringValue(json['renditionType'] as String) as GiphyRendition? : null,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'url': gifUrl,
+      'gifUrl': gifUrl,
       'width': width,
       'height': height,
-      'size': gifSize,
+      'gifSize': gifSize,
       'frames': frames,
-      'mp4': mp4Url,
+      'mp4Url': mp4Url,
       'mp4Size': mp4Size,
-      'webp': webPUrl,
+      'webPUrl': webPUrl,
       'webPSize': webPSize,
       'mediaId': mediaId,
       'renditionType': GiphyRenditionUtil.toStringValue(renditionType),

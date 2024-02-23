@@ -125,74 +125,10 @@ class GiphyRenditionUtil {
   }
 
   static String _toStringValue(GiphyRendition rendition) {
-    switch (rendition) {
-      case GiphyRendition.original:
-        return 'original';
-      case GiphyRendition.originalStill:
-        return 'originalStill';
-      case GiphyRendition.preview:
-        return 'preview';
-      case GiphyRendition.looping:
-        return 'looping';
-      case GiphyRendition.fixedHeight:
-        return 'fixedHeight';
-      case GiphyRendition.fixedHeightStill:
-        return 'fixedHeightStill';
-      case GiphyRendition.fixedHeightDownsampled:
-        return 'fixedHeightDownsampled';
-      case GiphyRendition.fixedHeightSmall:
-        return 'fixedHeightSmall';
-      case GiphyRendition.fixedHeightSmallStill:
-        return 'fixedHeightSmallStill';
-      case GiphyRendition.fixedWidth:
-        return 'fixedWidth';
-      case GiphyRendition.fixedWidthStill:
-        return 'fixedWidthStill';
-      case GiphyRendition.fixedWidthDownsampled:
-        return 'fixedWidthDownsampled';
-      case GiphyRendition.fixedWidthSmall:
-        return 'fixedWidthSmall';
-      case GiphyRendition.fixedWidthSmallStill:
-        return 'fixedWidthSmallStill';
-      case GiphyRendition.downsized:
-        return 'downsized';
-      case GiphyRendition.downsizedSmall:
-        return 'downsizedSmall';
-      case GiphyRendition.downsizedMedium:
-        return 'downsizedMedium';
-      case GiphyRendition.downsizedLarge:
-        return 'downsizedLarge';
-      case GiphyRendition.downsizedStill:
-        return 'downsizedStill';
-      default:
-        throw ArgumentError('Unknown GiphyRendition value: $rendition');
-    }
+    return rendition.toString().split('.').last;
   }
 
   static String _clipsToStringValue(GiphyClipsRendition rendition) {
-    switch (rendition) {
-      case GiphyClipsRendition.original:
-        return 'original';
-      case GiphyClipsRendition.originalStill:
-        return 'originalStill';
-      case GiphyClipsRendition.fixedHeight:
-        return 'fixedHeight';
-      case GiphyClipsRendition.fixedHeightStill:
-        return 'fixedHeightStill';
-      case GiphyClipsRendition.fixedHeightDownsampled:
-        return 'fixedHeightDownsampled';
-      case GiphyClipsRendition.fixedWidth:
-        return 'fixedWidth';
-      case GiphyClipsRendition.fixedWidthStill:
-        return 'fixedWidthStill';
-      case GiphyClipsRendition.fixedWidthDownsampled:
-        return 'fixedWidthDownsampled';
-      case GiphyClipsRendition.downsizedMedium:
-        return 'downsizedMedium';
-      case GiphyClipsRendition.downsizedLarge:
-        return 'downsizedLarge';
-      default:
-        throw ArgumentError('Unknown GiphyRendition value: $rendition');
-    }
+    return rendition.toString().split('.').last;
   }
 }

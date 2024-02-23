@@ -1,47 +1,47 @@
-enum KeyboardAppearance { defaultAppearance, dark, light }
+enum GiphyKeyboardAppearance { defaultAppearance, dark, light }
 
-enum IndicatorStyle { defaultStyle, dark, light }
+enum GiphyIndicatorStyle { defaultStyle, dark, light }
 
 enum GiphyStickersColumnCount { two, three, four }
 
 enum GiphyDirection { horizontal, vertical }
 
-enum ResizeMode { center, contain, cover, stretch }
+enum GiphyResizeMode { center, contain, cover, stretch }
 
-extension KeyboardAppearanceExtension on KeyboardAppearance {
-  static KeyboardAppearance fromStringValue(String value) {
+extension GiphyKeyboardAppearanceExtension on GiphyKeyboardAppearance {
+  static GiphyKeyboardAppearance fromStringValue(String value) {
     switch (value) {
       case 'defaultAppearance':
-        return KeyboardAppearance.defaultAppearance;
+        return GiphyKeyboardAppearance.defaultAppearance;
       case 'dark':
-        return KeyboardAppearance.dark;
+        return GiphyKeyboardAppearance.dark;
       case 'light':
-        return KeyboardAppearance.light;
+        return GiphyKeyboardAppearance.light;
       default:
         throw ArgumentError('Unknown KeyboardAppearance value: $value');
     }
   }
 
-  static String toStringValue(KeyboardAppearance type) {
+  static String toStringValue(GiphyKeyboardAppearance type) {
     return type.toString().split('.').last;
   }
 }
 
-extension IndicatorStyleExtension on IndicatorStyle {
-  static IndicatorStyle fromStringValue(String value) {
+extension GiphyIndicatorStyleExtension on GiphyIndicatorStyle {
+  static GiphyIndicatorStyle fromStringValue(String value) {
     switch (value) {
       case 'defaultStyle':
-        return IndicatorStyle.defaultStyle;
+        return GiphyIndicatorStyle.defaultStyle;
       case 'dark':
-        return IndicatorStyle.dark;
+        return GiphyIndicatorStyle.dark;
       case 'light':
-        return IndicatorStyle.light;
+        return GiphyIndicatorStyle.light;
       default:
         throw ArgumentError('Unknown IndicatorStyle value: $value');
     }
   }
 
-  static String toStringValue(IndicatorStyle type) {
+  static String toStringValue(GiphyIndicatorStyle type) {
     return type.toString().split('.').last;
   }
 }
@@ -82,23 +82,23 @@ extension GiphyDirectionExtension on GiphyDirection {
   }
 }
 
-extension ResizeModeExtension on ResizeMode {
-  static ResizeMode fromStringValue(String value) {
+extension GiphyResizeModeExtension on GiphyResizeMode {
+  static GiphyResizeMode fromStringValue(String value) {
     switch (value) {
       case 'center':
-        return ResizeMode.center;
+        return GiphyResizeMode.center;
       case 'contain':
-        return ResizeMode.contain;
+        return GiphyResizeMode.contain;
       case 'cover':
-        return ResizeMode.cover;
+        return GiphyResizeMode.cover;
       case 'stretch':
-        return ResizeMode.stretch;
+        return GiphyResizeMode.stretch;
       default:
         throw ArgumentError('Unknown ResizeMode value: $value');
     }
   }
 
-  static String toStringValue(ResizeMode type) {
+  static String toStringValue(GiphyResizeMode type) {
     return type.toString().split('.').last;
   }
 }

@@ -7,7 +7,7 @@ class GiphyVideoCaption {
     this.vtt,
   });
 
-  factory GiphyVideoCaption.fromJson(Map<String, dynamic> json) {
+  factory GiphyVideoCaption.fromJson(Map<Object?, Object?> json) {
     return GiphyVideoCaption(
       srt: json['srt'] as String?,
       vtt: json['vtt'] as String?,

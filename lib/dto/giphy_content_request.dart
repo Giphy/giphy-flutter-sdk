@@ -22,18 +22,15 @@ class GiphyContentRequest {
     required this.searchQuery,
   });
 
-  factory GiphyContentRequest.fromJson(Map<String, dynamic> json) {
+  factory GiphyContentRequest.fromJson(Map<Object?, Object?> json) {
     return GiphyContentRequest(
-      mediaType: GiphyMediaTypeExtension.fromStringValue(json['mediaType']),
-      rating: json['rating'] != null
-          ? GiphyRatingExtension.fromStringValue(json['rating'])
-          : null,
+      mediaType: GiphyMediaTypeExtension.fromStringValue(json['mediaType'] as String),
+      rating: json['rating'] != null ? GiphyRatingExtension.fromStringValue(json['rating'] as String) : null,
       requestType: GiphyContentRequestType.values.firstWhere(
-        (e) => e.toString().split('.').last == json['requestType'],
-        orElse: () => GiphyContentRequestType
-            .trending,
+            (e) => e.toString().split('.').last == json['requestType'] as String?,
+        orElse: () => GiphyContentRequestType.trending,
       ),
-      searchQuery: json['searchQuery'] ?? '',
+      searchQuery: json['searchQuery'] as String? ?? '',
     );
   }
 

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'giphy_images.dart';
 import 'giphy_media_type.dart';
 import 'giphy_rating.dart';
@@ -42,6 +44,7 @@ class Media {
   final String? altText;
   final String? variation;
   final int? variationCount;
+  final double aspectRatio;
   final Map<String, String>? userDictionary;
 
   Media({
@@ -82,62 +85,78 @@ class Media {
     this.altText,
     this.variation,
     this.variationCount,
+    this.aspectRatio = 1.0,
     this.userDictionary,
   });
 
-  factory Media.fromJson(Map<String, dynamic> json) => Media(
-        id: json['id'],
-        type: GiphyMediaTypeExtension.fromStringValue(json['type']),
-        slug: json['slug'],
-        url: json['url'],
-        bitlyGifUrl: json['bitlyGifUrl'],
-        bitlyUrl: json['bitlyUrl'],
-        embedUrl: json['embedUrl'],
-        source: json['source'],
-        title: json['title'],
-        rating: GiphyRatingExtension.fromStringValue(json['rating']),
-        contentUrl: json['contentUrl'],
-        tags: List<String>.from(json['tags'] ?? []),
-        featuredTags: List<String>.from(json['featuredTags'] ?? []),
-        user: json['user'] != null ? GiphyUser.fromJson(json['user']) : null,
-        images: GiphyImages.fromJson(json['images']),
-        video:
-            json['video'] != null ? GiphyVideo.fromJson(json['video']) : null,
-        analyticsResponsePayload: json['analyticsResponsePayload'],
-        sourceTld: json['sourceTld'],
-        sourcePostUrl: json['sourcePostUrl'],
+  factory Media.fromJson(Map<Object?, Object?> json) => Media(
+        id: json['id'] as String,
+        type: json['type'] != null
+            ? GiphyMediaTypeExtension.fromStringValue(json['type'] as String)
+            : null,
+        slug: json['slug'] as String?,
+        url: json['url'] as String?,
+        bitlyGifUrl: json['bitlyGifUrl'] as String?,
+        bitlyUrl: json['bitlyUrl'] as String?,
+        embedUrl: json['embedUrl'] as String?,
+        source: json['source'] as String?,
+        title: json['title'] as String?,
+        rating: json['rating'] != null
+            ? GiphyRatingExtension.fromStringValue(json['rating'] as String)
+            : null,
+        contentUrl: json['contentUrl'] as String?,
+        tags: json['tags'] != null
+            ? List<String>.from(json['tags'] as List)
+            : null,
+        featuredTags: json['featuredTags'] != null
+            ? List<String>.from(json['featuredTags'] as List)
+            : null,
+        user: json['user'] != null
+            ? GiphyUser.fromJson(json['user'] as Map<Object?, Object?>)
+            : null,
+        images: GiphyImages.fromJson(json['images'] as Map<Object?, Object?>),
+        video: json['video'] != null
+            ? GiphyVideo.fromJson(json['video'] as Map<Object?, Object?>)
+            : null,
+        analyticsResponsePayload: json['analyticsResponsePayload'] as String?,
+        sourceTld: json['sourceTld'] as String?,
+        sourcePostUrl: json['sourcePostUrl'] as String?,
         updateDate: json['updateDate'] != null
-            ? DateTime.parse(json['updateDate'])
+            ? DateTime.parse(json['updateDate'] as String)
             : null,
         createDate: json['createDate'] != null
-            ? DateTime.parse(json['createDate'])
+            ? DateTime.parse(json['createDate'] as String)
             : null,
         importDate: json['importDate'] != null
-            ? DateTime.parse(json['importDate'])
+            ? DateTime.parse(json['importDate'] as String)
             : null,
         trendingDate: json['trendingDate'] != null
-            ? DateTime.parse(json['trendingDate'])
+            ? DateTime.parse(json['trendingDate'] as String)
             : null,
-        isHidden: json['isHidden'] ?? false,
-        isRemoved: json['isRemoved'] ?? false,
-        isCommunity: json['isCommunity'] ?? false,
-        isAnonymous: json['isAnonymous'] ?? false,
-        isFeatured: json['isFeatured'] ?? false,
-        isRealtime: json['isRealtime'] ?? false,
-        isIndexable: json['isIndexable'] ?? false,
-        isSticker: json['isSticker'] ?? false,
-        isDynamic: json['isDynamic'] ?? false,
-        animatedTextStyle: json['animatedTextStyle'],
-        hasAttributions: json['hasAttributions'] ?? false,
-        altText: json['altText'],
-        variation: json['variation'],
-        variationCount: json['variationCount'],
-        userDictionary: Map<String, String>.from(json['userDictionary'] ?? {}),
+        isHidden: json['isHidden'] as bool? ?? false,
+        isRemoved: json['isRemoved'] as bool? ?? false,
+        isCommunity: json['isCommunity'] as bool? ?? false,
+        isAnonymous: json['isAnonymous'] as bool? ?? false,
+        isFeatured: json['isFeatured'] as bool? ?? false,
+        isRealtime: json['isRealtime'] as bool? ?? false,
+        isIndexable: json['isIndexable'] as bool? ?? false,
+        isSticker: json['isSticker'] as bool? ?? false,
+        isDynamic: json['isDynamic'] as bool? ?? false,
+        animatedTextStyle: json['animatedTextStyle'] as String?,
+        hasAttributions: json['hasAttributions'] as bool? ?? false,
+        altText: json['altText'] as String?,
+        variation: json['variation'] as String?,
+        variationCount: json['variationCount'] as int?,
+        aspectRatio: json['aspectRatio'] as double? ?? 1.0,
+        userDictionary: json['userDictionary'] != null
+            ? Map<String, String>.from(json['userDictionary'] as Map)
+            : {},
       );
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'type': type != null ? GiphyMediaTypeExtension.toStringValue(type!) : null,
+        'type':
+            type != null ? GiphyMediaTypeExtension.toStringValue(type!) : null,
         'slug': slug,
         'url': url,
         'bitlyGifUrl': bitlyGifUrl,
@@ -145,7 +164,8 @@ class Media {
         'embedUrl': embedUrl,
         'source': source,
         'title': title,
-        'rating': rating != null ? GiphyRatingExtension.toStringValue(rating!) : null,
+        'rating':
+            rating != null ? GiphyRatingExtension.toStringValue(rating!) : null,
         'contentUrl': contentUrl,
         'tags': tags,
         'featuredTags': featuredTags,

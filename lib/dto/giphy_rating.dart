@@ -23,23 +23,6 @@ extension GiphyRatingExtension on GiphyRating {
   }
 
   static String toStringValue(GiphyRating rating) {
-    switch (rating) {
-      case GiphyRating.g:
-        return 'g';
-      case GiphyRating.pg:
-        return 'pg';
-      case GiphyRating.pg13:
-        return 'pg13';
-      case GiphyRating.r:
-        return 'r';
-      case GiphyRating.unrated:
-        return 'unrated';
-      case GiphyRating.y:
-        return 'y';
-      case GiphyRating.nsfw:
-        return 'nsfw';
-      default:
-        throw ArgumentError('Unknown GiphyRating value: $rating');
-    }
+    return rating.toString().split('.').last;
   }
 }

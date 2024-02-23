@@ -1,5 +1,6 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
+import '../dto/giphy_media.dart';
 import 'giphy_dialog_method_channel.dart';
 
 abstract class GiphyDialogPlatform extends PlatformInterface {
@@ -16,13 +17,12 @@ abstract class GiphyDialogPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  // TODO: replace media with its corresponding type
-  Function(String media, String searchTerm, String selectedContentType)?
+  Function(Media media, String searchTerm, String selectedContentType)?
       onMediaSelectCallback;
   Function()? onDismissCallback;
 
   void registerOnMediaSelectCallback(
-      Function(String media, String searchTerm, String selectedContentType)
+      Function(Media media, String searchTerm, String selectedContentType)
           callback) {
     onMediaSelectCallback = callback;
   }

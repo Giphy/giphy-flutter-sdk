@@ -23,8 +23,14 @@ class GiphyFlutterSdkPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, Ac
         context = flutterPluginBinding.applicationContext
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "com.giphyfluttersdk")
         channel.setMethodCallHandler(this)
-
         giphyDialogHandler.onAttachedToEngine(flutterPluginBinding)
+
+        flutterPluginBinding
+            .platformViewRegistry
+            .registerViewFactory(
+                "com.giphyfluttersdk/mediaView",
+                GiphyFlutterMediaViewFactory(flutterPluginBinding.binaryMessenger)
+            )
     }
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
@@ -42,10 +48,10 @@ class GiphyFlutterSdkPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, Ac
     private fun configureGiphy(apiKey: String, verificationMode: Boolean, videoCacheMaxBytes: Int) {
         val appInfo = GiphyFlutterSdkInfo(context)
         Giphy.configure(
-                context,
-                apiKey,
-                verificationMode,
-                metadata = hashMapOf(appInfo.name to appInfo.version)
+            context,
+            apiKey,
+            verificationMode,
+            metadata = hashMapOf(appInfo.name to appInfo.version)
         )
     }
 

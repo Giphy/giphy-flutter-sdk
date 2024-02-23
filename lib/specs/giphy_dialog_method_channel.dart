@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import '../dto/giphy_media.dart';
 import 'giphy_dialog_platform_interface.dart';
 
 class GiphyDialogMethodChannel extends GiphyDialogPlatform {
@@ -12,9 +13,10 @@ class GiphyDialogMethodChannel extends GiphyDialogPlatform {
     switch (call.method) {
       case 'onMediaSelect':
         if (onMediaSelectCallback != null) {
-          // TODO: use Media.fromJson when it's ready in the native module
+          Media m = Media.fromJson(call.arguments['media']);
+
           onMediaSelectCallback!(
-            call.arguments['media'].toString(),
+            Media.fromJson(call.arguments['media'] ?? {}),
             call.arguments['searchTerm'] ?? "",
             call.arguments['selectedContentType'],
           );

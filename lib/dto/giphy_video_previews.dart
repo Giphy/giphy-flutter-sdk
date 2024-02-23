@@ -9,10 +9,10 @@ class GiphyVideoPreviews {
     required this.fixedHeight,
   });
 
-  factory GiphyVideoPreviews.fromJson(Map<String, dynamic> json) {
+  factory GiphyVideoPreviews.fromJson(Map<Object?, Object?> json) {
     return GiphyVideoPreviews(
-      fixedWidth: GiphyVideoPreviewAsset.fromJson(json['fixedWidth']),
-      fixedHeight: GiphyVideoPreviewAsset.fromJson(json['fixedHeight']),
+      fixedWidth: GiphyVideoPreviewAsset.fromJson(json['fixedWidth'] as Map<Object?, Object?>),
+      fixedHeight: GiphyVideoPreviewAsset.fromJson(json['fixedHeight'] as Map<Object?, Object?>),
     );
   }
 

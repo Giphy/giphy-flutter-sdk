@@ -5,10 +5,11 @@ class GiphyVideoCaptions {
 
   GiphyVideoCaptions({this.videoCaption});
 
-  factory GiphyVideoCaptions.fromJson(Map<String, dynamic> json) {
+  factory GiphyVideoCaptions.fromJson(Map<Object?, Object?> json) {
     return GiphyVideoCaptions(
-      videoCaption:
-          json['en'] != null ? GiphyVideoCaption.fromJson(json['en']) : null,
+      videoCaption: json['en'] != null
+          ? GiphyVideoCaption.fromJson(json['en'] as Map<Object?, Object?>)
+          : null,
     );
   }
 
