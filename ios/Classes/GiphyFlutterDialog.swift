@@ -80,7 +80,7 @@ extension GiphyFlutterDialog: GiphyDelegate {
 
 extension GiphyFlutterDialog: FlutterPlugin {
     public static func register(with registrar: FlutterPluginRegistrar) {
-        // Actually, it's not a plugin; it's more to separate logic, so we don't need to register anything here.
+        // Actually, it's not a plugin; it's more of a separate logic, so we don't need to register anything here.
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
