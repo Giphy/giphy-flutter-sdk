@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:giphy_flutter_sdk/dto/giphy_content_type.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_media.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_rendition.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_settings.dart';
@@ -125,6 +126,10 @@ class _MyAppState extends State<MyApp> implements GiphyMediaSelectionListener {
     GiphyDialog.instance.configure(
         settings: GiphySettings(
             theme: theme,
+            mediaTypeConfig: [
+              GiphyContentType.gif,
+              GiphyContentType.sticker,
+            ],
             renditionType: GiphyRendition.fixedWidth,
             stickerColumnCount: 2,
             showSuggestionsBar: true));

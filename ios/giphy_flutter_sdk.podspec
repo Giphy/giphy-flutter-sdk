@@ -5,9 +5,9 @@
 Pod::Spec.new do |s|
   s.name             = 'giphy_flutter_sdk'
   s.version          = '0.0.1'
-  s.summary          = 'A new Flutter plugin project.'
+  s.summary          = 'A Giphy Flutter plugin project.'
   s.description      = <<-DESC
-A new Flutter plugin project.
+A Giphy Flutter plugin project.
                        DESC
   s.homepage         = 'http://example.com'
   s.license          = { :file => '../LICENSE' }
@@ -20,4 +20,6 @@ A new Flutter plugin project.
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
   s.swift_version = '5.0'
+
+  s.dependency "Giphy", "2.2.7"
 end
