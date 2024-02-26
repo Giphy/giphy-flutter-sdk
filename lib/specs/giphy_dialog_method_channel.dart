@@ -13,8 +13,6 @@ class GiphyDialogMethodChannel extends GiphyDialogPlatform {
     switch (call.method) {
       case 'onMediaSelect':
         if (onMediaSelectCallback != null) {
-          Media m = Media.fromJson(call.arguments['media']);
-
           onMediaSelectCallback!(
             Media.fromJson(call.arguments['media'] ?? {}),
             call.arguments['searchTerm'] ?? "",

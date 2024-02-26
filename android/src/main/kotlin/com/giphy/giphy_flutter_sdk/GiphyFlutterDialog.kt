@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.fragment.app.FragmentActivity
 import com.giphy.giphy_flutter_sdk.dto.toGPHSettings
 import com.giphy.giphy_flutter_sdk.dto.toHashMap
-import com.giphy.giphy_flutter_sdk.utils.require
 import com.giphy.sdk.core.models.Media
 import com.giphy.sdk.ui.GPHContentType
 import com.giphy.sdk.ui.GPHSettings
@@ -12,9 +11,6 @@ import com.giphy.sdk.ui.views.GiphyDialogFragment
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class GiphyFlutterDialog : MethodChannel.MethodCallHandler {
     private lateinit var channel: MethodChannel
