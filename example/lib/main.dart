@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_content_type.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_media.dart';
+import 'package:giphy_flutter_sdk/dto/giphy_rating.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_rendition.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_settings.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_theme.dart';
@@ -130,6 +131,7 @@ class _MyAppState extends State<MyApp> implements GiphyMediaSelectionListener {
               GiphyContentType.gif,
               GiphyContentType.sticker,
             ],
+            rating: GiphyRating.pg13,
             renditionType: GiphyRendition.fixedWidth,
             stickerColumnCount: 2,
             showSuggestionsBar: true));

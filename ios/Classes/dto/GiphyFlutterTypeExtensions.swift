@@ -28,6 +28,25 @@ extension GPHContentType {
             return nil
         }
     }
+    
+    func toString() -> String {
+        switch self {            
+        case .recents:
+            return "recents"
+        case .gifs:
+            return "gif"
+        case .clips:
+            return "clips"
+        case .stickers:
+            return "sticker"
+        case .text:
+            return "text"
+        case .emoji:
+            return "emoji"
+        @unknown default:
+            return "gif"
+        }
+    }
 }
 
 extension GPHRatingType {
@@ -163,9 +182,9 @@ extension GPHThemeType {
 }
 
 extension GiphyViewController {
-    func applyFlutterConfig(_ options: [String: Any]) -> Void {
+    func applyFlutterConfig(_ options: [String: Any?]) -> Void {
         
-        guard let settings = options["settings"] as? [String: Any] else { return }
+        guard let settings = options["settings"] as? [String: Any?] else { return }
         
         if let rawMediaTypeConfig = settings["mediaTypeConfig"] as? [String] {
             mediaTypeConfig = rawMediaTypeConfig.compactMap {
@@ -190,10 +209,9 @@ extension GiphyViewController {
         if let clipsPreviewRenditionType = GPHRenditionType.fromString(value: rawClipsPreviewRenditionType) {
             self.clipsPreviewRenditionType = clipsPreviewRenditionType
         }
-        
-        let showConfirmationScreen = settings["showConfirmationScreen"] as? Bool
-        if showConfirmationScreen != nil {
-            self.showConfirmationScreen = showConfirmationScreen!
+                
+        if let showConfirmationScreen = settings["showConfirmationScreen"] as? Bool {
+            self.showConfirmationScreen = showConfirmationScreen
         }
         
         let rawStickerColumnCount = settings["stickerColumnCount"] as? Int
@@ -201,14 +219,12 @@ extension GiphyViewController {
             self.stickerColumnCount = stickerColumnCount
         }
         
-        let shouldLocalizeSearch = settings["shouldLocalizeSearch"] as? Bool
-        if shouldLocalizeSearch != nil {
-            self.shouldLocalizeSearch = shouldLocalizeSearch!
+        if let shouldLocalizeSearch = settings["shouldLocalizeSearch"] as? Bool {
+            self.shouldLocalizeSearch = shouldLocalizeSearch
         }
         
-        let trayHeightMultiplier = settings["trayHeightMultiplier"] as? CGFloat
-        if trayHeightMultiplier != nil {
-            GiphyViewController.trayHeightMultiplier = trayHeightMultiplier!
+        if let trayHeightMultiplier = settings["trayHeightMultiplier"] as? CGFloat {
+            GiphyViewController.trayHeightMultiplier = trayHeightMultiplier
         }
         
         let rawSelectedContentType = settings["selectedContentType"] as? String
