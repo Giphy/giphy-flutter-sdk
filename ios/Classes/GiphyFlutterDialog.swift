@@ -15,7 +15,7 @@ class GiphyFlutterDialog: NSObject {
     
     fileprivate var channel: FlutterMethodChannel?
     
-    fileprivate var config: [String: Any]
+    fileprivate var config: [String: Any?]
     fileprivate var giphyViewController: GiphyViewController?
     
     public override init() {
@@ -36,10 +36,6 @@ class GiphyFlutterDialog: NSObject {
     
     func onDettachedFromEngine(flutterPluginBinding: FlutterPluginRegistrar) {
         self.channel = nil
-    }
-    
-    fileprivate func configure(value: [String: Any]) -> Void {
-        config.merge(value) { (_, new) in new }
     }
     
     fileprivate func show() -> Void {
@@ -68,12 +64,14 @@ extension GiphyFlutterDialog: GiphyDelegate {
     }
     
     func didSelectMedia(giphyViewController: GiphyViewController, media: GPHMedia) {
-        channel?.invokeMethod("onMediaSelect",
-                              arguments: [
-                                "media": media.toDictionary(),
-                                "searchTerm": nil,
-                                "selectedContentType": giphyViewController.selectedContentType.rawValue
-                              ])
+        giphyViewController.dismiss(animated: true, completion: { [weak self] in
+            self?.channel?.invokeMethod("onMediaSelect",
+                                  arguments: [
+                                    "media": media.toDictionary(),
+                                    "searchTerm": nil,
+                                    "selectedContentType": giphyViewController.selectedContentType.toString()
+                                  ])
+        })        
     }
     
 }
@@ -86,7 +84,7 @@ extension GiphyFlutterDialog: FlutterPlugin {
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
         case "configure":
-            if let params = call.arguments as? [String: Any] {
+            if let params = call.arguments as? [String: Any?] {
                 config.merge(params) { (_, new) in new }
             }
             result(nil)

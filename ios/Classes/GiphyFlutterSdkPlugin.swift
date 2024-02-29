@@ -15,6 +15,9 @@ public class GiphyFlutterSdkPlugin: NSObject, FlutterPlugin {
         
         instance.giphyDialogHandler = GiphyFlutterDialog()
         instance.giphyDialogHandler?.onAttachedToEngine(flutterPluginBinding: registrar)
+        
+        let factory = GiphyFlutterMediaViewFactory(messenger: registrar.messenger())
+        registrar.register(factory, withId: "com.giphyfluttersdk/mediaView")
     }
     
     public func detachFromEngine(for registrar: FlutterPluginRegistrar) {
@@ -26,7 +29,7 @@ public class GiphyFlutterSdkPlugin: NSObject, FlutterPlugin {
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
         case "configure":
-            guard let args = call.arguments as? [String: Any] else {
+            guard let args = call.arguments as? [String: Any?] else {
                 result(FlutterError(code: "INVALID_ARGUMENTS", message: "Invalid arguments received", details: nil))
                 return
             }

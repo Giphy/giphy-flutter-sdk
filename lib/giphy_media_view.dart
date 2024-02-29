@@ -63,12 +63,19 @@ class _GiphyMediaViewState extends State<GiphyMediaView> {
 
   @override
   Widget build(BuildContext context) {
-    return Platform.isAndroid
-        ? AndroidView(
-            viewType: 'com.giphyfluttersdk/mediaView',
-            onPlatformViewCreated: _onPlatformViewCreated,
-          )
-        : const Text('This platform is not supported');
+    if (Platform.isIOS) {
+      return UiKitView(
+        viewType: 'com.giphyfluttersdk/mediaView',
+        onPlatformViewCreated: _onPlatformViewCreated,
+      );
+    } else if (Platform.isAndroid) {
+      return AndroidView(
+        viewType: 'com.giphyfluttersdk/mediaView',
+        onPlatformViewCreated: _onPlatformViewCreated,
+      );
+    } else {
+      return const Text('This platform is not supported');
+    }
   }
 
   Future<void> pause() async {
