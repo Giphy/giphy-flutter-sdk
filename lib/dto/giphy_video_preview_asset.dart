@@ -3,7 +3,7 @@ class GiphyVideoPreviewAsset {
   final int height;
   final String? url;
 
-  GiphyVideoPreviewAsset({
+  const GiphyVideoPreviewAsset({
     this.width = 0,
     this.height = 0,
     this.url,

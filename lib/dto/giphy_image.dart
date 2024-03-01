@@ -1,19 +1,19 @@
 import 'package:giphy_flutter_sdk/dto/giphy_rendition.dart';
 
 class GiphyImage {
-  String? gifUrl;
-  int width;
-  int height;
-  int gifSize;
-  int frames;
-  String? mp4Url;
-  int mp4Size;
-  String? webPUrl;
-  int webPSize;
-  String? mediaId;
-  GiphyRendition? renditionType;
+  final String? gifUrl;
+  final int width;
+  final int height;
+  final int gifSize;
+  final int frames;
+  final String? mp4Url;
+  final int mp4Size;
+  final String? webPUrl;
+  final int webPSize;
+  final String? mediaId;
+  final GiphyRendition? renditionType;
 
-  GiphyImage({
+  const GiphyImage({
     this.gifUrl,
     this.width = 0,
     this.height = 0,

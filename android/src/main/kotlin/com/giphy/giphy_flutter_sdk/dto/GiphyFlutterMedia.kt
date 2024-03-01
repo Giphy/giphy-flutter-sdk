@@ -230,7 +230,6 @@ fun HashMap<String, Any?>.toImage(): Image {
     )
 }
 
-
 fun Images.toHashMap(): HashMap<String, Any?> {
     val map = hashMapOf<String, Any?>(
         "mediaId" to this.mediaId

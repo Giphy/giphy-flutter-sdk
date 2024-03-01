@@ -15,7 +15,7 @@ class GiphyContentRequest {
   final GiphyContentRequestType requestType;
   final String searchQuery;
 
-  GiphyContentRequest({
+  const GiphyContentRequest({
     required this.mediaType,
     this.rating,
     required this.requestType,

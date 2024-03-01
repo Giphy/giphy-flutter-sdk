@@ -3,7 +3,7 @@ import 'giphy_video_caption.dart';
 class GiphyVideoCaptions {
   final GiphyVideoCaption? videoCaption;
 
-  GiphyVideoCaptions({this.videoCaption});
+  const GiphyVideoCaptions({this.videoCaption});
 
   factory GiphyVideoCaptions.fromJson(Map<Object?, Object?> json) {
     return GiphyVideoCaptions(

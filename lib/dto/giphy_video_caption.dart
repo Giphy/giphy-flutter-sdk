@@ -2,7 +2,7 @@ class GiphyVideoCaption {
   final String? srt;
   final String? vtt;
 
-  GiphyVideoCaption({
+  const GiphyVideoCaption({
     this.srt,
     this.vtt,
   });

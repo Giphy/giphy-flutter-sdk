@@ -1,13 +1,16 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:giphy_flutter_sdk/dto/giphy_content_request.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_content_type.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_media.dart';
+import 'package:giphy_flutter_sdk/dto/giphy_media_type.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_rating.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_rendition.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_settings.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_theme.dart';
 import 'package:giphy_flutter_sdk/giphy_dialog.dart';
+import 'package:giphy_flutter_sdk/giphy_grid_view.dart';
 import 'package:giphy_flutter_sdk/giphy_media_view.dart';
 import 'package:giphy_flutter_sdk/giphy_flutter_sdk.dart';
 import 'config.dart' as config;
@@ -24,7 +27,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> implements GiphyMediaSelectionListener {
-  Media? _selectedMedia;
+  GiphyMedia? _selectedMedia;
   final controller = GiphyMediaViewController();
 
   @override
@@ -82,18 +85,45 @@ class _MyAppState extends State<MyApp> implements GiphyMediaSelectionListener {
                 onPressed: showGiphyDialog,
                 child: const Text('Open Giphy Dialog'),
               ),
-              if (_selectedMedia != null) ...[
-                Padding(
+              Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: AspectRatio(
-                    aspectRatio: _selectedMedia?.aspectRatio ?? 1.0,
-                    child: GiphyMediaView(
-                        controller: controller,
-                        media: _selectedMedia,
-                        autoPlay: true,
-                        renditionType: GiphyRendition.fixedWidth),
-                  ),
-                ),
+                      aspectRatio: 1.0, //_selectedMedia?.aspectRatio ?? 1.0,
+                      child: GiphyGridView(
+                          content: const GiphyContentRequest(
+                              mediaType: GiphyMediaType.sticker,
+                              rating: GiphyRating.pg13,
+                              requestType: GiphyContentRequestType.search,
+                              searchQuery: "cat"),
+                          renditionType: GiphyRendition.fixedWidth,
+                          cellPadding: 250,
+                          theme: GiphyTheme.fromPreset(
+                              preset: GiphyThemePreset.automatic,
+                              searchTextColor: Colors.amberAccent),
+                          onContentUpdate: (int resultCount) {},
+                          onMediaSelect: (GiphyMedia media) {
+                            setState(() {
+                              _selectedMedia = media;
+                            });
+                          },
+                          onScroll: (double offset) {}))),
+              if (_selectedMedia != null) ...[
+                ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxWidth: 200,
+                      maxHeight: 200,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: AspectRatio(
+                        aspectRatio: 1.0, //_selectedMedia?.aspectRatio ?? 1.0,
+                        child: GiphyMediaView(
+                            controller: controller,
+                            media: _selectedMedia,
+                            autoPlay: true,
+                            renditionType: GiphyRendition.fixedWidth),
+                      ),
+                    )),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -139,7 +169,7 @@ class _MyAppState extends State<MyApp> implements GiphyMediaSelectionListener {
   }
 
   @override
-  void onMediaSelect(Media media) {
+  void onMediaSelect(GiphyMedia media) {
     setState(() {
       _selectedMedia = media;
     });

@@ -6,56 +6,44 @@ import 'package:giphy_flutter_sdk/dto/giphy_rendition.dart';
 import 'giphy_theme.dart';
 
 class GiphySettings {
-  GiphyTheme theme;
-  List<GiphyContentType> mediaTypeConfig;
-  bool showConfirmationScreen;
-  GiphyRating rating;
-  GiphyRendition? renditionType;
-  GiphyClipsRendition? clipsPreviewRenditionType;
-  GiphyRendition? confirmationRenditionType;
-  bool showCheckeredBackground;
-  int stickerColumnCount;
-  GiphyContentType selectedContentType;
-  bool showSuggestionsBar;
-  bool enableDynamicText;
-  GiphyFileFormat fileFormat;
-  bool disableEmojiVariations;
+  final GiphyTheme theme;
+  final List<GiphyContentType> mediaTypeConfig;
+  final bool showConfirmationScreen;
+  final GiphyRating rating;
+  final GiphyRendition? renditionType;
+  final GiphyClipsRendition? clipsPreviewRenditionType;
+  final GiphyRendition? confirmationRenditionType;
+  final bool showCheckeredBackground;
+  final int stickerColumnCount;
+  final GiphyContentType selectedContentType;
+  final bool showSuggestionsBar;
+  final bool enableDynamicText;
+  final GiphyFileFormat fileFormat;
+  final bool disableEmojiVariations;
 
-  GiphySettings({
-    GiphyTheme? theme,
-    List<GiphyContentType>? mediaTypeConfig,
-    bool? showConfirmationScreen,
-    GiphyRating? rating,
+  const GiphySettings({
+    this.theme = GiphyTheme.automaticTheme,
+    this.mediaTypeConfig = const [
+      GiphyContentType.recents,
+      GiphyContentType.gif,
+      GiphyContentType.sticker,
+      GiphyContentType.text,
+      GiphyContentType.emoji,
+      GiphyContentType.clips,
+    ],
+    this.showConfirmationScreen = false,
+    this.rating = GiphyRating.pg13,
     this.renditionType,
     this.clipsPreviewRenditionType,
     this.confirmationRenditionType,
-    bool? showCheckeredBackground,
-    int? stickerColumnCount,
-    GiphyContentType? selectedContentType,
-    bool? showSuggestionsBar,
-    bool? enableDynamicText,
-    GiphyFileFormat? fileFormat,
-    bool? disableEmojiVariations,
-  })  : theme =
-            theme ?? GiphyTheme.fromPreset(preset: GiphyThemePreset.automatic),
-        mediaTypeConfig = mediaTypeConfig ??
-            const [
-              GiphyContentType.recents,
-              GiphyContentType.gif,
-              GiphyContentType.sticker,
-              GiphyContentType.text,
-              GiphyContentType.emoji,
-              GiphyContentType.clips,
-            ],
-        showConfirmationScreen = showConfirmationScreen ?? false,
-        rating = rating ?? GiphyRating.pg13,
-        showCheckeredBackground = showCheckeredBackground ?? false,
-        stickerColumnCount = stickerColumnCount ?? 2,
-        selectedContentType = selectedContentType ?? GiphyContentType.gif,
-        showSuggestionsBar = showSuggestionsBar ?? true,
-        enableDynamicText = enableDynamicText ?? false,
-        fileFormat = fileFormat ?? GiphyFileFormat.webp,
-        disableEmojiVariations = disableEmojiVariations ?? false;
+    this.showCheckeredBackground = false,
+    this.stickerColumnCount = 2,
+    this.selectedContentType = GiphyContentType.gif,
+    this.showSuggestionsBar = true,
+    this.enableDynamicText = false,
+    this.fileFormat = GiphyFileFormat.webp,
+    this.disableEmojiVariations = false,
+  });
 
   Map<String, dynamic> toJson() {
     return {

@@ -4,7 +4,7 @@ import 'package:giphy_flutter_sdk/specs/giphy_dialog_platform_interface.dart';
 import 'dto/giphy_media.dart';
 
 abstract class GiphyMediaSelectionListener {
-  void onMediaSelect(Media media);
+  void onMediaSelect(GiphyMedia media);
   void onDismiss();
 }
 
@@ -20,7 +20,7 @@ class GiphyDialog {
 
   void _setupCallbacks() {
     GiphyDialogPlatform.instance.registerOnMediaSelectCallback(
-        (Media media, String searchTerm, String selectedContentType) {
+        (GiphyMedia media, String searchTerm, String selectedContentType) {
       _notifyMediaSelected(media);
     });
 
@@ -58,7 +58,7 @@ class GiphyDialog {
     _listeners.remove(listener);
   }
 
-  void _notifyMediaSelected(Media media) {
+  void _notifyMediaSelected(GiphyMedia media) {
     for (var listener in _listeners) {
       listener.onMediaSelect(media);
     }
