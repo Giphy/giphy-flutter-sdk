@@ -87,26 +87,29 @@ class _MyAppState extends State<MyApp> implements GiphyMediaSelectionListener {
               ),
               Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: AspectRatio(
-                      aspectRatio: 1.0, //_selectedMedia?.aspectRatio ?? 1.0,
-                      child: GiphyGridView(
-                          content: const GiphyContentRequest(
-                              mediaType: GiphyMediaType.sticker,
-                              rating: GiphyRating.pg13,
-                              requestType: GiphyContentRequestType.search,
-                              searchQuery: "cat"),
-                          renditionType: GiphyRendition.fixedWidth,
-                          cellPadding: 250,
-                          theme: GiphyTheme.fromPreset(
-                              preset: GiphyThemePreset.automatic,
-                              searchTextColor: Colors.amberAccent),
-                          onContentUpdate: (int resultCount) {},
-                          onMediaSelect: (GiphyMedia media) {
-                            setState(() {
-                              _selectedMedia = media;
-                            });
-                          },
-                          onScroll: (double offset) {}))),
+                  child: Container(
+                      color: Colors.white,
+                      child: AspectRatio(
+                          aspectRatio: 1.0,
+                          //_selectedMedia?.aspectRatio ?? 1.0,
+                          child: GiphyGridView(
+                              content: const GiphyContentRequest(
+                                  mediaType: GiphyMediaType.sticker,
+                                  rating: GiphyRating.pg13,
+                                  requestType: GiphyContentRequestType.search,
+                                  searchQuery: "cat"),
+                              renditionType: GiphyRendition.fixedWidth,
+                              cellPadding: 10,
+                              theme: GiphyTheme.fromPreset(
+                                  preset: GiphyThemePreset.light,
+                                  searchTextColor: Colors.amberAccent),
+                              onContentUpdate: (int resultCount) {},
+                              onMediaSelect: (GiphyMedia media) {
+                                setState(() {
+                                  _selectedMedia = media;
+                                });
+                              },
+                              onScroll: (double offset) {})))),
               if (_selectedMedia != null) ...[
                 ConstrainedBox(
                     constraints: const BoxConstraints(
@@ -152,8 +155,7 @@ class _MyAppState extends State<MyApp> implements GiphyMediaSelectionListener {
 
   void showGiphyDialog() {
     GiphyTheme theme = GiphyTheme.fromPreset(
-        preset: GiphyThemePreset.automatic,
-        searchTextColor: Colors.amberAccent);
+        preset: GiphyThemePreset.dark, searchTextColor: Colors.amberAccent);
     GiphyDialog.instance.configure(
         settings: GiphySettings(
             theme: theme,
