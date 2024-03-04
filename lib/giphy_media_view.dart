@@ -10,7 +10,7 @@ import 'package:flutter/services.dart';
 class GiphyMediaView extends StatefulWidget {
   final GiphyMediaViewController? controller;
   final String? mediaId;
-  final Media? media;
+  final GiphyMedia? media;
   final bool autoPlay;
   final GiphyRendition renditionType;
   final GiphyResizeMode resizeMode;

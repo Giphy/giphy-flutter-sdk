@@ -8,7 +8,7 @@ class GiphyAssets {
   final GiphyAsset? size1080p;
   final GiphyAsset? size4k;
 
-  GiphyAssets({
+  const GiphyAssets({
     this.source,
     this.size360p,
     this.size480p,

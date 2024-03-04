@@ -4,7 +4,7 @@ class GiphyAsset {
   final String? url;
   final String? format;
 
-  GiphyAsset({
+  const GiphyAsset({
     this.width = 0,
     this.height = 0,
     this.url,

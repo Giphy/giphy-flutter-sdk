@@ -6,7 +6,7 @@ import 'giphy_rating.dart';
 import 'giphy_user.dart';
 import 'giphy_video.dart';
 
-class Media {
+class GiphyMedia {
   final String id;
   final GiphyMediaType? type;
   final String? slug;
@@ -47,7 +47,7 @@ class Media {
   final double aspectRatio;
   final Map<String, String>? userDictionary;
 
-  Media({
+  const GiphyMedia({
     required this.id,
     this.type,
     this.slug,
@@ -89,7 +89,7 @@ class Media {
     this.userDictionary,
   });
 
-  factory Media.fromJson(Map<Object?, Object?> json) => Media(
+  factory GiphyMedia.fromJson(Map<Object?, Object?> json) => GiphyMedia(
         id: json['id'] as String,
         type: json['type'] != null
             ? GiphyMediaTypeExtension.fromStringValue(json['type'] as String)

@@ -57,7 +57,9 @@ class GiphyTheme {
   final Color? retryButtonBackgroundColor;
   final Color? retryButtonTextColor;
 
-  GiphyTheme._private({
+  static const GiphyTheme automaticTheme = GiphyTheme._private();
+
+  const GiphyTheme._private({
     this.preset,
     this.handleBarColor,
     this.emojiDrawerGradientBottomColor,

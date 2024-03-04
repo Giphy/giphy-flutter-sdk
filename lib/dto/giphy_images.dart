@@ -23,7 +23,7 @@ class GiphyImages {
   final GiphyImage? downsizedSmall;
   final String? mediaId;
 
-  GiphyImages({
+  const GiphyImages({
     this.fixedHeight,
     this.fixedHeightStill,
     this.fixedHeightDownsampled,

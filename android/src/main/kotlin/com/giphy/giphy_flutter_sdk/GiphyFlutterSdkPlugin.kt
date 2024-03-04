@@ -31,6 +31,13 @@ class GiphyFlutterSdkPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, Ac
                 "com.giphyfluttersdk/mediaView",
                 GiphyFlutterMediaViewFactory(flutterPluginBinding.binaryMessenger)
             )
+
+        flutterPluginBinding
+            .platformViewRegistry
+            .registerViewFactory(
+                "com.giphyfluttersdk/gridView",
+                GiphyFlutterGridViewFactory(flutterPluginBinding.binaryMessenger)
+            )
     }
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {

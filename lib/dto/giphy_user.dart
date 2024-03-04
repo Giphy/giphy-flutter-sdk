@@ -27,7 +27,7 @@ class GiphyUser {
   final bool isStaff;
   final String? userType;
 
-  GiphyUser({
+  const GiphyUser({
     this.id,
     this.avatarUrl,
     this.avatar,

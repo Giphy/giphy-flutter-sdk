@@ -10,7 +10,7 @@ class GiphyVideo {
   final GiphyVideoCaptions? captions;
   final double? duration;
 
-  GiphyVideo({
+  const GiphyVideo({
     this.hlsManifestURL,
     this.dashManifestURL,
     this.assets,

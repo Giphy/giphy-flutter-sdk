@@ -1,3 +1,5 @@
+package com.giphy.giphy_flutter_sdk
+
 import android.content.Context
 import android.util.Log
 import android.view.View
@@ -155,6 +157,7 @@ internal class GiphyFlutterMediaView(
 
     override fun dispose() {
         view.recycle()
+        channel.setMethodCallHandler(null)
     }
 
 }

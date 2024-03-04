@@ -17,12 +17,12 @@ abstract class GiphyDialogPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Function(Media media, String searchTerm, String selectedContentType)?
+  Function(GiphyMedia media, String searchTerm, String selectedContentType)?
       onMediaSelectCallback;
   Function()? onDismissCallback;
 
   void registerOnMediaSelectCallback(
-      Function(Media media, String searchTerm, String selectedContentType)
+      Function(GiphyMedia media, String searchTerm, String selectedContentType)
           callback) {
     onMediaSelectCallback = callback;
   }

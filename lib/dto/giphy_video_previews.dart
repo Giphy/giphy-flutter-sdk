@@ -4,7 +4,7 @@ class GiphyVideoPreviews {
   final GiphyVideoPreviewAsset fixedWidth;
   final GiphyVideoPreviewAsset fixedHeight;
 
-  GiphyVideoPreviews({
+  const GiphyVideoPreviews({
     required this.fixedWidth,
     required this.fixedHeight,
   });
