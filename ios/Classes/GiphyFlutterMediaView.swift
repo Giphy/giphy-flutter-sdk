@@ -10,9 +10,11 @@ import UIKit
 import GiphyUISDK
 
 public class GiphyFlutterMediaView: NSObject, FlutterPlatformView {
-    let mediaView: GPHMediaView = GPHMediaView()
+    private let mediaView: GPHMediaView = GPHMediaView()
     
-    static let DEFAULT_RENDITION_TYPE: GPHRenditionType = .fixedWidth
+    private static let DEFAULT_RENDITION_TYPE: GPHRenditionType = .fixedWidth
+    
+    private var channel: FlutterMethodChannel?
     
     private var media: GPHMedia? {
         didSet {
@@ -34,9 +36,13 @@ public class GiphyFlutterMediaView: NSObject, FlutterPlatformView {
     
     init(frame: CGRect, viewId: Int64, args: Any?, binaryMessenger messenger: FlutterBinaryMessenger) {
         super.init()
-        setupView()
+        setupView(frame: frame)
         adjustResizeMode()
         createMethodChannel(viewId: viewId, messenger: messenger)
+    }
+    
+    deinit {
+        channel?.setMethodCallHandler(nil)
     }
     
     public func view() -> UIView {
@@ -44,15 +50,15 @@ public class GiphyFlutterMediaView: NSObject, FlutterPlatformView {
     }
     
     
-    public func pause() {
+    private func pause() {
         mediaView.stopAnimating()
     }
     
-    public func resume() {
+    private func resume() {
         mediaView.startAnimating()
     }
     
-    public func setMediaWithId(_ value: String?) -> Void {
+    private func setMediaWithId(_ value: String?) -> Void {
         guard
             let mediaId = value
         else {
@@ -68,21 +74,21 @@ public class GiphyFlutterMediaView: NSObject, FlutterPlatformView {
         }
     }
     
-    public func setAutoPlay(_ value: Bool) -> Void {
+    private func setAutoPlay(_ value: Bool) -> Void {
         mediaView.autoPlayAnimatedImage = value
     }
     
-    public func setRenditionType(_ value: String?) -> Void {
-        renditionType = GPHRenditionType.fromString(value: value) ?? GiphyFlutterMediaView.DEFAULT_RENDITION_TYPE
+    private func setRenditionType(_ value: String?) -> Void {
+        renditionType = GPHRenditionType.fromString(value) ?? GiphyFlutterMediaView.DEFAULT_RENDITION_TYPE
     }
     
-    public func setResizeMode(_ value: String?) -> Void {
+    private func setResizeMode(_ value: String?) -> Void {
         resizeMode = GiphyFlutterResizeMode.fromString(value: value) ?? .defaultMode
     }
     
     private func createMethodChannel(viewId: Int64, messenger: FlutterBinaryMessenger) {
-        let channel = FlutterMethodChannel(name: "com.giphyfluttersdk/mediaView\(viewId)", binaryMessenger: messenger)
-        channel.setMethodCallHandler({
+        channel = FlutterMethodChannel(name: "com.giphyfluttersdk/mediaView\(viewId)", binaryMessenger: messenger)
+        channel?.setMethodCallHandler({
             [weak self] (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
             guard let self = self else {
                 result(FlutterError(code: "SELF_NIL", message: "Reference to self is nil", details: nil))
@@ -117,7 +123,7 @@ public class GiphyFlutterMediaView: NSObject, FlutterPlatformView {
                 }
                 
             case "setRenditionType":
-                if let renditionType = arguments as? String {
+                if let renditionType = arguments["renditionType"] as? String {
                     self.setRenditionType(renditionType)
                     result(nil)
                 } else {
@@ -133,7 +139,8 @@ public class GiphyFlutterMediaView: NSObject, FlutterPlatformView {
                 }
                 
             case "setShowCheckeredBackground":
-                result(FlutterError(code: "INVALID_ARGUMENTS", message: "Expected a boolean for showCheckeredBackground", details: nil))
+                // To maintain consistency with Android, do not return an error, even though it's not supported.
+                result(nil)
                 
             case "pause":
                 self.mediaView.stopAnimating()
@@ -149,8 +156,9 @@ public class GiphyFlutterMediaView: NSObject, FlutterPlatformView {
         })
     }
     
-    private func setupView() -> Void {
-        mediaView.backgroundColor = .blue
+    private func setupView(frame: CGRect) -> Void {
+        mediaView.frame = frame
+        mediaView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mediaView.clipsToBounds = true
     }
     

@@ -74,12 +74,10 @@ class _GiphyGridViewState extends State<GiphyGridView> {
   @override
   Widget build(BuildContext context) {
     if (Platform.isIOS) {
-      // FIXME:
-      /*return UiKitView(
+      return UiKitView(
         viewType: 'com.giphyfluttersdk/gridView',
         onPlatformViewCreated: _onPlatformViewCreated,
-      );*/
-      return const Text('This platform is not supported yet');
+      );
     } else if (Platform.isAndroid) {
       return AndroidView(
         viewType: 'com.giphyfluttersdk/gridView',
@@ -127,7 +125,7 @@ class _GiphyGridViewState extends State<GiphyGridView> {
     await _channel
         .invokeMethod('setCellPadding', {'cellPadding': widget.cellPadding});
     await _channel.invokeMethod('setClipsPreviewRenditionType', {
-      'clipsPreviewRenditionType':
+      'renditionType':
           GiphyRenditionUtil.toStringValue(widget.clipsPreviewRenditionType)
     });
     await _channel

@@ -16,8 +16,11 @@ public class GiphyFlutterSdkPlugin: NSObject, FlutterPlugin {
         instance.giphyDialogHandler = GiphyFlutterDialog()
         instance.giphyDialogHandler?.onAttachedToEngine(flutterPluginBinding: registrar)
         
-        let factory = GiphyFlutterMediaViewFactory(messenger: registrar.messenger())
-        registrar.register(factory, withId: "com.giphyfluttersdk/mediaView")
+        let mediaViewFactory = GiphyFlutterMediaViewFactory(messenger: registrar.messenger())
+        registrar.register(mediaViewFactory, withId: "com.giphyfluttersdk/mediaView")
+        
+        let gridViewFactory = GiphyFlutterGridViewFactory(messenger: registrar.messenger())
+        registrar.register(gridViewFactory, withId: "com.giphyfluttersdk/gridView")
     }
     
     public func detachFromEngine(for registrar: FlutterPluginRegistrar) {

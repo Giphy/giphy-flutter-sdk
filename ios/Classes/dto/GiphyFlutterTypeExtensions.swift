@@ -10,7 +10,7 @@ import UIKit
 import GiphyUISDK
 
 extension GPHContentType {
-    static func fromString(value: String?) -> GPHContentType? {
+    static func fromString(_ value: String?) -> GPHContentType? {
         switch value {
         case "emoji":
             return .emoji
@@ -50,7 +50,7 @@ extension GPHContentType {
 }
 
 extension GPHRatingType {
-    static func fromString(value: String?) -> GPHRatingType? {
+    static func fromString(_ value: String?) -> GPHRatingType? {
         guard let value = value else { return nil }
         
         return GPHRatingType(rawValue: value.replacingOccurrences(of: "-", with: ""))
@@ -58,14 +58,14 @@ extension GPHRatingType {
 }
 
 extension GPHRenditionType {
-    static func fromString(value: String?) -> GPHRenditionType? {
+    static func fromString(_ value: String?) -> GPHRenditionType? {
         guard let value = value else { return nil }
         return GPHRenditionType(rawValue: value.camelCaseToSnakeCase())
     }
 }
 
 extension GPHStickerColumnCount {
-    static func fromString(value: Int?) -> GPHStickerColumnCount? {
+    static func fromString(_ value: Int?) -> GPHStickerColumnCount? {
         switch value {
         case 2:
             return .two
@@ -80,7 +80,7 @@ extension GPHStickerColumnCount {
 }
 
 extension GPHFileExtension {
-    static func fromString(value: String) -> GPHFileExtension? {
+    static func fromString(_ value: String) -> GPHFileExtension? {
         switch value {
         case "gif":
             return .gif
@@ -95,7 +95,7 @@ extension GPHFileExtension {
 }
 
 extension UICollectionView.ScrollDirection {
-    static func fromString(value: String) -> UICollectionView.ScrollDirection {
+    static func fromString(_ value: String) -> UICollectionView.ScrollDirection {
         switch value {
         case "horizontal":
             return .horizontal
@@ -138,16 +138,16 @@ extension UIScrollView.IndicatorStyle {
 }
 
 extension GPHMediaType {
-    static func fromString(value: String) -> GPHMediaType {
+    static func fromString(_ value: String) -> GPHMediaType {
         return GPHMediaType.init(rawValue: value) ?? .gif
     }
 }
 
 extension GPHContent {
-    static func fromString(value: NSDictionary) -> GPHContent {
+    static func fromDictionary(_ value: [String: Any?]) -> GPHContent {
         let requestType = value["requestType"] as? String
         let searchQuery = value["searchQuery"] as? String ?? ""
-        let mediaType = GPHMediaType.fromString(value: value["mediaType"] as? String ?? "")
+        let mediaType = GPHMediaType.fromString(value["mediaType"] as? String ?? "")
         
         switch requestType {
         case "search":
@@ -188,7 +188,7 @@ extension GiphyViewController {
         
         if let rawMediaTypeConfig = settings["mediaTypeConfig"] as? [String] {
             mediaTypeConfig = rawMediaTypeConfig.compactMap {
-                GPHContentType.fromString(value: $0)
+                GPHContentType.fromString($0)
             }
         }
         
@@ -196,17 +196,17 @@ extension GiphyViewController {
         theme = GiphyFlutterTheme(flutterConfig: settings["theme"] as? [String: Any?])
         
         let rawRating = settings["rating"] as? String
-        if let rating = GPHRatingType.fromString(value: rawRating) {
+        if let rating = GPHRatingType.fromString(rawRating) {
             self.rating = rating
         }
         
         let rawRenditionType = settings["renditionType"] as? String
-        if let renditionType = GPHRenditionType.fromString(value: rawRenditionType) {
+        if let renditionType = GPHRenditionType.fromString(rawRenditionType) {
             self.renditionType = renditionType
         }
         
         let rawClipsPreviewRenditionType = settings["clipsPreviewRenditionType"] as? String
-        if let clipsPreviewRenditionType = GPHRenditionType.fromString(value: rawClipsPreviewRenditionType) {
+        if let clipsPreviewRenditionType = GPHRenditionType.fromString(rawClipsPreviewRenditionType) {
             self.clipsPreviewRenditionType = clipsPreviewRenditionType
         }
                 
@@ -215,7 +215,7 @@ extension GiphyViewController {
         }
         
         let rawStickerColumnCount = settings["stickerColumnCount"] as? Int
-        if let stickerColumnCount = GPHStickerColumnCount.fromString(value: rawStickerColumnCount) {
+        if let stickerColumnCount = GPHStickerColumnCount.fromString(rawStickerColumnCount) {
             self.stickerColumnCount = stickerColumnCount
         }
         
@@ -228,7 +228,7 @@ extension GiphyViewController {
         }
         
         let rawSelectedContentType = settings["selectedContentType"] as? String
-        if let selectedContentType = GPHContentType.fromString(value: rawSelectedContentType) {
+        if let selectedContentType = GPHContentType.fromString(rawSelectedContentType) {
             self.selectedContentType = selectedContentType
         }
     }
