@@ -4,7 +4,7 @@ enum GiphyFileFormat {
   webp,
 }
 
-extension GGiphyFileFormatExtension on GiphyFileFormat {
+extension GiphyFileFormatExtension on GiphyFileFormat {
   static GiphyFileFormat fromStringValue(String value) {
     switch (value) {
       case 'gif':

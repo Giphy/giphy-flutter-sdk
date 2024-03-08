@@ -68,8 +68,46 @@ class GiphySettings {
           GiphyContentTypeExtension.toStringValue(selectedContentType),
       'showSuggestionsBar': showSuggestionsBar,
       'enableDynamicText': enableDynamicText,
-      'fileFormat': GGiphyFileFormatExtension.toStringValue(fileFormat),
+      'fileFormat': GiphyFileFormatExtension.toStringValue(fileFormat),
       'disableEmojiVariations': disableEmojiVariations,
     };
+  }
+
+  bool isContentTypeEnabled(GiphyContentType contentType) {
+    return mediaTypeConfig.contains(contentType);
+  }
+
+  GiphySettings copyWith({
+    GiphyTheme? theme,
+    List<GiphyContentType>? mediaTypeConfig,
+    bool? showConfirmationScreen,
+    GiphyRating? rating,
+    GiphyRendition? renditionType,
+    GiphyClipsRendition? clipsPreviewRenditionType,
+    GiphyRendition? confirmationRenditionType,
+    bool? showCheckeredBackground,
+    int? stickerColumnCount,
+    GiphyContentType? selectedContentType,
+    bool? showSuggestionsBar,
+    bool? enableDynamicText,
+    GiphyFileFormat? fileFormat,
+    bool? disableEmojiVariations,
+  }) {
+    return GiphySettings(
+      theme: theme ?? this.theme,
+      mediaTypeConfig: mediaTypeConfig ?? this.mediaTypeConfig,
+      showConfirmationScreen: showConfirmationScreen ?? this.showConfirmationScreen,
+      rating: rating ?? this.rating,
+      renditionType: renditionType ?? this.renditionType,
+      clipsPreviewRenditionType: clipsPreviewRenditionType ?? this.clipsPreviewRenditionType,
+      confirmationRenditionType: confirmationRenditionType ?? this.confirmationRenditionType,
+      showCheckeredBackground: showCheckeredBackground ?? this.showCheckeredBackground,
+      stickerColumnCount: stickerColumnCount ?? this.stickerColumnCount,
+      selectedContentType: selectedContentType ?? this.selectedContentType,
+      showSuggestionsBar: showSuggestionsBar ?? this.showSuggestionsBar,
+      enableDynamicText: enableDynamicText ?? this.enableDynamicText,
+      fileFormat: fileFormat ?? this.fileFormat,
+      disableEmojiVariations: disableEmojiVariations ?? this.disableEmojiVariations,
+    );
   }
 }
