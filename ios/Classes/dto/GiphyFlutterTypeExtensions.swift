@@ -80,7 +80,7 @@ extension GPHStickerColumnCount {
 }
 
 extension GPHFileExtension {
-    static func fromString(_ value: String) -> GPHFileExtension? {
+    static func fromString(_ value: String?) -> GPHFileExtension? {
         switch value {
         case "gif":
             return .gif
@@ -205,6 +205,11 @@ extension GiphyViewController {
             self.renditionType = renditionType
         }
         
+        let rawFileFormat = settings["fileFormat"] as? String
+        if let fileFormat = GPHFileExtension.fromString(rawFileFormat) {
+            self.fileExtension = fileFormat
+        }
+        
         let rawClipsPreviewRenditionType = settings["clipsPreviewRenditionType"] as? String
         if let clipsPreviewRenditionType = GPHRenditionType.fromString(rawClipsPreviewRenditionType) {
             self.clipsPreviewRenditionType = clipsPreviewRenditionType
@@ -229,7 +234,11 @@ extension GiphyViewController {
         
         let rawSelectedContentType = settings["selectedContentType"] as? String
         if let selectedContentType = GPHContentType.fromString(rawSelectedContentType) {
-            self.selectedContentType = selectedContentType
+            if mediaTypeConfig.contains(selectedContentType) {
+                self.selectedContentType = selectedContentType
+            } else {
+                self.selectedContentType = mediaTypeConfig.first ?? .gifs
+            }
         }
     }
 }

@@ -49,7 +49,7 @@ class GiphyFlutterDialog: NSObject {
             while let presentedViewController = currentViewController?.presentedViewController {
                 currentViewController = presentedViewController
             }
-            giphy.applyFlutterConfig(self.config)
+            giphy.applyFlutterConfig(self.config)            
             giphy.delegate = self
             currentViewController?.present(giphy, animated: true, completion: { [weak self] in
                 self?.giphyViewController = giphy

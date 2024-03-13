@@ -26,7 +26,7 @@ class GiphyGridView extends StatefulWidget {
 
   const GiphyGridView(
       {Key? key,
-      this.cellPadding = 0,
+      this.cellPadding = 8,
       this.clipsPreviewRenditionType = GiphyClipsRendition.fixedWidth,
       required this.content,
       this.disableEmojiVariations = false,

@@ -22,7 +22,7 @@ class GiphyMediaView extends StatefulWidget {
     this.mediaId,
     this.media,
     this.autoPlay = true,
-    this.renditionType = GiphyRendition.fixedWidth,
+    this.renditionType = GiphyRendition.original,
     this.resizeMode = GiphyResizeMode.contain,
     this.showCheckeredBackground = true,
   }) : super(key: key);
