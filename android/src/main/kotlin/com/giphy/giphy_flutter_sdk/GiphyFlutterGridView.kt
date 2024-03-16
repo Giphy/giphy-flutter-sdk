@@ -29,7 +29,7 @@ internal class GiphyFlutterGridView(
 ) : PlatformView {
     private val view: GiphyGridView
     private val channel = MethodChannel(messenger, "com.giphyfluttersdk/gridView$viewId")
-
+    
     init {
         view = GiphyGridView(context.require("Context must not be null"))
         view.callback = object : GPHGridCallback {

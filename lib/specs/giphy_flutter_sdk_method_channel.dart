@@ -6,10 +6,11 @@ class GiphyFlutterSdkPlatformChannel extends GiphyFlutterSdkPlatform {
 
   @override
   Future<void> configure(
-      String apiKey, bool verificationMode) async {
+      String apiKey, bool verificationMode, double? videoCacheMaxBytes) async {
     await _channel.invokeMethod('configure', {
       'apiKey': apiKey,
       'verificationMode': verificationMode,
+      'videoCacheMaxBytes': videoCacheMaxBytes,
     });
   }
 }

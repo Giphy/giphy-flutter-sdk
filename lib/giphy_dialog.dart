@@ -30,12 +30,10 @@ class GiphyDialog {
   }
 
   void configure({
-    GiphySettings? settings,
-    Map<String, String>? metadata,
+    GiphySettings? settings
   }) {
     final Map<String, dynamic> config = {
-      'settings': settings?.toJson(),
-      'metadata': metadata,
+      'settings': settings?.toJson()
     };
     GiphyDialogPlatform.instance.configure(config);
   }

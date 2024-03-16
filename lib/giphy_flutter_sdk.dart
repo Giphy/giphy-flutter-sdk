@@ -4,8 +4,8 @@ class GiphyFlutterSDK {
   static void configure({
     required String apiKey,
     bool verificationMode = false,
-    Map<String, String>? metadata,
+    double? videoCacheMaxBytes
   }) {
-    GiphyFlutterSdkPlatform.instance.configure(apiKey, verificationMode);
+    GiphyFlutterSdkPlatform.instance.configure(apiKey, verificationMode, videoCacheMaxBytes);
   }
 }

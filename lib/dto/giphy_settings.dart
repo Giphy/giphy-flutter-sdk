@@ -1,5 +1,5 @@
 import 'package:giphy_flutter_sdk/dto/giphy_content_type.dart';
-import 'package:giphy_flutter_sdk/dto/giphy_file_extension.dart';
+import 'package:giphy_flutter_sdk/dto/giphy_file_format.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_rating.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_rendition.dart';
 
@@ -29,7 +29,6 @@ class GiphySettings {
       GiphyContentType.sticker,
       GiphyContentType.text,
       GiphyContentType.emoji,
-      GiphyContentType.clips,
     ],
     this.showConfirmationScreen = false,
     this.rating = GiphyRating.pg13,
@@ -37,7 +36,7 @@ class GiphySettings {
     this.clipsPreviewRenditionType,
     this.confirmationRenditionType,
     this.showCheckeredBackground = false,
-    this.stickerColumnCount = 2,
+    this.stickerColumnCount = 3,
     this.selectedContentType = GiphyContentType.gif,
     this.showSuggestionsBar = true,
     this.enableDynamicText = false,

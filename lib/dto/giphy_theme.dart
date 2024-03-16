@@ -57,7 +57,7 @@ class GiphyTheme {
   final Color? retryButtonBackgroundColor;
   final Color? retryButtonTextColor;
 
-  static const GiphyTheme automaticTheme = GiphyTheme._private();
+  static const GiphyTheme automaticTheme = GiphyTheme._private(preset: GiphyThemePreset.automatic);
 
   const GiphyTheme._private({
     this.preset,
@@ -94,6 +94,18 @@ class GiphyTheme {
     this.retryButtonBackgroundColor,
     this.retryButtonTextColor,
   });
+
+  factory GiphyTheme.automatic() {
+    return const GiphyTheme._private(preset: GiphyThemePreset.automatic);
+  }
+
+  factory GiphyTheme.light() {
+    return const GiphyTheme._private(preset: GiphyThemePreset.light);
+  }
+
+  factory GiphyTheme.dark() {
+    return const GiphyTheme._private(preset: GiphyThemePreset.dark);
+  }
 
   factory GiphyTheme.fromPreset({
     required GiphyThemePreset preset,
