@@ -86,3 +86,40 @@ android {
         }
     }
 }
+
+task configureGiphyVideoPlayerAdapter {
+    String sdkRoot = new File(projectDir, '..')
+    String targetFolder = new File(sdkRoot, 'android/src/main/kotlin/com/giphy/giphy_flutter_sdk/videoplayeradapter')
+    String sdkResources = new File(sdkRoot, 'android/resources')
+
+    // copy the default implementation
+    apply from: new File(sdkResources, 'videoplayeradapter/dependencies.gradle')
+    project.delete(targetFolder)
+    project.copy {
+        from new File(sdkResources, 'videoplayeradapter')
+        include '**/*.*'
+        exclude 'dependencies.gradle'
+        into targetFolder
+    }
+
+    // replace with a custom adapter
+    String videoPlayerAdapter = getExt('videoPlayerAdapter')
+    if (!videoPlayerAdapter) {
+        return
+    }
+    String videoPlayerAdaptersPath = getExt('videoPlayerAdaptersPath') ?: sdkResources
+    File videoPlayerAdapterFullPath = new File(videoPlayerAdaptersPath, videoPlayerAdapter)
+    if (!videoPlayerAdapterFullPath.exists()) {
+        throw new GradleException("The video player adapter \"${videoPlayerAdapter}\" " +
+                "cannot be found in this \"${videoPlayerAdaptersPath}\" folder.")
+    }
+    apply from: new File(videoPlayerAdapterFullPath, 'dependencies.gradle')
+    project.copy {
+        from videoPlayerAdapterFullPath
+        include '**/*.*'
+        exclude 'dependencies.gradle'
+        into targetFolder
+    }
+}
+
+preBuild.dependsOn configureGiphyVideoPlayerAdapter

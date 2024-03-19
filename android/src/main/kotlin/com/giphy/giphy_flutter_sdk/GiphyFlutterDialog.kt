@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.fragment.app.FragmentActivity
 import com.giphy.giphy_flutter_sdk.dto.toGPHSettings
 import com.giphy.giphy_flutter_sdk.dto.toHashMap
+import com.giphy.giphy_flutter_sdk.utils.getVideoPlayerFactory
 import com.giphy.sdk.core.models.Media
 import com.giphy.sdk.ui.GPHContentType
 import com.giphy.sdk.ui.GPHSettings
@@ -22,7 +23,8 @@ class GiphyFlutterDialog : MethodChannel.MethodCallHandler {
 
     private fun initializeDialog() {
         gifsDialog = GiphyDialogFragment.newInstance(
-            settings
+            settings,
+            videoPlayer = getVideoPlayerFactory()
         )
     }
 
