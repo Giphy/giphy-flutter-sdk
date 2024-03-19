@@ -17,7 +17,7 @@ abstract class GiphyFlutterSdkPlatform extends PlatformInterface {
   }
 
   Future<void> configure(
-      String apiKey, bool verificationMode) {
+      String apiKey, bool verificationMode, double? videoCacheMaxBytes) {
     throw UnimplementedError('configure() has not been implemented.');
   }
 }

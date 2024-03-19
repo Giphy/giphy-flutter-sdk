@@ -10,7 +10,7 @@ import Foundation
 class GiphyFlutterSdkInfo {
     static let shared = GiphyFlutterSdkInfo()
     
-    let name = "FLUTTERSDK"
+    let name = "FlutterSDK"
     
     lazy var version: String? = {
         if let rawVersion = Bundle(for: type(of: self)).object(forInfoDictionaryKey: "CFBundleShortVersionString") {

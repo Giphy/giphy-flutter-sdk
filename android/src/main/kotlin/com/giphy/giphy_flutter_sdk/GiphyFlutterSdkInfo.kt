@@ -6,7 +6,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 
 class GiphyFlutterSdkInfo(val context: Context) {
-    val name = "FLUTTERSDK"
+    val name = "FlutterSDK"
 
     val version: String
         get() {

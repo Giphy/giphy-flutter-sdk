@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_content_type.dart';
-import 'package:giphy_flutter_sdk/dto/giphy_file_extension.dart';
+import 'package:giphy_flutter_sdk/dto/giphy_file_format.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_rating.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_rendition.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_settings.dart';

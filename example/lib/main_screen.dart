@@ -24,10 +24,7 @@ class _MainScreenState extends State<MainScreen>
   final FocusNode _focusNode = FocusNode();
   bool _isSearchFocused = false;
 
-  GiphyContentRequest _gridContentRequest = const GiphyContentRequest(
-      mediaType: GiphyMediaType.gif,
-      requestType: GiphyContentRequestType.trending,
-      searchQuery: "");
+  GiphyContentRequest _gridContentRequest = GiphyContentRequest.trendingGifs();
 
   @override
   void initState() {
@@ -83,10 +80,12 @@ class _MainScreenState extends State<MainScreen>
             ),
             onChanged: (text) {
               setState(() {
-                _gridContentRequest = GiphyContentRequest(
-                    mediaType: GiphyMediaType.gif,
-                    requestType: GiphyContentRequestType.search,
-                    searchQuery: text);
+                if (text.isNotEmpty) {
+                  _gridContentRequest = GiphyContentRequest.search(
+                      mediaType: GiphyMediaType.gif, searchQuery: text);
+                } else {
+                  _gridContentRequest = GiphyContentRequest.trendingGifs();
+                }
               });
             },
           ),
@@ -143,9 +142,7 @@ class _MainScreenState extends State<MainScreen>
             renditionType: _settings.renditionType ?? GiphyRendition.fixedWidth,
             theme: _settings.theme,
             onMediaSelect: (GiphyMedia media) {
-              setState(() {
-                onMediaSelect(media);
-              });
+              onMediaSelect(media);
               _focusNode.unfocus();
             },
           ),
@@ -174,11 +171,15 @@ class _MainScreenState extends State<MainScreen>
           padding: const EdgeInsets.symmetric(horizontal: 32.0),
           child: AspectRatio(
             aspectRatio: _mediaList[index].aspectRatio,
-            child: GiphyMediaView(
-              media: _mediaList[index],
-              autoPlay: true,
-              renditionType: GiphyRendition.fixedWidth,
-            ),
+            child: _mediaList[index].isDynamic
+                ? Image(
+                    image: NetworkImage(
+                        _mediaList[index].images.original!.gifUrl!))
+                : GiphyMediaView(
+                    media: _mediaList[index],
+                    autoPlay: true,
+                    renditionType: GiphyRendition.fixedWidth,
+                  ),
           ),
         );
         return Padding(

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'giphy_images.dart';
 import 'giphy_media_type.dart';
 import 'giphy_rating.dart';

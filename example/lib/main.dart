@@ -30,25 +30,18 @@ class _MyAppState extends State<MyApp> {
 
   void initPlatformState() {
     try {
-      Map<String, String> platformApiKeyMap = {
-        'android': config.androidGiphyApiKey,
-        'iOS': config.iOSGiphyApiKey,
-      };
-
-      String? platform = Platform.isAndroid
-          ? 'android'
-          : Platform.isIOS
-              ? 'iOS'
-              : null;
-      if (platform != null && platformApiKeyMap.containsKey(platform)) {
-        String? apiKey = platformApiKeyMap[platform];
-        if (apiKey == null) {
-          throw Exception('API key for $platform is null');
-        }
-        GiphyFlutterSDK.configure(apiKey: apiKey);
+      String? apiKey;
+      if (Platform.isAndroid) {
+        apiKey = config.androidGiphyApiKey;
+      } else if (Platform.isIOS) {
+        apiKey = config.iOSGiphyApiKey;
       } else {
-        throw Exception('Unsupported platform or API key not configured');
+        throw Exception('Unsupported platform');
       }
+      if (apiKey.isEmpty) {
+        throw Exception('API key for the platform is null or not configured');
+      }
+      GiphyFlutterSDK.configure(apiKey: apiKey);
     } catch (e) {
       print(e);
     }
