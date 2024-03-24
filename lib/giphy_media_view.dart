@@ -52,7 +52,6 @@ class _GiphyMediaViewState extends State<GiphyMediaView> {
     super.didUpdateWidget(oldWidget);
     bool needsUpdate = oldWidget.mediaId != widget.mediaId ||
         oldWidget.media?.id != widget.media?.id ||
-        oldWidget.autoPlay != widget.autoPlay ||
         oldWidget.renditionType != widget.renditionType ||
         oldWidget.resizeMode != widget.resizeMode ||
         oldWidget.showCheckeredBackground != widget.showCheckeredBackground;

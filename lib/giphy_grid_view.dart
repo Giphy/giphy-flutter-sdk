@@ -62,10 +62,7 @@ class _GiphyGridViewState extends State<GiphyGridView> {
         oldWidget.renditionType != widget.renditionType ||
         oldWidget.spanCount != widget.spanCount ||
         oldWidget.showCheckeredBackground != widget.showCheckeredBackground ||
-        oldWidget.theme != widget.theme ||
-        oldWidget.onContentUpdate != widget.onContentUpdate ||
-        oldWidget.onMediaSelect != widget.onMediaSelect ||
-        oldWidget.onScroll != widget.onScroll;
+        oldWidget.theme != widget.theme;
     if (_isPlatformViewCreated && needsUpdate) {
       _updatePlatformView();
     }

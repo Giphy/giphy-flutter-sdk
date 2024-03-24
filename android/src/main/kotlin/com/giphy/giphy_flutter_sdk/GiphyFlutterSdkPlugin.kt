@@ -20,17 +20,26 @@ class GiphyFlutterSdkPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, Ac
     private lateinit var channel: MethodChannel
     private var activity: Activity? = null
     private val giphyDialogHandler = GiphyFlutterDialog()
+    private val giphyVideoManagerHandler = GiphyFlutterVideoManager()
 
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         context = flutterPluginBinding.applicationContext
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "com.giphyfluttersdk")
         channel.setMethodCallHandler(this)
         giphyDialogHandler.onAttachedToEngine(flutterPluginBinding)
+        giphyVideoManagerHandler.onAttachedToEngine(flutterPluginBinding)
 
         flutterPluginBinding
             .platformViewRegistry
             .registerViewFactory(
                 "com.giphyfluttersdk/mediaView",
+                GiphyFlutterMediaViewFactory(flutterPluginBinding.binaryMessenger)
+            )
+
+        flutterPluginBinding
+            .platformViewRegistry
+            .registerViewFactory(
+                "com.giphyfluttersdk/videoView",
                 GiphyFlutterMediaViewFactory(flutterPluginBinding.binaryMessenger)
             )
 
@@ -72,6 +81,7 @@ class GiphyFlutterSdkPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, Ac
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
         giphyDialogHandler.onDetachedFromEngine(binding)
+        giphyVideoManagerHandler.onDetachedFromEngine(binding)
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {

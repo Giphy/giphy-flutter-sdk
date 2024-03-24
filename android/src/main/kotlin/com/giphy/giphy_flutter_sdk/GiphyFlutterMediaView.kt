@@ -1,5 +1,6 @@
 package com.giphy.giphy_flutter_sdk
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import android.view.View
@@ -80,13 +81,14 @@ internal class GiphyFlutterMediaView(
         }
     }
 
-    fun setAutoPlay(value: Boolean?) {
+    private fun setAutoPlay(value: Boolean?) {
         if (value != null) {
             autoPlay = value
         }
     }
 
-    fun setMediaWithId(mediaId: String?) {
+    @SuppressLint("LongLogTag")
+    private fun setMediaWithId(mediaId: String?) {
         if (mediaId == null) {
             return
         }
@@ -100,23 +102,23 @@ internal class GiphyFlutterMediaView(
         }
     }
 
-    fun setMedia(media: Media?) {
+    private fun setMedia(media: Media?) {
         loadedMedia = media
         syncMedia()
     }
 
-    fun setRenditionType(map: HashMap<String, Any?>?) {
+    private fun setRenditionType(map: HashMap<String, Any?>?) {
         renditionType = map?.toRenditionType() ?: RenditionType.fixedWidth
         syncMedia()
     }
 
-    fun setResizeMode(value: String?) {
+    private fun setResizeMode(value: String?) {
         resizeMode = GiphyFlutterResizeMode.fromString(value) ?: GiphyFlutterResizeMode.DEFAULT_MODE
         adjustResizeMode()
         syncMedia()
     }
 
-    fun setShowCheckeredBackground(value: Boolean?) {
+    private fun setShowCheckeredBackground(value: Boolean?) {
         view.isBackgroundVisible = value ?: true
         syncMedia()
     }
