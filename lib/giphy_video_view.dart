@@ -146,7 +146,7 @@ class _GiphyVideoViewState extends State<GiphyVideoView> with WidgetsBindingObse
   Future<void> _updatePlatformView() async {
     if (widget.mediaId != null) {
       await _channel
-          .invokeMethod('setMediaWithId', {'mediaId': widget.mediaId});
+          .invokeMethod('setMediaId', {'mediaId': widget.mediaId});
     } else if (widget.media != null) {
       await _channel
           .invokeMethod('setMedia', {'media': widget.media?.toJson()});

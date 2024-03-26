@@ -5,6 +5,7 @@ import GiphyUISDK
 public class GiphyFlutterSdkPlugin: NSObject, FlutterPlugin {
     
     var giphyDialogHandler: GiphyFlutterDialog?
+    var giphyVideoManagerHandler: GiphyFlutterVideoManager?
     private var channel: FlutterMethodChannel?
     
     public static func register(with registrar: FlutterPluginRegistrar) {
@@ -16,8 +17,14 @@ public class GiphyFlutterSdkPlugin: NSObject, FlutterPlugin {
         instance.giphyDialogHandler = GiphyFlutterDialog()
         instance.giphyDialogHandler?.onAttachedToEngine(flutterPluginBinding: registrar)
         
+        instance.giphyVideoManagerHandler = GiphyFlutterVideoManager()
+        instance.giphyVideoManagerHandler?.onAttachedToEngine(flutterPluginBinding: registrar)
+        
         let mediaViewFactory = GiphyFlutterMediaViewFactory(messenger: registrar.messenger())
         registrar.register(mediaViewFactory, withId: "com.giphyfluttersdk/mediaView")
+        
+        let videoViewFactory = GiphyFlutterVideoViewFactory(messenger: registrar.messenger())
+        registrar.register(videoViewFactory, withId: "com.giphyfluttersdk/videoView")
         
         let gridViewFactory = GiphyFlutterGridViewFactory(messenger: registrar.messenger())
         registrar.register(gridViewFactory, withId: "com.giphyfluttersdk/gridView")
@@ -25,8 +32,12 @@ public class GiphyFlutterSdkPlugin: NSObject, FlutterPlugin {
     
     public func detachFromEngine(for registrar: FlutterPluginRegistrar) {
         channel?.setMethodCallHandler(nil)
+        
         giphyDialogHandler?.onDettachedFromEngine(flutterPluginBinding: registrar)
         giphyDialogHandler = nil
+        
+        giphyVideoManagerHandler?.onDettachedFromEngine(flutterPluginBinding: registrar)
+        giphyVideoManagerHandler = nil
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {

@@ -56,6 +56,18 @@ class GiphyFlutterDialog: NSObject {
             })
         }
     }
+    
+    fileprivate func hide() -> Void {
+      DispatchQueue.main.async { [weak self] in
+        guard let self = self else {
+          return
+        }
+
+        self.giphyViewController?.dismiss(animated: true, completion: { [weak self] in
+          self?.giphyViewController = nil
+        })
+      }
+    }
 }
 
 extension GiphyFlutterDialog: GiphyDelegate {
@@ -77,11 +89,11 @@ extension GiphyFlutterDialog: GiphyDelegate {
 }
 
 extension GiphyFlutterDialog: FlutterPlugin {
-    public static func register(with registrar: FlutterPluginRegistrar) {
+    static func register(with registrar: FlutterPluginRegistrar) {
         // Actually, it's not a plugin; it's more of a separate logic, so we don't need to register anything here.
     }
     
-    public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
         case "configure":
             if let params = call.arguments as? [String: Any?] {
@@ -92,6 +104,7 @@ extension GiphyFlutterDialog: FlutterPlugin {
             show()
             result(nil)
         case "hide":
+            hide()
             result(nil)
             
         default:

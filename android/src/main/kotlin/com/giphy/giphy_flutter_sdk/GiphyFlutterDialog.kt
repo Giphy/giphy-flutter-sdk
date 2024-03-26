@@ -77,6 +77,7 @@ class GiphyFlutterDialog : MethodChannel.MethodCallHandler {
     }
 
     private fun hide(result: MethodChannel.Result) {
+        gifsDialog!!.dismiss()
         result.success(null)
     }
 

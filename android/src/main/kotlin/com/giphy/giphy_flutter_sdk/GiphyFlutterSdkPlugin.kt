@@ -40,7 +40,7 @@ class GiphyFlutterSdkPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, Ac
             .platformViewRegistry
             .registerViewFactory(
                 "com.giphyfluttersdk/videoView",
-                GiphyFlutterMediaViewFactory(flutterPluginBinding.binaryMessenger)
+                GiphyFlutterVideoViewFactory(flutterPluginBinding.binaryMessenger)
             )
 
         flutterPluginBinding

@@ -2,6 +2,7 @@ import 'package:giphy_flutter_sdk/dto/giphy_settings.dart';
 import 'package:giphy_flutter_sdk/specs/giphy_dialog_platform_interface.dart';
 
 import 'dto/giphy_media.dart';
+import 'giphy_video_manager.dart';
 
 abstract class GiphyMediaSelectionListener {
   void onMediaSelect(GiphyMedia media);
@@ -39,6 +40,7 @@ class GiphyDialog {
   }
 
   void show() {
+    GiphyVideoManager.instance.pauseAll();
     GiphyDialogPlatform.instance.show();
   }
 

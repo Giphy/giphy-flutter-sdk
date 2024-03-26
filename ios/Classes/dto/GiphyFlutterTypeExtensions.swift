@@ -242,3 +242,34 @@ extension GiphyViewController {
         }
     }
 }
+
+enum GiphyFlutterVideoPlayerState: Int {
+  case unknown = 0
+  case readyToPlay = 3
+  case playing = 4
+  case paused = 5
+
+  func toIntValue() -> Int {
+    return self.rawValue
+  }
+}
+
+extension GPHVideoPlayerState {
+  func toIntValue() -> Int {
+    var state: GiphyFlutterVideoPlayerState {
+      switch self {
+      case .readyToPlay:
+        return GiphyFlutterVideoPlayerState.readyToPlay
+      case .playing:
+        return GiphyFlutterVideoPlayerState.playing
+      case .paused:
+        return GiphyFlutterVideoPlayerState.paused
+      case .unknown:
+        return GiphyFlutterVideoPlayerState.unknown
+      default:
+        return GiphyFlutterVideoPlayerState.unknown
+      }
+    }
+    return state.toIntValue()
+  }
+}

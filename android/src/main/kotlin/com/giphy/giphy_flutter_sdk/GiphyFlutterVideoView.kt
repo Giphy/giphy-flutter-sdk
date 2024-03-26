@@ -121,7 +121,8 @@ internal class GiphyFlutterVideoView(
                 }
 
                 "setMuted" -> {
-                    setAutoPlay(call.argument<Boolean?>("muted"))
+                    muted = call.argument<Boolean?>("muted") ?: false
+                    setMuted(muted)
                     result.success(null)
                 }
 
@@ -135,6 +136,19 @@ internal class GiphyFlutterVideoView(
             return
         }
         autoPlay = value ?: false
+        if (::view.isInitialized && isViewPlayerActive()) {
+            if (!autoPlay) {
+                view.videoPlayer?.onPause()
+            }
+        }
+    }
+
+    fun setMuted(value: Boolean?) {
+        if (value == muted) {
+            return
+        }
+        muted = value ?: false
+        updateVolume()
     }
 
     private fun setMediaWithId(mediaId: String?) {
