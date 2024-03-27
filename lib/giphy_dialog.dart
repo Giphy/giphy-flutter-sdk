@@ -6,6 +6,7 @@ import 'giphy_video_manager.dart';
 
 abstract class GiphyMediaSelectionListener {
   void onMediaSelect(GiphyMedia media);
+
   void onDismiss();
 }
 
@@ -30,12 +31,8 @@ class GiphyDialog {
     });
   }
 
-  void configure({
-    GiphySettings? settings
-  }) {
-    final Map<String, dynamic> config = {
-      'settings': settings?.toJson()
-    };
+  void configure({GiphySettings? settings}) {
+    final Map<String, dynamic> config = {'settings': settings?.toJson()};
     GiphyDialogPlatform.instance.configure(config);
   }
 

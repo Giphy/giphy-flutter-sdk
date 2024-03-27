@@ -177,19 +177,20 @@ class _MainScreenState extends State<MainScreen>
             aspectRatio: _mediaList[index].aspectRatio,
             child: _mediaList[index].isVideo
                 ? GiphyVideoView(
-              media: _mediaList[index],
-              autoPlay: true,
-              muted: true,
-            )
+                    media: _mediaList[index],
+                    autoPlay: true,
+                    muted: false,
+                  )
                 : _mediaList[index].isDynamic
-                ? Image(
-              image: NetworkImage(_mediaList[index].images.original!.gifUrl!),
-            )
-                : GiphyMediaView(
-              media: _mediaList[index],
-              autoPlay: true,
-              renditionType: GiphyRendition.fixedWidth,
-            ),
+                    ? Image(
+                        image: NetworkImage(
+                            _mediaList[index].images.original!.gifUrl!),
+                      )
+                    : GiphyMediaView(
+                        media: _mediaList[index],
+                        autoPlay: true,
+                        renditionType: GiphyRendition.fixedWidth,
+                      ),
           ),
         );
         return Padding(

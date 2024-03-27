@@ -18,23 +18,24 @@ class GiphyVideoView extends StatefulWidget {
   final Function(GiphyVideoViewPlaybackState state)? onPlaybackStateChanged;
   final Function(String description)? onError;
 
-  const GiphyVideoView({
-    Key? key,
-    this.mediaId,
-    this.media,
-    this.autoPlay = true,
-    this.muted = false,
-    this.onMute,
-    this.onUnmute,
-    this.onPlaybackStateChanged,
-    this.onError
-  }) : super(key: key);
+  const GiphyVideoView(
+      {Key? key,
+      this.mediaId,
+      this.media,
+      this.autoPlay = true,
+      this.muted = false,
+      this.onMute,
+      this.onUnmute,
+      this.onPlaybackStateChanged,
+      this.onError})
+      : super(key: key);
 
   @override
   State<GiphyVideoView> createState() => _GiphyVideoViewState();
 }
 
-class _GiphyVideoViewState extends State<GiphyVideoView> with WidgetsBindingObserver {
+class _GiphyVideoViewState extends State<GiphyVideoView>
+    with WidgetsBindingObserver {
   late MethodChannel _channel;
   bool _isPlatformViewCreated = false;
   AppLifecycleState? _lastAppState;
@@ -54,10 +55,12 @@ class _GiphyVideoViewState extends State<GiphyVideoView> with WidgetsBindingObse
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    if (_lastAppState == AppLifecycleState.resumed && state == AppLifecycleState.paused) {
+    if (_lastAppState == AppLifecycleState.resumed &&
+        state == AppLifecycleState.paused) {
       // App is transitioning from foreground to background
       GiphyVideoManager.instance.pauseAll();
-    } else if (_lastAppState == AppLifecycleState.paused && state == AppLifecycleState.resumed) {
+    } else if (_lastAppState == AppLifecycleState.paused &&
+        state == AppLifecycleState.resumed) {
       // App is transitioning from background to foreground
       GiphyVideoManager.instance.resume();
       GiphyVideoManager.instance.muteAll();
@@ -145,8 +148,7 @@ class _GiphyVideoViewState extends State<GiphyVideoView> with WidgetsBindingObse
 
   Future<void> _updatePlatformView() async {
     if (widget.mediaId != null) {
-      await _channel
-          .invokeMethod('setMediaId', {'mediaId': widget.mediaId});
+      await _channel.invokeMethod('setMediaId', {'mediaId': widget.mediaId});
     } else if (widget.media != null) {
       await _channel
           .invokeMethod('setMedia', {'media': widget.media?.toJson()});

@@ -101,8 +101,7 @@ class _GiphyMediaViewState extends State<GiphyMediaView> {
 
   Future<void> _updatePlatformView() async {
     if (widget.mediaId != null) {
-      await _channel
-          .invokeMethod('setMediaId', {'mediaId': widget.mediaId});
+      await _channel.invokeMethod('setMediaId', {'mediaId': widget.mediaId});
     } else if (widget.media != null) {
       await _channel
           .invokeMethod('setMedia', {'media': widget.media?.toJson()});

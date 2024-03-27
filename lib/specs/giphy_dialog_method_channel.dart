@@ -3,7 +3,8 @@ import '../dto/giphy_media.dart';
 import 'giphy_dialog_platform_interface.dart';
 
 class GiphyDialogMethodChannel extends GiphyDialogPlatform {
-  static const MethodChannel _channel = MethodChannel('com.giphyfluttersdk/dialog');
+  static const MethodChannel _channel =
+      MethodChannel('com.giphyfluttersdk/dialog');
 
   GiphyDialogMethodChannel() {
     _channel.setMethodCallHandler(_handleMethodCall);

@@ -3,7 +3,8 @@ import 'package:flutter/services.dart';
 import 'giphy_video_manager_platform_interface.dart';
 
 class GiphyVideoManagerMethodChannel extends GiphyVideoManagerPlatform {
-  static const MethodChannel _channel = MethodChannel('com.giphyfluttersdk/videoManager');
+  static const MethodChannel _channel =
+      MethodChannel('com.giphyfluttersdk/videoManager');
 
   @override
   Future<void> muteAll() async {
