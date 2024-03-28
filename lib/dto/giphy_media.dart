@@ -37,6 +37,7 @@ class GiphyMedia {
   final bool isIndexable;
   final bool isSticker;
   final bool isDynamic;
+  final bool isVideo;
   final String? animatedTextStyle;
   final bool hasAttributions;
   final String? altText;
@@ -78,6 +79,7 @@ class GiphyMedia {
     this.isIndexable = false,
     this.isSticker = false,
     this.isDynamic = false,
+    this.isVideo = false,
     this.animatedTextStyle,
     this.hasAttributions = false,
     this.altText,
@@ -140,6 +142,7 @@ class GiphyMedia {
         isIndexable: json['isIndexable'] as bool? ?? false,
         isSticker: json['isSticker'] as bool? ?? false,
         isDynamic: json['isDynamic'] as bool? ?? false,
+        isVideo: json['isVideo'] as bool? ?? false,
         animatedTextStyle: json['animatedTextStyle'] as String?,
         hasAttributions: json['hasAttributions'] as bool? ?? false,
         altText: json['altText'] as String?,

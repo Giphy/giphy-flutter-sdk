@@ -153,25 +153,25 @@ internal class GiphyFlutterGridView(
         view.content = content
     }
 
-    fun setCellPadding(value: Double?) {
+    private fun setCellPadding(value: Double?) {
         if (value != null) {
             view.cellPadding = value.toInt()
         }
     }
 
-    fun setDisableEmojiVariations(value: Boolean?) {
+    private fun setDisableEmojiVariations(value: Boolean?) {
         if (value != null) {
             view.disableEmojiVariations = value
         }
     }
 
-    fun setFixedSizeCells(value: Boolean?) {
+    private fun setFixedSizeCells(value: Boolean?) {
         if (value != null) {
             view.fixedSizeCells = value
         }
     }
 
-    fun setOrientation(value: String?) {
+    private fun setOrientation(value: String?) {
         view.direction = when (value) {
             "horizontal" -> GiphyGridView.HORIZONTAL
             "vertical" -> GiphyGridView.VERTICAL
@@ -179,25 +179,25 @@ internal class GiphyFlutterGridView(
         }
     }
 
-    fun setSpanCount(value: Int?) {
+    private fun setSpanCount(value: Int?) {
         if (value != null) {
             view.spanCount = value
         }
     }
 
-    fun setRenditionType(map: HashMap<String, Any?>?) {
+    private fun setRenditionType(map: HashMap<String, Any?>?) {
         view.renditionType = map?.toRenditionType() ?: RenditionType.fixedWidth
     }
 
-    fun setClipsPreviewRenditionType(map: HashMap<String, Any?>?) {
+    private fun setClipsPreviewRenditionType(map: HashMap<String, Any?>?) {
         view.clipsPreviewRenditionType = map?.toRenditionType() ?: RenditionType.fixedWidth
     }
 
-    fun setShowCheckeredBackground(value: Boolean?) {
+    private fun setShowCheckeredBackground(value: Boolean?) {
         view.showCheckeredBackground = value ?: false
     }
 
-    fun setTheme(map: HashMap<String, Any?>?) {
+    private fun setTheme(map: HashMap<String, Any?>?) {
         val value = map ?: return
         view.theme =
             GiphyFlutterTheme.getInstance().toGPHTheme(value["theme"] as HashMap<String, Any?>)

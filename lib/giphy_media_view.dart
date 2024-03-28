@@ -52,7 +52,6 @@ class _GiphyMediaViewState extends State<GiphyMediaView> {
     super.didUpdateWidget(oldWidget);
     bool needsUpdate = oldWidget.mediaId != widget.mediaId ||
         oldWidget.media?.id != widget.media?.id ||
-        oldWidget.autoPlay != widget.autoPlay ||
         oldWidget.renditionType != widget.renditionType ||
         oldWidget.resizeMode != widget.resizeMode ||
         oldWidget.showCheckeredBackground != widget.showCheckeredBackground;
@@ -102,8 +101,7 @@ class _GiphyMediaViewState extends State<GiphyMediaView> {
 
   Future<void> _updatePlatformView() async {
     if (widget.mediaId != null) {
-      await _channel
-          .invokeMethod('setMediaWithId', {'mediaId': widget.mediaId});
+      await _channel.invokeMethod('setMediaId', {'mediaId': widget.mediaId});
     } else if (widget.media != null) {
       await _channel
           .invokeMethod('setMedia', {'media': widget.media?.toJson()});

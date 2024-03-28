@@ -37,6 +37,7 @@ extension GPHMedia {
         dict["images"] = self.images?.toDictionary()
         dict["updateDate"] = dict["update_datetime"]
         dict["createDate"] = dict["create_datetime"]
+        dict["isVideo"] = self.isVideo
         return dict.convertingKeys(.snakeToCamel)
     }
 }

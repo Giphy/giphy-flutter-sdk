@@ -59,6 +59,7 @@ fun Media.toHashMap(): HashMap<String, Any?> {
         "isIndexable" to this.isIndexable,
         "isSticker" to this.isSticker,
         "isDynamic" to this.isDynamic,
+        "isVideo" to (this.type == MediaType.video),
         "animatedTextStyle" to this.animatedTextStyle,
         "hasAttributions" to this.hasAttributions,
         "altText" to this.altText,

@@ -98,7 +98,7 @@ public class GiphyFlutterMediaView: NSObject, FlutterPlatformView {
             let arguments = call.arguments as? [String: Any?] ?? [:]
             
             switch call.method {
-            case "setMediaWithId":
+            case "setMediaId":
                 if let mediaId = arguments["mediaId"] as? String {
                     self.setMediaWithId(mediaId)
                     result(nil)

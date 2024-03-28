@@ -100,6 +100,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   _toggleContentType(GiphyContentType.text, value);
                 },
               ),
+              SwitchListTile(
+                title: const Text('Clips'),
+                value: _temporarySettings
+                    .isContentTypeEnabled(GiphyContentType.clips),
+                onChanged: (bool value) {
+                  _toggleContentType(GiphyContentType.clips, value);
+                },
+              ),
               const Divider(),
               SwitchListTile(
                 title: const Text('Enable Dynamic Text'),

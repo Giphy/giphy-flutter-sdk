@@ -7,6 +7,8 @@ import 'package:giphy_flutter_sdk/dto/giphy_settings.dart';
 import 'package:giphy_flutter_sdk/giphy_dialog.dart';
 import 'package:giphy_flutter_sdk/giphy_grid_view.dart';
 import 'package:giphy_flutter_sdk/giphy_media_view.dart';
+import 'package:giphy_flutter_sdk/giphy_video_manager.dart';
+import 'package:giphy_flutter_sdk/giphy_video_view.dart';
 import 'package:giphy_flutter_sdk_example/settings_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -110,6 +112,7 @@ class _MainScreenState extends State<MainScreen>
   }
 
   void _showSettingsModal(BuildContext context) async {
+    GiphyVideoManager.instance.muteAll();
     final resultSettings = await showModalBottomSheet<GiphySettings>(
       context: context,
       isScrollControlled: true,
@@ -129,6 +132,7 @@ class _MainScreenState extends State<MainScreen>
   }
 
   void _showGiphyDialog() {
+    GiphyVideoManager.instance.muteAll();
     GiphyDialog.instance.configure(settings: _settings);
     GiphyDialog.instance.show();
   }
@@ -171,15 +175,22 @@ class _MainScreenState extends State<MainScreen>
           padding: const EdgeInsets.symmetric(horizontal: 32.0),
           child: AspectRatio(
             aspectRatio: _mediaList[index].aspectRatio,
-            child: _mediaList[index].isDynamic
-                ? Image(
-                    image: NetworkImage(
-                        _mediaList[index].images.original!.gifUrl!))
-                : GiphyMediaView(
+            child: _mediaList[index].isVideo
+                ? GiphyVideoView(
                     media: _mediaList[index],
                     autoPlay: true,
-                    renditionType: GiphyRendition.fixedWidth,
-                  ),
+                    muted: false,
+                  )
+                : _mediaList[index].isDynamic
+                    ? Image(
+                        image: NetworkImage(
+                            _mediaList[index].images.original!.gifUrl!),
+                      )
+                    : GiphyMediaView(
+                        media: _mediaList[index],
+                        autoPlay: true,
+                        renditionType: GiphyRendition.fixedWidth,
+                      ),
           ),
         );
         return Padding(
@@ -193,7 +204,7 @@ class _MainScreenState extends State<MainScreen>
   @override
   void onMediaSelect(GiphyMedia media) {
     setState(() {
-      _mediaList.insert(0, media);
+      _mediaList.add(media);
     });
   }
 

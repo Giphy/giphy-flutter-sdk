@@ -29,6 +29,7 @@ class GiphySettings {
       GiphyContentType.sticker,
       GiphyContentType.text,
       GiphyContentType.emoji,
+      GiphyContentType.clips
     ],
     this.showConfirmationScreen = false,
     this.rating = GiphyRating.pg13,

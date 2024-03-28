@@ -4,6 +4,8 @@ import android.content.Context
 import android.app.Activity
 import androidx.fragment.app.FragmentActivity
 import com.giphy.giphy_flutter_sdk.utils.require
+import com.giphy.giphy_flutter_sdk.utils.initializeVideoCache
+import com.giphy.giphy_flutter_sdk.utils.getVideoPlayerFactory
 import com.giphy.giphy_flutter_sdk.dto.GiphyFlutterTheme
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
@@ -18,18 +20,27 @@ class GiphyFlutterSdkPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, Ac
     private lateinit var channel: MethodChannel
     private var activity: Activity? = null
     private val giphyDialogHandler = GiphyFlutterDialog()
+    private val giphyVideoManagerHandler = GiphyFlutterVideoManager()
 
     override fun onAttachedToEngine(flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         context = flutterPluginBinding.applicationContext
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "com.giphyfluttersdk")
         channel.setMethodCallHandler(this)
         giphyDialogHandler.onAttachedToEngine(flutterPluginBinding)
+        giphyVideoManagerHandler.onAttachedToEngine(flutterPluginBinding)
 
         flutterPluginBinding
             .platformViewRegistry
             .registerViewFactory(
                 "com.giphyfluttersdk/mediaView",
                 GiphyFlutterMediaViewFactory(flutterPluginBinding.binaryMessenger)
+            )
+
+        flutterPluginBinding
+            .platformViewRegistry
+            .registerViewFactory(
+                "com.giphyfluttersdk/videoView",
+                GiphyFlutterVideoViewFactory(flutterPluginBinding.binaryMessenger)
             )
 
         flutterPluginBinding
@@ -44,7 +55,7 @@ class GiphyFlutterSdkPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, Ac
         if (call.method == "configure") {
             val apiKey = call.argument<String>("apiKey").require("API key is missing")
             val verificationMode = call.argument<Boolean>("verificationMode") ?: false
-            val videoCacheMaxBytes = call.argument<Int>("videoCacheMaxBytes") ?: 0
+            val videoCacheMaxBytes = call.argument<Int>("videoCacheMaxBytes") ?: 100 * 1024 * 1024
             configureGiphy(apiKey, verificationMode, videoCacheMaxBytes)
             result.success(null)
         } else {
@@ -53,6 +64,11 @@ class GiphyFlutterSdkPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, Ac
     }
 
     private fun configureGiphy(apiKey: String, verificationMode: Boolean, videoCacheMaxBytes: Int) {
+        initializeVideoCache(
+            context, videoCacheMaxBytes.toLong()
+        )
+        val player = getVideoPlayerFactory()
+        Giphy.videoPlayer = player
         val appInfo = GiphyFlutterSdkInfo(context)
         Giphy.configure(
             context,
@@ -65,6 +81,7 @@ class GiphyFlutterSdkPlugin : FlutterPlugin, MethodChannel.MethodCallHandler, Ac
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
         giphyDialogHandler.onDetachedFromEngine(binding)
+        giphyVideoManagerHandler.onDetachedFromEngine(binding)
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {

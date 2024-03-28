@@ -2,9 +2,11 @@ import 'package:giphy_flutter_sdk/dto/giphy_settings.dart';
 import 'package:giphy_flutter_sdk/specs/giphy_dialog_platform_interface.dart';
 
 import 'dto/giphy_media.dart';
+import 'giphy_video_manager.dart';
 
 abstract class GiphyMediaSelectionListener {
   void onMediaSelect(GiphyMedia media);
+
   void onDismiss();
 }
 
@@ -29,16 +31,13 @@ class GiphyDialog {
     });
   }
 
-  void configure({
-    GiphySettings? settings
-  }) {
-    final Map<String, dynamic> config = {
-      'settings': settings?.toJson()
-    };
+  void configure({GiphySettings? settings}) {
+    final Map<String, dynamic> config = {'settings': settings?.toJson()};
     GiphyDialogPlatform.instance.configure(config);
   }
 
   void show() {
+    GiphyVideoManager.instance.pauseAll();
     GiphyDialogPlatform.instance.show();
   }
 
