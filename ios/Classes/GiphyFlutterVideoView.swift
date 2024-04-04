@@ -24,6 +24,8 @@ public class GiphyFlutterVideoView: NSObject, FlutterPlatformView {
         }
     }
     
+    fileprivate var videoPlayerDelegate: GiphyVideoPlayerDelegate?
+    
     var media: GPHMedia? {
         didSet {
             syncMedia()
@@ -35,11 +37,17 @@ public class GiphyFlutterVideoView: NSObject, FlutterPlatformView {
         ViewsRegister.shared.registerView(view: self)
         setupView(frame: frame)
         createMethodChannel(viewId: viewId, messenger: messenger)
+        videoPlayerDelegate = GiphyVideoPlayerDelegate(view: self)
+        GiphyFlutterSharedVideoPlayer.shared.add(listener: videoPlayerDelegate!)
     }
     
     deinit {
         ViewsRegister.shared.unregisterView(view: self)
         channel?.setMethodCallHandler(nil)
+        if let videoPlayerDelegate = videoPlayerDelegate, GiphyFlutterSharedVideoPlayer.initialized {
+            GiphyFlutterSharedVideoPlayer.shared.remove(listener: videoPlayerDelegate)
+            self.videoPlayerDelegate = nil
+        }
     }
     
     public func view() -> UIView {
@@ -92,7 +100,14 @@ public class GiphyFlutterVideoView: NSObject, FlutterPlatformView {
             case "setAutoPlay":
                 if let autoPlay = arguments["autoPlay"] as? Bool {
                     self.autoPlay = autoPlay
-                    syncMedia()
+                    if let media = self.media, autoPlay == true, ViewsRegister.shared.getLatestViewWithAutoPlayback() == self {
+                        GiphyFlutterSharedVideoPlayer.shared.loadMedia(
+                            media: media,
+                            autoPlay: true,
+                            muteOnPlay: self.muted,
+                            view: self.playerView
+                        )
+                    }
                     result(nil)
                 } else {
                     result(FlutterError(code: "INVALID_ARGUMENTS", message: "Expected a boolean for autoPlay", details: nil))
@@ -101,7 +116,6 @@ public class GiphyFlutterVideoView: NSObject, FlutterPlatformView {
             case "setMuted":
                 if let muted = arguments["muted"] as? Bool {
                     self.muted = muted
-                    syncMedia()
                     result(nil)
                 } else {
                     result(FlutterError(code: "INVALID_ARGUMENTS", message: "Expected a boolean for muted", details: nil))
@@ -136,18 +150,16 @@ public class GiphyFlutterVideoView: NSObject, FlutterPlatformView {
                     view: self.playerView
                 )
             }
-            syncVolume()
         }
     }
     
-    private func syncVolume() -> Void {
+    fileprivate func syncVolume() -> Void {
         DispatchQueue.main.async { [weak self] in
             guard let self = self,
                   let _ = self.playerView.media
             else {
                 return
             }
-            
             if self.isViewPlayerActive() {
                 GiphyFlutterSharedVideoPlayer.shared.mute(self.muted)
             }
@@ -204,6 +216,11 @@ fileprivate class GiphyVideoPlayerDelegate: GPHVideoPlayerStateListener {
     func playerStateDidChange(_ state: GPHVideoPlayerState) {
         guard let view = view, view.isViewPlayerActive() else {
             return
+        }
+        
+        // To prevent race conditions, update the volume as soon as the player is ready to play media.
+        if state == .readyToPlay {
+            view.syncVolume()
         }
         
         view.channel?.invokeMethod("onPlaybackStateChanged", arguments: [
