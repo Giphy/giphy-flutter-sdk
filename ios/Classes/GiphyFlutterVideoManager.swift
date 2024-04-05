@@ -43,23 +43,23 @@ extension GiphyFlutterVideoManager: FlutterPlugin {
         switch call.method {
         case "muteAll":
             DispatchQueue.main.async {
-              if GiphyFlutterSharedVideoPlayer.initialized {
-                  GiphyFlutterSharedVideoPlayer.shared.mute(true)
-              }
+                if GiphyFlutterSharedVideoPlayer.initialized {
+                    GiphyFlutterSharedVideoPlayer.shared.mute(true)
+                }
             }
             result(nil)
         case "pauseAll":
             DispatchQueue.main.async {
-              if GiphyFlutterSharedVideoPlayer.initialized {
-                  GiphyFlutterSharedVideoPlayer.shared.pause()
-              }
+                if GiphyFlutterSharedVideoPlayer.initialized {
+                    GiphyFlutterSharedVideoPlayer.shared.pause()
+                }
             }
             result(nil)
         case "resume":
-            DispatchQueue.main.async {
-              if GiphyFlutterSharedVideoPlayer.initialized {
-                  GiphyFlutterSharedVideoPlayer.shared.resume()
-              }
+            DispatchQueue.main.async {                
+                if GiphyFlutterSharedVideoPlayer.initialized {
+                    GiphyFlutterSharedVideoPlayer.shared.resume()
+                }
             }
             result(nil)
             
