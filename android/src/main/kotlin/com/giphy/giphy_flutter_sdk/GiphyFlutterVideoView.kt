@@ -37,7 +37,7 @@ internal class GiphyFlutterVideoView(
                     syncFlutterState()
                     channel.invokeMethod(
                         "onPlaybackStateChanged", mapOf(
-                            "state" to GiphyFlutterVideoPlaybackState.ReadyToPlay.code
+                            "code" to GiphyFlutterVideoPlaybackState.ReadyToPlay.code
                         )
                     )
                 }

@@ -224,7 +224,7 @@ fileprivate class GiphyVideoPlayerDelegate: GPHVideoPlayerStateListener {
         }
         
         view.channel?.invokeMethod("onPlaybackStateChanged", arguments: [
-            "state": state.toIntValue()
+            "code": state.toIntValue()
         ])
     }
     
