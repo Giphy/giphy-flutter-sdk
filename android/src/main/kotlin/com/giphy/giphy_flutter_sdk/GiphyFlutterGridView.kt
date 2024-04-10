@@ -210,6 +210,7 @@ internal class GiphyFlutterGridView(
     override fun dispose() {
         channel.setMethodCallHandler(null)
         view.callback = null
+        view.searchCallback = null
     }
 
 }
