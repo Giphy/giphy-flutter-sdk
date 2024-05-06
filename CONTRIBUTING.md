@@ -45,6 +45,11 @@ Dart and the native code will be reflected in the example app.
 
 TBD
 
+### Scripts
+
+- `scripts/sdk.sh bump android`: update the GIPHY Android SDK to the latest version.
+- `scripts/sdk.sh bump ios`: update the GIPHY iOS SDK to the latest version.
+
 ### Sending a pull request
 
 > **Working on your first pull request?** You can learn how from this _free_
