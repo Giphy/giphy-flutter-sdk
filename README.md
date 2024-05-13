@@ -1,8 +1,8 @@
 <p align="center">
-<img width="750" height="150" src="https://github.com/Giphy/giphy-flutter-sdk/blob/main/docs/assets/sdk_logo.gif">
+<img width="750" height="150" src="https://github.com/Giphy/giphy-flutter-sdk/blob/main/doc/assets/sdk_logo.gif">
 </p>
 
-<img align="right" width="300" height="483" src="https://github.com/Giphy/giphy-flutter-sdk/blob/main/docs/assets/example_app.gif">
+<img align="right" width="300" height="483" src="https://github.com/Giphy/giphy-flutter-sdk/blob/main/doc/assets/example_app.gif">
 
 # GIPHY SDK for Flutter
 
@@ -16,23 +16,23 @@ With billions of requests a day, it’s safe to say GIPHY knows GIFs. We're exci
 you so your users can have the best GIF experience possible, with all the same features they're already enjoying on
 Facebook, Slack, Instagram, and more – with just a few lines of code.
 
-### [Getting Started](docs/getting-started.md)
+### [Getting Started](doc/getting-started.md)
 
-- [Requirements](docs/getting-started.md#requirements)
-- [Installation](docs/getting-started.md#installation)
-- [Basic Usage](docs/getting-started.md#basic-usage)
-- [GIPHY Clips: GIFs with Sound](docs/clips.md)
-- [GIPHY Animated Text Creation](docs/animated.md)
+- [Requirements](doc/getting-started.md#requirements)
+- [Installation](doc/getting-started.md#installation)
+- [Basic Usage](doc/getting-started.md#basic-usage)
+- [GIPHY Clips: GIFs with Sound](doc/clips.md)
+- [GIPHY Animated Text Creation](doc/animated.md)
 - [Example App](https://github.com/Giphy/giphy-flutter-sdk/tree/main/example)
 
-### [API Reference](docs/api.md)
+### [API Reference](doc/api.md)
 
-- [GiphyFlutterSDK](docs/api.md#giphyfluttersdk)
-- [GiphyDialog](docs/api.md#giphydialog)
-- [GiphyMediaView](docs/api.md#giphymediaview)
-- [GiphyVideoView](docs/api.md#giphyvideoview)
-- [GiphyVideoManager](docs/api.md#giphyvideomanager)
-- [GiphyGridView](docs/api.md#giphygridview)
-- [GiphyContent](docs/api.md#giphycontent)
-- [GiphyTheme](docs/api.md#giphytheme)
+- [GiphyFlutterSDK](doc/api.md#giphyfluttersdk)
+- [GiphyDialog](doc/api.md#giphydialog)
+- [GiphyMediaView](doc/api.md#giphymediaview)
+- [GiphyVideoView](doc/api.md#giphyvideoview)
+- [GiphyVideoManager](doc/api.md#giphyvideomanager)
+- [GiphyGridView](doc/api.md#giphygridview)
+- [GiphyContent](doc/api.md#giphycontent)
+- [GiphyTheme](doc/api.md#giphytheme)
 
