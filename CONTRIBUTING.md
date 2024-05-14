@@ -43,7 +43,20 @@ Dart and the native code will be reflected in the example app.
 
 ### Publishing to pub.dev
 
-TBD
+- Dry Run to validate and ensure that everything is set up correctly before performing the actual publication
+  ```sh
+  flutter pub publish --dry-run
+  ```
+
+- Authenticate Using pub
+  ```sh
+  flutter pub login
+  ```
+
+- Publish
+  ```sh
+  flutter pub publish
+  ```
 
 ### Scripts
 
