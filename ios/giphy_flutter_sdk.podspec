@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'giphy_flutter_sdk'
-  s.version          = '0.0.1'
+  s.version          = '1.0.0'
   s.summary          = 'A Giphy Flutter plugin project.'
   s.description      = <<-DESC
 A Giphy Flutter plugin project.

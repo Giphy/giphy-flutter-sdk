@@ -188,6 +188,25 @@ class _MyAppState extends State<MyApp> implements GiphyMediaSelectionListener {
 }
 ```
 
+### Troubleshooting
+
+On Android, the dialog requires using `FlutterFragmentActivity`. 
+In your project's `MainActivity`, which is in the `android` folder, you'll need to replace:
+
+```kotlin
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity: FlutterActivity()
+```
+
+with:
+
+```kotlin
+import io.flutter.embedding.android.FlutterFragmentActivity
+
+class MainActivity: FlutterFragmentActivity()
+```
+
 ## GiphyMediaView
 
 Designed to
@@ -227,11 +246,12 @@ not support it. For more information, please refer to [this article](./animated.
 You can update the example [above](./api.md#L147)
 
 ```dart
-GiphyMediaView(
-  media: _mediaList[index],
-  autoPlay: true,
-  renditionType: GiphyRendition.fixedWidth,
-)
+AspectRatio(
+  aspectRatio: _mediaList[mediaIndex].aspectRatio,
+  child: GiphyMediaView(
+    media: _mediaList[mediaIndex],
+    autoPlay: true,
+    renditionType: GiphyRendition.fixedWidth));
 ```
 
 - **Imperative API**

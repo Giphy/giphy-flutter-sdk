@@ -1,5 +1,5 @@
 group 'com.giphy.giphy_flutter_sdk'
-version '1.0-SNAPSHOT'
+version '1.0.0'
 
 buildscript {
     // Buildscript is evaluated before everything else so we can't use getExtOrDefault
