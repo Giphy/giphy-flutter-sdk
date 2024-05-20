@@ -1,17 +1,16 @@
-#
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html.
-# Run `pod lib lint giphy_flutter_sdk.podspec` to validate before publishing.
-#
+require 'yaml'
+
+# Load the pubspec.yaml file
+pubspec_path = File.join(__dir__, '..', 'pubspec.yaml')
+pubspec = YAML.load_file(pubspec_path)
+
 Pod::Spec.new do |s|
-  s.name             = 'giphy_flutter_sdk'
-  s.version          = '1.0.0'
-  s.summary          = 'A Giphy Flutter plugin project.'
-  s.description      = <<-DESC
-A Giphy Flutter plugin project.
-                       DESC
-  s.homepage         = 'http://example.com'
+  s.name             = pubspec['name']
+  s.version          = pubspec['version']
+  s.summary          = pubspec['description']
+  s.homepage         = pubspec['homepage']
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { 'Giphy Engineering' => 'developers@giphy.com' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
