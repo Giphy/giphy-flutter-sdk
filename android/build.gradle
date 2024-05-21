@@ -1,5 +1,17 @@
 group 'com.giphy.giphy_flutter_sdk'
-version '1.0.0'
+
+import org.yaml.snakeyaml.Yaml
+import java.nio.file.Files
+import java.nio.file.Paths
+
+static def getVersionFromPubspec() {
+    def pubspecPath = "../../pubspec.yaml"
+    def yaml = new Yaml()
+    def pubspecContent = yaml.load(Files.newInputStream(Paths.get(pubspecPath)))
+    return pubspecContent['version']
+}
+
+ext.sdkVersion = getVersionFromPubspec()
 
 buildscript {
     // Buildscript is evaluated before everything else so we can't use getExtOrDefault
@@ -12,6 +24,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.3.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'org.yaml:snakeyaml:2.2'
     }
 }
 
@@ -65,6 +78,7 @@ android {
     }
 
     defaultConfig {
+        buildConfigField "String", "SDK_VERSION", "\"${sdkVersion}\""
         minSdkVersion getExtOrIntegerDefault("minSdkVersion")
     }
 
@@ -87,7 +101,7 @@ android {
     }
 }
 
-task configureGiphyVideoPlayerAdapter {
+tasks.register('configureGiphyVideoPlayerAdapter') {
     String sdkRoot = new File(projectDir, '..')
     String targetFolder = new File(sdkRoot, 'android/src/main/kotlin/com/giphy/giphy_flutter_sdk/videoplayeradapter')
     String sdkResources = new File(sdkRoot, 'android/resources')
