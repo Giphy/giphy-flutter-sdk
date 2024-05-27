@@ -2,12 +2,23 @@ group 'com.giphy.giphy_flutter_sdk'
 
 import org.yaml.snakeyaml.Yaml
 import java.nio.file.Files
-import java.nio.file.Paths
 
-static def getVersionFromPubspec() {
-    def pubspecPath = "../../pubspec.yaml"
+File findPubspecYaml() {
+    def dir = project.projectDir
+    while (dir != null) {
+        def pubspecFile = new File(dir, "pubspec.yaml")
+        if (pubspecFile.exists()) {
+            return pubspecFile
+        }
+        dir = dir.parentFile
+    }
+    throw new FileNotFoundException("pubspec.yaml not found")
+}
+
+def getVersionFromPubspec() {
+    def pubspecPath = findPubspecYaml()
     def yaml = new Yaml()
-    def pubspecContent = yaml.load(Files.newInputStream(Paths.get(pubspecPath)))
+    def pubspecContent = yaml.load(Files.newInputStream(pubspecPath.toPath()))
     return pubspecContent['version']
 }
 
