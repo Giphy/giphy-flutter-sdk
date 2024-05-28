@@ -1,6 +1,6 @@
 name: giphy_flutter_sdk
 description: "Giphy Flutter SDK"
-version: 1.0.0
+version: 0.1.2
 homepage: https://github.com/Giphy/giphy-flutter-sdk
 
 environment:
