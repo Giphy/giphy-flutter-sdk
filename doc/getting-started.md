@@ -19,8 +19,9 @@ Add the dependency
 
 ```
 dependencies:
-  giphy_flutter_sdk: ^1.0.0
+  giphy_flutter_sdk: any
 ```
+*note* `any` pulls in the most recent official release by default
 
 Install the Plugin
 ```
