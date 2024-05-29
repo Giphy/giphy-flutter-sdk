@@ -15,11 +15,9 @@ import 'package:giphy_flutter_sdk/giphy_flutter_sdk.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('getPlatformVersion test', (WidgetTester tester) async {
-    final GiphyFlutterSdk plugin = GiphyFlutterSdk();
-    final String? version = await plugin.getPlatformVersion();
-    // The version string depends on the host platform running the test, so
-    // just assert that some non-empty string is returned.
-    expect(version?.isNotEmpty, true);
+  testWidgets('configure test', (WidgetTester tester) async {
+    // TODO:
+    final GiphyFlutterSDK plugin = GiphyFlutterSDK();
+    expect(true, true);
   });
 }

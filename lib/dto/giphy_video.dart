@@ -10,7 +10,7 @@ class GiphyVideo {
   final GiphyVideoCaptions? captions;
   final double? duration;
 
-  GiphyVideo({
+  const GiphyVideo({
     this.hlsManifestURL,
     this.dashManifestURL,
     this.assets,
@@ -19,21 +19,17 @@ class GiphyVideo {
     this.duration,
   });
 
-  factory GiphyVideo.fromJson(Map<String, dynamic> json) {
+  factory GiphyVideo.fromJson(Map<Object?, Object?> json) {
     return GiphyVideo(
       hlsManifestURL: json['hlsManifestURL'] as String?,
       dashManifestURL: json['dashManifestURL'] as String?,
-      assets:
-          json['assets'] != null ? GiphyAssets.fromJson(json['assets']) : null,
-      previews: json['previews'] != null
-          ? GiphyVideoPreviews.fromJson(json['previews'])
-          : null,
-      captions: json['captions'] != null
-          ? GiphyVideoCaptions.fromJson(json['captions'])
-          : null,
-      duration: json['duration']?.toDouble(),
+      assets: json['assets'] != null ? GiphyAssets.fromJson(json['assets'] as Map<Object?, Object?>) : null,
+      previews: json['previews'] != null ? GiphyVideoPreviews.fromJson(json['previews'] as Map<Object?, Object?>) : null,
+      captions: json['captions'] != null ? GiphyVideoCaptions.fromJson(json['captions'] as Map<Object?, Object?>) : null,
+      duration: json['duration'] != null ? (json['duration'] as num).toDouble() : null,
     );
   }
+
 
   Map<String, dynamic> toJson() {
     return {

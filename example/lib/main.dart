@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
-import 'dart:async';
+import 'dart:io';
 
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 import 'package:giphy_flutter_sdk/giphy_flutter_sdk.dart';
+import 'package:giphy_flutter_sdk_example/main_screen.dart';
+import 'config.dart' as config;
 
 void main() {
   runApp(const MyApp());
@@ -16,35 +17,34 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-  final _giphyFlutterSdkPlugin = GiphyFlutterSdk();
-
   @override
   void initState() {
     super.initState();
     initPlatformState();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  void initPlatformState() {
     try {
-      platformVersion =
-          await _giphyFlutterSdkPlugin.getPlatformVersion() ?? 'Unknown platform version';
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
+      String? apiKey;
+      if (Platform.isAndroid) {
+        apiKey = config.androidGiphyApiKey;
+      } else if (Platform.isIOS) {
+        apiKey = config.iOSGiphyApiKey;
+      } else {
+        throw Exception('Unsupported platform');
+      }
+      if (apiKey.isEmpty) {
+        throw Exception('API key for the platform is null or not configured');
+      }
+      GiphyFlutterSDK.configure(apiKey: apiKey);
+    } catch (e) {
+      print(e);
     }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
   }
 
   @override
@@ -52,11 +52,11 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Giphy example app'),
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
         ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
-        ),
+        body: const MainScreen(),
       ),
     );
   }

@@ -1,8 +1,32 @@
 group 'com.giphy.giphy_flutter_sdk'
-version '1.0-SNAPSHOT'
+
+import org.yaml.snakeyaml.Yaml
+import java.nio.file.Files
+
+File findPubspecYaml() {
+    def dir = project.projectDir
+    while (dir != null) {
+        def pubspecFile = new File(dir, "pubspec.yaml")
+        if (pubspecFile.exists()) {
+            return pubspecFile
+        }
+        dir = dir.parentFile
+    }
+    throw new FileNotFoundException("pubspec.yaml not found")
+}
+
+def getVersionFromPubspec() {
+    def pubspecPath = findPubspecYaml()
+    def yaml = new Yaml()
+    def pubspecContent = yaml.load(Files.newInputStream(pubspecPath.toPath()))
+    return pubspecContent['version']
+}
+
+ext.sdkVersion = getVersionFromPubspec()
 
 buildscript {
-    ext.kotlin_version = '1.7.10'
+    // Buildscript is evaluated before everything else so we can't use getExtOrDefault
+    def kotlin_version = rootProject.ext.has("kotlinVersion") ? rootProject.ext.get("kotlinVersion") : project.properties["GiphyFlutterSDK.kotlinVersion"]
     repositories {
         google()
         mavenCentral()
@@ -11,6 +35,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.3.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'org.yaml:snakeyaml:2.2'
     }
 }
 
@@ -24,12 +49,30 @@ allprojects {
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
+def getExt(name, prefix = 'GiphyFlutterSDK.') {
+    return rootProject.ext.has(prefix + name) ? rootProject.ext.get(prefix + name) : null
+}
+
+def getExtOrDefault(name) {
+    return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties["GiphyFlutterSDK." + name]
+}
+
+def getExtOrIntegerDefault(name) {
+    return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["GiphyFlutterSDK." + name]).toInteger()
+}
+
 android {
     if (project.android.hasProperty("namespace")) {
-        namespace 'com.giphy.giphy_flutter_sdk'
+        namespace 'com.giphyfluttersdk'
     }
 
-    compileSdkVersion 33
+    compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -46,12 +89,14 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 19
+        buildConfigField "String", "SDK_VERSION", "\"${sdkVersion}\""
+        minSdkVersion getExtOrIntegerDefault("minSdkVersion")
     }
 
     dependencies {
         testImplementation 'org.jetbrains.kotlin:kotlin-test'
         testImplementation 'org.mockito:mockito-core:5.0.0'
+        implementation 'com.giphy.sdk:ui:2.3.14'
     }
 
     testOptions {
@@ -66,3 +111,40 @@ android {
         }
     }
 }
+
+tasks.register('configureGiphyVideoPlayerAdapter') {
+    String sdkRoot = new File(projectDir, '..')
+    String targetFolder = new File(sdkRoot, 'android/src/main/kotlin/com/giphy/giphy_flutter_sdk/videoplayeradapter')
+    String sdkResources = new File(sdkRoot, 'android/resources')
+
+    // copy the default implementation
+    apply from: new File(sdkResources, 'videoplayeradapter/dependencies.gradle')
+    project.delete(targetFolder)
+    project.copy {
+        from new File(sdkResources, 'videoplayeradapter')
+        include '**/*.*'
+        exclude 'dependencies.gradle'
+        into targetFolder
+    }
+
+    // replace with a custom adapter
+    String videoPlayerAdapter = getExt('videoPlayerAdapter')
+    if (!videoPlayerAdapter) {
+        return
+    }
+    String videoPlayerAdaptersPath = getExt('videoPlayerAdaptersPath') ?: sdkResources
+    File videoPlayerAdapterFullPath = new File(videoPlayerAdaptersPath, videoPlayerAdapter)
+    if (!videoPlayerAdapterFullPath.exists()) {
+        throw new GradleException("The video player adapter \"${videoPlayerAdapter}\" " +
+                "cannot be found in this \"${videoPlayerAdaptersPath}\" folder.")
+    }
+    apply from: new File(videoPlayerAdapterFullPath, 'dependencies.gradle')
+    project.copy {
+        from videoPlayerAdapterFullPath
+        include '**/*.*'
+        exclude 'dependencies.gradle'
+        into targetFolder
+    }
+}
+
+preBuild.dependsOn configureGiphyVideoPlayerAdapter

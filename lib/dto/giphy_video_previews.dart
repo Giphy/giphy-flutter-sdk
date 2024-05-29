@@ -4,22 +4,22 @@ class GiphyVideoPreviews {
   final GiphyVideoPreviewAsset fixedWidth;
   final GiphyVideoPreviewAsset fixedHeight;
 
-  GiphyVideoPreviews({
+  const GiphyVideoPreviews({
     required this.fixedWidth,
     required this.fixedHeight,
   });
 
-  factory GiphyVideoPreviews.fromJson(Map<String, dynamic> json) {
+  factory GiphyVideoPreviews.fromJson(Map<Object?, Object?> json) {
     return GiphyVideoPreviews(
-      fixedWidth: GiphyVideoPreviewAsset.fromJson(json['fixed_width']),
-      fixedHeight: GiphyVideoPreviewAsset.fromJson(json['fixed_height']),
+      fixedWidth: GiphyVideoPreviewAsset.fromJson(json['fixedWidth'] as Map<Object?, Object?>),
+      fixedHeight: GiphyVideoPreviewAsset.fromJson(json['fixedHeight'] as Map<Object?, Object?>),
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'fixed_width': fixedWidth.toJson(),
-      'fixed_height': fixedHeight.toJson(),
+      'fixedWidth': fixedWidth.toJson(),
+      'fixedHeight': fixedHeight.toJson(),
     };
   }
 }

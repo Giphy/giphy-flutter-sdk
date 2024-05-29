@@ -3,13 +3,13 @@ class GiphyVideoPreviewAsset {
   final int height;
   final String? url;
 
-  GiphyVideoPreviewAsset({
+  const GiphyVideoPreviewAsset({
     this.width = 0,
     this.height = 0,
     this.url,
   });
 
-  factory GiphyVideoPreviewAsset.fromJson(Map<String, dynamic> json) {
+  factory GiphyVideoPreviewAsset.fromJson(Map<Object?, Object?> json) {
     return GiphyVideoPreviewAsset(
       width: json['width'] as int? ?? 0,
       height: json['height'] as int? ?? 0,

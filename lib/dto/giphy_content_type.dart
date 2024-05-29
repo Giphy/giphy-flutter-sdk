@@ -1,8 +1,8 @@
 enum GiphyContentType {
-  emoji,
-  gif,
   recents,
+  gif,
   sticker,
+  emoji,
   text,
   clips,
 }
