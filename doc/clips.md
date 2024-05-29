@@ -2,29 +2,18 @@
 
 Introducing GIPHY Clips, aka GIFs with Sound.
 
-Millions of people use GIPHY to communicate and express themselves every day. GIPHY Clips is our newest content format
-at the intersection of GIFs and Video.
-
-The Clips Library is built with all of the unforgettable quotes, cultural moments, reactions and characters that we need
-to express how we are feeling, what we think and who we are. Everyday you’ll find new Clips from the biggest names in
-Entertainment, Sports, News, Pop Culture and viral moments. If your favorite quote isn’t a Clip yet, it will be soon...
-
-Integrating the GIPHY Clips SDK will allow your users to seamlessly express themselves with this new format, all while
-staying in the experience in your app.
+The Clips Library is built with all of the unforgettable quotes, cultural moments, reactions and characters that we need to express how we are feeling, what we think and who we are. Everyday you’ll find new Clips from the biggest names in Entertainment, Sports, News, Pop Culture and viral moments. If your favorite quote isn’t a Clip yet, it will be soon...
 
 ### Requirements
 
 - GIPHY Clips is available for integration into our community of messaging and social apps for users to search and
   share. Clips is not approved to be integrated into creation experience where derivative works can be created.
 
-### GIPHY Clips setup (Android only)
+### GIPHY Clips setup: Android Requirements
 
-The GIPHY Flutter SDK under the hood uses [ExoPlayer](https://github.com/google/ExoPlayer) for clips on the Android
-platform. But we don't enable clips
-functionality by default to optimize bundle size and avoid dependency resolution issues. If you use clips on Android,
-you need to tell the GIPHY SDK to use a special adapter that will add ExoPlayer to dependencies and make the clips
-available. To do this, add the following line to the `gradle.properties` file in the android folder of your project and
-replace `VIDEO_PLAYER_ADAPTER` with the name of the selected adapter:
+While the GIPHY Flutter SDK supports Clips (video) on iOS right out of the box, some additional setup is necessary for Android support. 
+
+The native Android SDK uses [ExoPlayer](https://github.com/google/ExoPlayer) for clips, but we don't enable clips functionality by default to optimize bundle size and avoid dependency resolution issues. If you use clips on Android, you need to tell the GIPHY SDK to use a special adapter that will add ExoPlayer to dependencies and make the clips content type available. To do this, add the following line to the `gradle.properties` file in the android folder of your project and replace `VIDEO_PLAYER_ADAPTER` with the name of the selected adapter:
 
 ```groovy
 GiphyFlutterSDK.videoPlayerAdapter=<VIDEO_PLAYER_ADAPTER>

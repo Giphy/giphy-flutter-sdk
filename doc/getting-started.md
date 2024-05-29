@@ -2,17 +2,16 @@
 
 ### Requirements
 
+- A Giphy Android SDK key from the [Giphy Developer Portal](https://developers.giphy.com/dashboard/?create=true).
+  Please remember, you should use a separate key for every platform (Android, iOS, Web) you add our SDKs to.
+
 - Android:
   - Giphy SDK only supports projects that have been upgraded
     to [androidx](https://developer.android.com/jetpack/androidx/)
-  - Requires minSdkVersion 21
-  - A Giphy Android SDK key from the [Giphy Developer Portal](https://developers.giphy.com/dashboard/?create=true).
-    Please remember, you should use a separate key for every platform (Android, iOS, Web) you add our SDKs to.
+  - Requires `minSdkVersion` 21
 - iOS:
   - iOS 13.0 or later
-  - Xcode 12 and later
-  - A Giphy iOS SDK key from the [Giphy Developer Portal](https://developers.giphy.com/dashboard/?create=true).
-    Please remember, you should use a separate key for every platform (Android, iOS, Web) you add our SDKs to.
+  - Xcode 12 and later 
 
 ### Installation
 
@@ -33,9 +32,7 @@ any problems.
 
 ### Basic Usage
 
-We offer two solutions for the SDK user interface - pre-built templates which handle the entirety of the GIPHY
-experience, and a [Grid-Only implementation](https://developers.giphy.com/docs/sdk#grid) which allows for endless
-customization.
+We offer two solutions for the SDK user interface - pre-built templates which handle the entirety of the GIPHY experience, and a [Grid-Only implementation](https://developers.giphy.com/docs/sdk#grid) which allows for more customization.
 
 See [customization](https://developers.giphy.com/docs/sdk#grid) to determine what's best for you.
 

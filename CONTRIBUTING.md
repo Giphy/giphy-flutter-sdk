@@ -43,6 +43,8 @@ Dart and the native code will be reflected in the example app.
 
 ### Publishing to pub.dev
 
+- *note* While we welcome feedback and prs, publishing new versions of the project to pub.dev is reserved for GIPHY engineers. 
+
 - Dry Run to validate and ensure that everything is set up correctly before performing the actual publication
   ```sh
   flutter pub publish --dry-run
