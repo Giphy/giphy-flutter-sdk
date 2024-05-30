@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_content_request.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_media.dart';
@@ -210,6 +211,8 @@ class _MainScreenState extends State<MainScreen>
 
   @override
   void onDismiss() {
-    print("Giphy dialog dismissed");
+    if (kDebugMode) {
+      print("Giphy dialog dismissed");
+    }
   }
 }

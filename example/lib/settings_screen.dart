@@ -9,10 +9,10 @@ import 'package:giphy_flutter_sdk/dto/giphy_theme.dart';
 class SettingsScreen extends StatefulWidget {
   final GiphySettings settings;
 
-  const SettingsScreen({Key? key, required this.settings}) : super(key: key);
+  const SettingsScreen({super.key, required this.settings});
 
   @override
-  _SettingsScreenState createState() => _SettingsScreenState();
+  State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {

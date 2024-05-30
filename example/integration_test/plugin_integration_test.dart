@@ -10,14 +10,11 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
-import 'package:giphy_flutter_sdk/giphy_flutter_sdk.dart';
-
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   testWidgets('configure test', (WidgetTester tester) async {
     // TODO:
-    final GiphyFlutterSDK plugin = GiphyFlutterSDK();
     expect(true, true);
   });
 }
