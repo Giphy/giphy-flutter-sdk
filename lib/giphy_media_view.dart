@@ -1,4 +1,5 @@
 import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart';
 import 'package:giphy_flutter_sdk/dto/giphy_rendition.dart';
 import 'package:giphy_flutter_sdk/dto/misc.dart';
 
@@ -17,7 +18,7 @@ class GiphyMediaView extends StatefulWidget {
   final bool showCheckeredBackground;
 
   const GiphyMediaView({
-    Key? key,
+    super.key,
     this.controller,
     this.mediaId,
     this.media,
@@ -25,7 +26,7 @@ class GiphyMediaView extends StatefulWidget {
     this.renditionType = GiphyRendition.fixedWidth,
     this.resizeMode = GiphyResizeMode.cover,
     this.showCheckeredBackground = true,
-  }) : super(key: key);
+  });
 
   @override
   State<GiphyMediaView> createState() => _GiphyMediaViewState();
@@ -79,7 +80,9 @@ class _GiphyMediaViewState extends State<GiphyMediaView> {
 
   Future<void> pause() async {
     if (!_isPlatformViewCreated) {
-      print("GiphyMediaView: Platform view is not yet created.");
+      if (kDebugMode) {
+        print("GiphyMediaView: Platform view is not yet created.");
+      }
       return;
     }
     await _channel.invokeMethod('pause');
@@ -87,7 +90,9 @@ class _GiphyMediaViewState extends State<GiphyMediaView> {
 
   Future<void> resume() async {
     if (!_isPlatformViewCreated) {
-      print("GiphyMediaView: Platform view is not yet created.");
+      if (kDebugMode) {
+        print("GiphyMediaView: Platform view is not yet created.");
+      }
       return;
     }
     await _channel.invokeMethod('resume');

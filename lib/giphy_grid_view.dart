@@ -25,7 +25,7 @@ class GiphyGridView extends StatefulWidget {
   final Function(double offset)? onScroll;
 
   const GiphyGridView(
-      {Key? key,
+      {super.key,
       this.cellPadding = 8,
       this.clipsPreviewRenditionType = GiphyClipsRendition.fixedWidth,
       required this.content,
@@ -38,8 +38,7 @@ class GiphyGridView extends StatefulWidget {
       this.theme = GiphyTheme.automaticTheme,
       this.onContentUpdate,
       this.onMediaSelect,
-      this.onScroll})
-      : super(key: key);
+      this.onScroll});
 
   @override
   State<GiphyGridView> createState() => _GiphyGridViewState();

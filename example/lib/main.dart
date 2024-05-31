@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:giphy_flutter_sdk/giphy_flutter_sdk.dart';
 import 'package:giphy_flutter_sdk_example/main_screen.dart';
@@ -43,7 +44,9 @@ class _MyAppState extends State<MyApp> {
       }
       GiphyFlutterSDK.configure(apiKey: apiKey);
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 

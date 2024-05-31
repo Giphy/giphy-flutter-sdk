@@ -1,6 +1,7 @@
 import 'dart:io' show Platform;
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:giphy_flutter_sdk/giphy_video_manager.dart';
 
@@ -19,7 +20,7 @@ class GiphyVideoView extends StatefulWidget {
   final Function(String description)? onError;
 
   const GiphyVideoView(
-      {Key? key,
+      {super.key,
       this.mediaId,
       this.media,
       this.autoPlay = true,
@@ -27,8 +28,7 @@ class GiphyVideoView extends StatefulWidget {
       this.onMute,
       this.onUnmute,
       this.onPlaybackStateChanged,
-      this.onError})
-      : super(key: key);
+      this.onError});
 
   @override
   State<GiphyVideoView> createState() => _GiphyVideoViewState();
@@ -97,7 +97,9 @@ class _GiphyVideoViewState extends State<GiphyVideoView>
 
   Future<void> pause() async {
     if (!_isPlatformViewCreated) {
-      print("GiphyVideoView: Platform view is not yet created.");
+      if (kDebugMode) {
+        print("GiphyVideoView: Platform view is not yet created.");
+      }
       return;
     }
     await _channel.invokeMethod('pause');
@@ -105,7 +107,9 @@ class _GiphyVideoViewState extends State<GiphyVideoView>
 
   Future<void> resume() async {
     if (!_isPlatformViewCreated) {
-      print("GiphyVideoView: Platform view is not yet created.");
+      if (kDebugMode) {
+        print("GiphyVideoView: Platform view is not yet created.");
+      }
       return;
     }
     await _channel.invokeMethod('resume');
