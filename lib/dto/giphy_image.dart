@@ -1,18 +1,41 @@
 import 'package:giphy_flutter_sdk/dto/giphy_rendition.dart';
 
+/// A class representing a Giphy image with various attributes and formats.
 class GiphyImage {
+  /// The URL of the GIF version of the image.
   final String? gifUrl;
+
+  /// The width of the image.
   final int width;
+
+  /// The height of the image.
   final int height;
+
+  /// The size of the GIF in bytes.
   final int gifSize;
+
+  /// The number of frames in the GIF.
   final int frames;
+
+  /// The URL of the MP4 version of the image.
   final String? mp4Url;
+
+  /// The size of the MP4 in bytes.
   final int mp4Size;
+
+  /// The URL of the WebP version of the image.
   final String? webPUrl;
+
+  /// The size of the WebP in bytes.
   final int webPSize;
+
+  /// The media ID of the image.
   final String? mediaId;
+
+  /// The rendition type of the image.
   final GiphyRendition? renditionType;
 
+  /// Creates a [GiphyImage] instance with the given attributes.
   const GiphyImage({
     this.gifUrl,
     this.width = 0,
@@ -27,6 +50,11 @@ class GiphyImage {
     this.renditionType,
   });
 
+  /// Creates a [GiphyImage] instance from a JSON object.
+  ///
+  /// [json] A map containing key-value pairs corresponding to the image attributes.
+  ///
+  /// Returns a [GiphyImage] instance populated with the values from the JSON object.
   factory GiphyImage.fromJson(Map<Object?, Object?> json) {
     return GiphyImage(
       gifUrl: json['gifUrl'] as String?,
@@ -43,6 +71,9 @@ class GiphyImage {
     );
   }
 
+  /// Converts the [GiphyImage] instance to a JSON object.
+  ///
+  /// Returns a map containing key-value pairs corresponding to the image attributes.
   Map<String, dynamic> toJson() {
     return {
       'gifUrl': gifUrl,

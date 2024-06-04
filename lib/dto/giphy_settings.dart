@@ -5,22 +5,52 @@ import 'package:giphy_flutter_sdk/dto/giphy_rendition.dart';
 
 import 'giphy_theme.dart';
 
+/// A configuration class for Giphy settings.
 class GiphySettings {
+
+  /// The theme to use for the Giphy UI.
   final GiphyTheme theme;
+
+  /// The list of content types to be included.
   final List<GiphyContentType> mediaTypeConfig;
+
+  /// Determines if a confirmation screen should be shown after selecting an item.
   final bool showConfirmationScreen;
+
+  /// The rating filter for the content.
   final GiphyRating rating;
+
+  /// The specific rendition type to use for displaying GIFs.
   final GiphyRendition? renditionType;
+
+  /// The specific rendition type to use for clip previews.
   final GiphyClipsRendition? clipsPreviewRenditionType;
+
+  /// The specific rendition type to use on the confirmation screen.
   final GiphyRendition? confirmationRenditionType;
+
+  /// Determines if a checkered background should be shown behind transparent stickers.
   final bool showCheckeredBackground;
+
+  /// The number of columns to use for displaying stickers.
   final int stickerColumnCount;
+
+  /// The default selected content type.
   final GiphyContentType selectedContentType;
+
+  /// If true, shows the suggestions bar.
   final bool showSuggestionsBar;
+
+  /// If true, enables dynamic texts feature.
   final bool enableDynamicText;
+
+  /// The file format to be used for the content.
   final GiphyFileFormat fileFormat;
+
+  /// If true, disables variations of emojis.
   final bool disableEmojiVariations;
 
+  /// Constructs an instance of [GiphySettings] with the given settings.
   const GiphySettings({
     this.theme = GiphyTheme.automaticTheme,
     this.mediaTypeConfig = const [
@@ -29,7 +59,7 @@ class GiphySettings {
       GiphyContentType.sticker,
       GiphyContentType.text,
       GiphyContentType.emoji,
-      GiphyContentType.clips
+      GiphyContentType.clips,
     ],
     this.showConfirmationScreen = false,
     this.rating = GiphyRating.pg13,
@@ -45,6 +75,7 @@ class GiphySettings {
     this.disableEmojiVariations = false,
   });
 
+  /// Converts this settings object into a JSON map.
   Map<String, dynamic> toJson() {
     return {
       'theme': theme.toJson(),
@@ -73,10 +104,24 @@ class GiphySettings {
     };
   }
 
+  /// Checks if a specific content type is enabled in the configuration.
+  ///
+  /// [contentType]: The [GiphyContentType] to be checked.
+  /// Returns `true` if the content type is enabled, otherwise `false`.
   bool isContentTypeEnabled(GiphyContentType contentType) {
     return mediaTypeConfig.contains(contentType);
   }
 
+  /// Creates a copy of this settings object with the given overrides.
+  ///
+  /// The following fields can be overridden:
+  ///
+  /// [theme], [mediaTypeConfig], [showConfirmationScreen], [rating], [renditionType],
+  /// [clipsPreviewRenditionType], [confirmationRenditionType], [showCheckeredBackground],
+  /// [stickerColumnCount], [selectedContentType], [showSuggestionsBar], [enableDynamicText],
+  /// [fileFormat], [disableEmojiVariations].
+  ///
+  /// Returns a new instance of [GiphySettings].
   GiphySettings copyWith({
     GiphyTheme? theme,
     List<GiphyContentType>? mediaTypeConfig,
@@ -96,18 +141,24 @@ class GiphySettings {
     return GiphySettings(
       theme: theme ?? this.theme,
       mediaTypeConfig: mediaTypeConfig ?? this.mediaTypeConfig,
-      showConfirmationScreen: showConfirmationScreen ?? this.showConfirmationScreen,
+      showConfirmationScreen:
+      showConfirmationScreen ?? this.showConfirmationScreen,
       rating: rating ?? this.rating,
       renditionType: renditionType ?? this.renditionType,
-      clipsPreviewRenditionType: clipsPreviewRenditionType ?? this.clipsPreviewRenditionType,
-      confirmationRenditionType: confirmationRenditionType ?? this.confirmationRenditionType,
-      showCheckeredBackground: showCheckeredBackground ?? this.showCheckeredBackground,
+      clipsPreviewRenditionType:
+      clipsPreviewRenditionType ?? this.clipsPreviewRenditionType,
+      confirmationRenditionType:
+      confirmationRenditionType ?? this.confirmationRenditionType,
+      showCheckeredBackground:
+      showCheckeredBackground ?? this.showCheckeredBackground,
       stickerColumnCount: stickerColumnCount ?? this.stickerColumnCount,
-      selectedContentType: selectedContentType ?? this.selectedContentType,
+      selectedContentType:
+      selectedContentType ?? this.selectedContentType,
       showSuggestionsBar: showSuggestionsBar ?? this.showSuggestionsBar,
       enableDynamicText: enableDynamicText ?? this.enableDynamicText,
       fileFormat: fileFormat ?? this.fileFormat,
-      disableEmojiVariations: disableEmojiVariations ?? this.disableEmojiVariations,
+      disableEmojiVariations:
+      disableEmojiVariations ?? this.disableEmojiVariations,
     );
   }
 }

@@ -1,32 +1,87 @@
+/// A class representing a user on Giphy.
 class GiphyUser {
+  /// The unique identifier of the user.
   final String? id;
+
+  /// The URL of the user's avatar.
   final String? avatarUrl;
+
+  /// An alternative avatar property.
   final String? avatar;
+
+  /// The URL of the user's banner.
   final String? bannerUrl;
+
+  /// An alternative banner image property.
   final String? bannerImage;
+
+  /// The URL of the user's profile.
   final String? profileUrl;
+
+  /// The username of the user. This is required.
   final String username;
+
+  /// The display name of the user.
   final String? displayName;
+
+  /// The email address of the user.
   final String? email;
+
+  /// The Twitter handle of the user.
   final String? twitter;
+
+  /// Whether the user's profile is public.
   final bool isPublic;
+
+  /// Attribution display name
   final String? attributionDisplayName;
+
+  /// Name
   final String? name;
+
+  /// A textual description of the user.
   final String? description;
+
+  /// A short biography of the user.
   final String? aboutBio;
+
+  /// The Facebook profile URL of the user.
   final String? facebookUrl;
+
+  /// The Twitter profile URL of the user.
   final String? twitterUrl;
+
+  /// The Instagram profile URL of the user.
   final String? instagramUrl;
+
+  /// The Tumblr profile URL of the user.
   final String? tumblrUrl;
+
+  /// The TikTok profile URL of the user.
   final String? tiktokUrl;
+
+  /// The YouTube channel URL of the user.
   final String? youtubeUrl;
+
+  /// Supress chrome
   final bool isSuppressChrome;
+
+  /// The user's website URL.
   final String? websiteUrl;
+
+  /// The display URL for the user's website.
   final String? websiteDisplayUrl;
+
+  /// Whether the user is verified.
   final bool verified;
+
+  /// Whether the user is a staff member.
   final bool isStaff;
+
+  /// The type of user.
   final String? userType;
 
+  /// Constructor for creating a [GiphyUser] instance.
   const GiphyUser({
     this.id,
     this.avatarUrl,
@@ -57,6 +112,7 @@ class GiphyUser {
     this.userType,
   });
 
+  /// Converts the [GiphyUser] instance to a JSON map.
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -89,6 +145,7 @@ class GiphyUser {
     };
   }
 
+  /// Creates a [GiphyUser] instance from a JSON map.
   factory GiphyUser.fromJson(Map<Object?, Object?> json) {
     return GiphyUser(
       id: json['id'] as String?,

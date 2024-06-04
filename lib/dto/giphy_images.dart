@@ -1,28 +1,72 @@
 import 'giphy_image.dart';
 import 'giphy_rendition.dart';
 
+/// A class representing various renditions of Giphy images.
 class GiphyImages {
+  /// Height set to 200px. Good for mobile use.
   final GiphyImage? fixedHeight;
+
+  /// Static preview image for fixed_height.
   final GiphyImage? fixedHeightStill;
+
+  /// Height set to 200px. Reduced to 6 frames to minimize file size to the lowest.
+  /// Works well for unlimited scroll on mobile and as animated previews. See Giphy.com on mobile web as an example.
   final GiphyImage? fixedHeightDownsampled;
+
+  /// Width set to 200px. Good for mobile use.
   final GiphyImage? fixedWidth;
+
+  /// Static preview image for fixed_width.
   final GiphyImage? fixedWidthStill;
+
+  /// Width set to 200px. Reduced to 6 frames.
+  /// Works well for unlimited scroll on mobile and as animated previews.
   final GiphyImage? fixedWidthDownsampled;
+
+  /// Height set to 100px. Good for mobile keyboards.
   final GiphyImage? fixedHeightSmall;
+
+  /// Static preview image for fixed_height_small.
   final GiphyImage? fixedHeightSmallStill;
+
+  /// Width set to 100px. Good for mobile keyboards.
   final GiphyImage? fixedWidthSmall;
+
+  /// Static preview image for fixed_width_small.
   final GiphyImage? fixedWidthSmallStill;
+
+  /// File size under 2mb.
   final GiphyImage? downsized;
+
+  /// Static preview image for downsized.
   final GiphyImage? downsizedStill;
+
+  /// File size under 8mb.
   final GiphyImage? downsizedLarge;
+
+  /// File size under 5mb.
   final GiphyImage? downsizedMedium;
+
+  /// Original file size and file dimensions. Good for desktop use.
   final GiphyImage? original;
+
+  /// Static preview image for original.
   final GiphyImage? originalStill;
+
+  /// Duration set to loop for 15 seconds. Only recommended for this exact use case.
   final GiphyImage? looping;
+
+  /// File size under 50kb. Duration may be truncated to meet file size requirements.
+  /// Good for thumbnails and previews.
   final GiphyImage? preview;
+
+  /// File size under 200kb.
   final GiphyImage? downsizedSmall;
+
+  /// The media ID associated with the image.
   final String? mediaId;
 
+  /// Creates a [GiphyImages] instance with the given renditions.
   const GiphyImages({
     this.fixedHeight,
     this.fixedHeightStill,
@@ -46,6 +90,11 @@ class GiphyImages {
     this.mediaId,
   });
 
+  /// Creates a [GiphyImages] instance from a JSON object.
+  ///
+  /// [json] A map containing key-value pairs corresponding to the image renditions.
+  ///
+  /// Returns a [GiphyImages] instance populated with the values from the JSON object.
   factory GiphyImages.fromJson(Map<Object?, Object?> json) {
     return GiphyImages(
       fixedHeight: GiphyImage.fromJson(
@@ -132,6 +181,9 @@ class GiphyImages {
     );
   }
 
+  /// Converts the [GiphyImages] instance to a JSON object.
+  ///
+  /// Returns a map containing key-value pairs corresponding to the image renditions.
   Map<String, dynamic> toJson() {
     return {
       GiphyRenditionUtil.toStringValue(GiphyRendition.fixedHeight):

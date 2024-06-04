@@ -1,6 +1,37 @@
-enum GiphyRating { g, pg, pg13, r, unrated, y, nsfw }
+/// An enumeration for different Giphy rating types.
+enum GiphyRating {
+  /// General audience.
+  g,
 
+  /// Parental guidance.
+  pg,
+
+  /// Parents strongly cautioned.
+  pg13,
+
+  /// Restricted.
+  r,
+
+  /// Not yet rated.
+  unrated,
+
+  /// Suitable for young audience.
+  y,
+
+  /// Explicit content, not safe for work.
+  nsfw,
+}
+
+/// Extension methods for [GiphyRating] to convert from and to string values.
 extension GiphyRatingExtension on GiphyRating {
+
+  /// Converts a string value to a corresponding [GiphyRating] enum value.
+  ///
+  /// Throws an [ArgumentError] if the given string does not match any [GiphyRating] values.
+  ///
+  /// [value] The string representation of the Giphy rating.
+  ///
+  /// Returns the matching [GiphyRating] value.
   static GiphyRating fromStringValue(String value) {
     switch (value) {
       case 'r':
@@ -22,6 +53,12 @@ extension GiphyRatingExtension on GiphyRating {
     }
   }
 
+  /// Converts a GiphyRating enum value to its corresponding string representation.
+  ///
+  /// Example:
+  /// ```dart
+  /// String value = GiphyRatingExtension.toStringValue(GiphyRating.pg13);
+  /// ```
   static String toStringValue(GiphyRating rating) {
     return rating.toString().split('.').last;
   }

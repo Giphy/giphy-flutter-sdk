@@ -4,48 +4,129 @@ import 'giphy_rating.dart';
 import 'giphy_user.dart';
 import 'giphy_video.dart';
 
+/// A class representing media content on Giphy.
 class GiphyMedia {
+  /// The unique identifier for the media.
   final String id;
+
+  /// The type of media (e.g., gif, sticker).
   final GiphyMediaType? type;
+
+  /// The slug (a URL-friendly identifier) for the media.
   final String? slug;
+
+  /// The URL for the media.
   final String? url;
+
+  /// The shortened Bitly URL for the GIF.
   final String? bitlyGifUrl;
+
+  /// The shortened Bitly URL for the media.
   final String? bitlyUrl;
+
+  /// The URL to embed the media.
   final String? embedUrl;
+
+  /// The source URL of the media.
   final String? source;
+
+  /// The title of the media.
   final String? title;
+
+  /// The rating of the media.
   final GiphyRating? rating;
+
+  /// The content URL of the media.
   final String? contentUrl;
+
+  /// A list of tags associated with the media.
   final List<String>? tags;
+
+  /// A list of featured tags associated with the media.
   final List<String>? featuredTags;
+
+  /// The user who uploaded the media.
   final GiphyUser? user;
+
+  /// The images associated with the media.
   final GiphyImages images;
+
+  /// The video associated with the media.
   final GiphyVideo? video;
+
+  /// The analytics response payload.
   final String? analyticsResponsePayload;
+
+  /// Attribution Source Domain TLD.
   final String? sourceTld;
+
+  /// Attribution Source Post URL.
   final String? sourcePostUrl;
+
+  /// The date the media was last updated.
   final DateTime? updateDate;
+
+  /// The date the media was created.
   final DateTime? createDate;
+
+  /// The date the media was imported.
   final DateTime? importDate;
+
+  /// The date the media started trending.
   final DateTime? trendingDate;
+
+  /// Whether the media is hidden.
   final bool isHidden;
+
+  /// Whether the media is removed.
   final bool isRemoved;
+
+  /// Whether the media is community content.
   final bool isCommunity;
+
+  /// Whether the media was uploaded anonymously.
   final bool isAnonymous;
+
+  /// Whether the media is featured.
   final bool isFeatured;
+
+  /// Whether the media is in real-time.
   final bool isRealtime;
+
+  /// Whether the media is indexable.
   final bool isIndexable;
+
+  /// Whether the media is a sticker.
   final bool isSticker;
+
+  /// True if this is dynamically generated like texts, false otherwise
   final bool isDynamic;
+
+  /// Whether the media is a video.
   final bool isVideo;
+
+  /// The style of dynamic text.
   final String? animatedTextStyle;
+
+  /// Whether the media has attributions.
   final bool hasAttributions;
+
+  /// Enables assistive programs to read descriptions of GIFs.
   final String? altText;
+
+  /// String representation of emoji variation
   final String? variation;
+
+  /// Emoji variation count
   final int? variationCount;
+
+  /// The aspect ratio of the media.
   final double aspectRatio;
+
+  /// A dictionary of user attributes.
   final Map<String, String>? userDictionary;
 
+  /// Creates a [GiphyMedia] instance with the given attributes.
   const GiphyMedia({
     required this.id,
     this.type,
@@ -89,6 +170,11 @@ class GiphyMedia {
     this.userDictionary,
   });
 
+  /// Creates a [GiphyMedia] instance from a JSON object.
+  ///
+  /// [json] A map containing key-value pairs corresponding to the media attributes.
+  ///
+  /// Returns a [GiphyMedia] instance populated with the values from the JSON object.
   factory GiphyMedia.fromJson(Map<Object?, Object?> json) => GiphyMedia(
         id: json['id'] as String,
         type: json['type'] != null
@@ -154,6 +240,9 @@ class GiphyMedia {
             : {},
       );
 
+  /// Converts the [GiphyMedia] instance to a JSON object.
+  ///
+  /// Returns a map containing key-value pairs corresponding to the media attributes.
   Map<String, dynamic> toJson() => {
         'id': id,
         'type':

@@ -1,3 +1,4 @@
+/// An enumeration representing the playback state of a Giphy video view.
 enum GiphyVideoViewPlaybackState {
   unknown,
   readyToPlay,
@@ -5,7 +6,13 @@ enum GiphyVideoViewPlaybackState {
   paused,
 }
 
+/// Extension methods for [GiphyVideoViewPlaybackState] to convert between integer values and enum values.
 extension GiphyVideoViewPlaybackStateExtension on GiphyVideoViewPlaybackState {
+  /// Converts a [GiphyVideoViewPlaybackState] enum value to an integer.
+  ///
+  /// [state] The playback state to be converted.
+  ///
+  /// Returns the corresponding integer value for the given playback state.
   static int toIntValue(GiphyVideoViewPlaybackState state) {
     switch (state) {
       case GiphyVideoViewPlaybackState.unknown:
@@ -21,6 +28,11 @@ extension GiphyVideoViewPlaybackStateExtension on GiphyVideoViewPlaybackState {
     }
   }
 
+  /// Converts an integer to a corresponding [GiphyVideoViewPlaybackState] enum value.
+  ///
+  /// [value] The integer value to be converted.
+  ///
+  /// Returns the corresponding playback state for the given integer value.
   static GiphyVideoViewPlaybackState fromIntValue(int value) {
     switch (value) {
       case 0:
