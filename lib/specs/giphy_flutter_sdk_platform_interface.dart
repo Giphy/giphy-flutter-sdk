@@ -43,7 +43,9 @@ abstract class GiphyFlutterSdkPlatform extends PlatformInterface {
   ///
   /// [apiKey] The API key for the Giphy SDK.
   /// [verificationMode] A boolean indicating whether verification mode is enabled.
-  /// [videoCacheMaxBytes] An optional parameter specifying the maximum size of the video cache in bytes for the clips.
+  /// [videoCacheMaxBytes] An optional parameter specifying the video cache size for ExoPlayer on the Android platform.
+  /// Note: If videoCacheMaxBytes is 0, the cache initialization will be skipped, and Giphy Clips will not work.
+  /// You may want to skip this setting if you use another version of ExoPlayer that is not compatible with the Giphy SDK but still wish to receive gifs from Giphy.
   Future<void> configure(
       String apiKey, bool verificationMode, double? videoCacheMaxBytes) {
     throw UnimplementedError('configure() has not been implemented.');

@@ -11,40 +11,40 @@ class GiphySettings {
   /// The theme to use for the Giphy UI.
   final GiphyTheme theme;
 
-  /// The list of content types to be included.
+  /// Type(s) of content to be displayed in the dialog.
   final List<GiphyContentType> mediaTypeConfig;
 
-  /// Determines if a confirmation screen should be shown after selecting an item.
+  /// Show a secondary confirmation screen when the user taps a GIF, which shows a larger rendition of the asset.
   final bool showConfirmationScreen;
 
-  /// The rating filter for the content.
+  /// A specific content rating for the search results.
   final GiphyRating rating;
 
-  /// The specific rendition type to use for displaying GIFs.
+  /// A rendition type for the grid.
   final GiphyRendition? renditionType;
 
   /// The specific rendition type to use for clip previews.
   final GiphyClipsRendition? clipsPreviewRenditionType;
 
-  /// The specific rendition type to use on the confirmation screen.
+  /// A rendition type for the confirmation screen.
   final GiphyRendition? confirmationRenditionType;
 
-  /// Determines if a checkered background should be shown behind transparent stickers.
+  /// Enable/disable the checkered background for stickers and text media type.
   final bool showCheckeredBackground;
 
-  /// The number of columns to use for displaying stickers.
+  /// For carousel layouts, we provide the option to set the number of columns for stickers and text. We recommend using 3 columns for blurred mode.
   final int stickerColumnCount;
 
-  /// The default selected content type.
+  /// The default Giphy Content-Type.
   final GiphyContentType selectedContentType;
 
   /// If true, shows the suggestions bar.
   final bool showSuggestionsBar;
 
-  /// If true, enables dynamic texts feature.
+  /// If true, allows to create animated text results for search queries where there are no matching results in GIPHY's library.
   final bool enableDynamicText;
 
-  /// The file format to be used for the content.
+  /// A file format for the grid.
   final GiphyFileFormat fileFormat;
 
   /// If true, disables variations of emojis.
