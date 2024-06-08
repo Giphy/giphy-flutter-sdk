@@ -8,22 +8,53 @@ import 'dto/misc.dart';
 
 import 'dto/giphy_media.dart';
 
+/// Customizable implementation of the Giphy Grid only solution.
+///
+/// This widget provides a customizable grid view of Giphy content, including
+/// options for cell padding, preview rendition type, content request, orientation,
+/// and more. It also supports callbacks for content updates, media selection,
+/// and scrolling events.
 class GiphyGridView extends StatefulWidget {
+  /// Spacing between rendered GIFs.
   final double cellPadding;
+
+  /// The rendition type for Giphy clips preview.
   final GiphyClipsRendition clipsPreviewRenditionType;
+
+  /// An object describing a content request to the Giphy API.
   final GiphyContentRequest content;
+
+  /// If true, the emoji variations drawer is not rendered.
   final bool disableEmojiVariations;
+
+  /// Display content in equally sized cells (for stickers only).
   final bool fixedSizeCells;
+
+  /// Tells the scroll direction of the grid.
   final GiphyDirection orientation;
+
+  /// A rendition type for the grid.
   final GiphyRendition renditionType;
+
+  /// Number of lanes in the grid.
   final int? spanCount;
+
+  /// Show/Hide checkered background for stickers in the grid.
   final bool showCheckeredBackground;
+
+  /// The theme for the Giphy grid view.
   final GiphyTheme theme;
 
+  /// Callback for content updates.
   final Function(int resultCount)? onContentUpdate;
+
+  /// Callback for media selection.
   final Function(GiphyMedia media)? onMediaSelect;
+
+  /// Callback for scroll events.
   final Function(double offset)? onScroll;
 
+  /// Constructs a GiphyGridView.
   const GiphyGridView(
       {super.key,
       this.cellPadding = 8,
@@ -44,6 +75,7 @@ class GiphyGridView extends StatefulWidget {
   State<GiphyGridView> createState() => _GiphyGridViewState();
 }
 
+/// The state for [GiphyGridView].
 class _GiphyGridViewState extends State<GiphyGridView> {
   late MethodChannel _channel;
   bool _isPlatformViewCreated = false;
@@ -84,6 +116,9 @@ class _GiphyGridViewState extends State<GiphyGridView> {
     }
   }
 
+  /// Handles the creation of the platform view.
+  ///
+  /// Sets up the method channel for communication with the native platform.
   void _onPlatformViewCreated(int viewId) {
     _channel = MethodChannel('com.giphyfluttersdk/gridView$viewId');
     _channel.setMethodCallHandler(_handleMethodCall);
@@ -91,6 +126,9 @@ class _GiphyGridViewState extends State<GiphyGridView> {
     _updatePlatformView();
   }
 
+  /// Handles method calls from the native platform.
+  ///
+  /// This method processes callbacks for content updates, media selection, and scrolling.
   Future<dynamic> _handleMethodCall(MethodCall call) async {
     switch (call.method) {
       case 'onContentUpdate':
@@ -117,6 +155,7 @@ class _GiphyGridViewState extends State<GiphyGridView> {
     }
   }
 
+  /// Updates the platform view with the current widget properties.
   Future<void> _updatePlatformView() async {
     await _channel
         .invokeMethod('setCellPadding', {'cellPadding': widget.cellPadding});
@@ -146,3 +185,4 @@ class _GiphyGridViewState extends State<GiphyGridView> {
     await _channel.invokeMethod('setTheme', {'theme': widget.theme.toJson()});
   }
 }
+

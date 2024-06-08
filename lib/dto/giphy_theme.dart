@@ -2,63 +2,126 @@ import 'package:flutter/material.dart';
 
 import 'misc.dart';
 
-enum GiphyThemePreset { automatic, dark, light }
+/// An enumeration representing different presets for the Giphy theme.
+enum GiphyThemePreset {
+  /// Automatically switch theme based on system settings.
+  automatic,
 
+  /// Dark theme.
+  dark,
+
+  /// Light theme.
+  light
+}
+
+/// This class defines the theme settings for the Giphy dialog.
+///
+/// It includes settings such as colors, text styles, and other UI parameters
+/// to customize the look and feel of the Giphy dialog.
 class GiphyTheme {
+  /// The preset theme for this configuration.
   final GiphyThemePreset? preset;
 
-  // Dialog's handle
+  /// The color of the dialog's handlebar.
   final Color? handleBarColor;
 
-  // Emoji drawer
+  /// The bottom gradient color for the emoji drawer.
   final Color? emojiDrawerGradientBottomColor;
+
+  /// The top gradient color for the emoji drawer.
   final Color? emojiDrawerGradientTopColor;
+
+  /// The style of the scroll indicator in the emoji drawer.
   final GiphyIndicatorStyle? emojiDrawerScrollIndicatorStyle;
+
+  /// The color of the emoji drawer separator.
   final Color? emojiDrawerSeparatorColor;
 
-  // Search bar
+  /// The color of the back button in the search bar.
   final Color? searchBackButtonColor;
+
+  /// The background color of the search bar.
   final Color? searchBarBackgroundColor;
+
+  /// The corner radius of the search bar.
   final double? searchBarCornerRadius;
+
+  /// The padding of the search bar.
   final double? searchBarPadding;
+
+  /// The placeholder text color in the search bar.
   final Color? searchPlaceholderTextColor;
+
+  /// The text color in the search bar.
   final Color? searchTextColor;
 
-  // Suggestions
+  /// The background color of suggestion cells.
   final Color? suggestionCellBackgroundColor;
+
+  /// The text color of suggestion cells.
   final Color? suggestionCellTextColor;
 
-  // Tab bar
+  /// The background alpha of the tab bar.
   final double? tabBarBackgroundAlpha;
+
+  /// The default color of the tab bar switch.
   final Color? tabBarSwitchDefaultColor;
+
+  /// The selected color of the tab bar switch.
   final Color? tabBarSwitchSelectedColor;
 
-  // Confirmation
+  /// The placeholder color for avatars.
   final Color? avatarPlaceholderColor;
+
+  /// The color of the back button in the confirmation view.
   final Color? confirmationBackButtonColor;
+
+  /// The color of the select button in the confirmation view.
   final Color? confirmationSelectButtonColor;
+
+  /// The text color of the select button in the confirmation view.
   final Color? confirmationSelectButtonTextColor;
+
+  /// The color of the 'View on Giphy' button in the confirmation view.
   final Color? confirmationViewOnGiphyColor;
+
+  /// The color of usernames in the confirmation view.
   final Color? usernameColor;
 
-  // Grid content
+  /// The background color for loading cells in the grid.
   final Color? backgroundColorForLoadingCells;
+
+  /// The corner radius of grid cells.
   final double? cellCornerRadius;
+
+  /// Whether the cells have a fixed size.
   final bool? fixedSizeCells;
+
+  /// The background color for stickers.
   final Color? stickerBackgroundColor;
 
-  // Keyboard
+  /// The appearance of the Giphy keyboard.
   final GiphyKeyboardAppearance? keyboardAppearance;
 
-  // Other
+  /// The background color of the dialog.
   final Color? backgroundColor;
+
+  /// The default text color in the dialog.
   final Color? defaultTextColor;
+
+  /// The background color of the dialog overlay.
   final Color? dialogOverlayBackgroundColor;
+
+  /// The background color of the retry button.
   final Color? retryButtonBackgroundColor;
+
+  /// The text color of the retry button.
   final Color? retryButtonTextColor;
 
+  /// Predefined automatic Giphy theme.
   static const GiphyTheme automaticTheme = GiphyTheme._private(preset: GiphyThemePreset.automatic);
 
+  // Private constructor with optional parameters.
   const GiphyTheme._private({
     this.preset,
     this.handleBarColor,
@@ -95,18 +158,22 @@ class GiphyTheme {
     this.retryButtonTextColor,
   });
 
+  /// Factory constructor to create an automatic Giphy theme.
   factory GiphyTheme.automatic() {
     return const GiphyTheme._private(preset: GiphyThemePreset.automatic);
   }
 
+  /// Factory constructor to create a light Giphy theme.
   factory GiphyTheme.light() {
     return const GiphyTheme._private(preset: GiphyThemePreset.light);
   }
 
+  /// Factory constructor to create a dark Giphy theme.
   factory GiphyTheme.dark() {
     return const GiphyTheme._private(preset: GiphyThemePreset.dark);
   }
 
+  /// Factory constructor to create a Giphy theme from a given preset.
   factory GiphyTheme.fromPreset({
     required GiphyThemePreset preset,
     Color? handleBarColor,
@@ -179,6 +246,7 @@ class GiphyTheme {
     );
   }
 
+  /// Converts the GiphyTheme instance to a JSON map.
   Map<String, dynamic> toJson() {
     return {
       'preset': preset?.toString().split('.').last,
