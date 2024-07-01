@@ -29,12 +29,35 @@ class GiphyFlutterDialog: NSObject {
     
     func onAttachedToEngine(flutterPluginBinding: FlutterPluginRegistrar) {
         self.channel = FlutterMethodChannel(name: "com.giphyfluttersdk/dialog", binaryMessenger: flutterPluginBinding.messenger())
-        if let channel = self.channel {
-            flutterPluginBinding.addMethodCallDelegate(self, channel: channel)
-        }
+        
+        channel?.setMethodCallHandler({
+            [weak self] (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
+            guard let self = self else {
+                result(FlutterError(code: "SELF_NIL", message: "Reference to self is nil", details: nil))
+                return
+            }            
+            
+            switch call.method {
+            case "configure":
+                if let params = call.arguments as? [String: Any?] {
+                    config.merge(params) { (_, new) in new }
+                }
+                result(nil)
+            case "show":
+                show()
+                result(nil)
+            case "hide":
+                hide()
+                result(nil)
+                
+            default:
+                result(FlutterMethodNotImplemented)
+            }
+        })
     }
     
     func onDettachedFromEngine(flutterPluginBinding: FlutterPluginRegistrar) {
+        self.channel?.setMethodCallHandler(nil)
         self.channel = nil
     }
     
@@ -86,29 +109,4 @@ extension GiphyFlutterDialog: GiphyDelegate {
         })        
     }
     
-}
-
-extension GiphyFlutterDialog: FlutterPlugin {
-    static func register(with registrar: FlutterPluginRegistrar) {
-        // Actually, it's not a plugin; it's more of a separate logic, so we don't need to register anything here.
-    }
-    
-    func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        switch call.method {
-        case "configure":
-            if let params = call.arguments as? [String: Any?] {
-                config.merge(params) { (_, new) in new }
-            }
-            result(nil)
-        case "show":
-            show()
-            result(nil)
-        case "hide":
-            hide()
-            result(nil)
-            
-        default:
-            result(FlutterMethodNotImplemented)
-        }
-    }
 }
