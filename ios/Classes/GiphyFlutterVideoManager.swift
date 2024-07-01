@@ -24,47 +24,46 @@ class GiphyFlutterVideoManager: NSObject {
     
     func onAttachedToEngine(flutterPluginBinding: FlutterPluginRegistrar) {
         self.channel = FlutterMethodChannel(name: "com.giphyfluttersdk/videoManager", binaryMessenger: flutterPluginBinding.messenger())
-        if let channel = self.channel {
-            flutterPluginBinding.addMethodCallDelegate(self, channel: channel)
-        }
+        channel?.setMethodCallHandler({
+            [weak self] (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
+            guard let self = self else {
+                result(FlutterError(code: "SELF_NIL", message: "Reference to self is nil", details: nil))
+                return
+            }            
+            
+            switch call.method {
+            case "muteAll":
+                DispatchQueue.main.async {
+                    if GiphyFlutterSharedVideoPlayer.initialized {
+                        GiphyFlutterSharedVideoPlayer.shared.mute(true)
+                    }
+                }
+                result(nil)
+            case "pauseAll":
+                DispatchQueue.main.async {
+                    if GiphyFlutterSharedVideoPlayer.initialized {
+                        GiphyFlutterSharedVideoPlayer.shared.pause()
+                    }
+                }
+                result(nil)
+            case "resume":
+                DispatchQueue.main.async {
+                    if GiphyFlutterSharedVideoPlayer.initialized {
+                        GiphyFlutterSharedVideoPlayer.shared.resume()
+                    }
+                }
+                result(nil)
+                
+            default:
+                result(FlutterMethodNotImplemented)
+            }
+        })
+
     }
     
     func onDettachedFromEngine(flutterPluginBinding: FlutterPluginRegistrar) {
+        self.channel?.setMethodCallHandler(nil)
         self.channel = nil
     }
 }
 
-extension GiphyFlutterVideoManager: FlutterPlugin {
-    public static func register(with registrar: FlutterPluginRegistrar) {
-        // Actually, it's not a plugin; it's more of a separate logic, so we don't need to register anything here.
-    }
-    
-    public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        switch call.method {
-        case "muteAll":
-            DispatchQueue.main.async {
-                if GiphyFlutterSharedVideoPlayer.initialized {
-                    GiphyFlutterSharedVideoPlayer.shared.mute(true)
-                }
-            }
-            result(nil)
-        case "pauseAll":
-            DispatchQueue.main.async {
-                if GiphyFlutterSharedVideoPlayer.initialized {
-                    GiphyFlutterSharedVideoPlayer.shared.pause()
-                }
-            }
-            result(nil)
-        case "resume":
-            DispatchQueue.main.async {                
-                if GiphyFlutterSharedVideoPlayer.initialized {
-                    GiphyFlutterSharedVideoPlayer.shared.resume()
-                }
-            }
-            result(nil)
-            
-        default:
-            result(FlutterMethodNotImplemented)
-        }
-    }
-}
