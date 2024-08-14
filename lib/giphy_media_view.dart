@@ -35,17 +35,20 @@ class GiphyMediaView extends StatefulWidget {
   /// Enable/disable the checkered background for stickers and text media type.
   final bool showCheckeredBackground;
 
+  /// A callback function that will be called when an error occurs whilst attempting to render media.
+  final Function(String description)? onError;
+
   /// Constructs a GiphyMediaView.
-  const GiphyMediaView({
-    super.key,
-    this.controller,
-    this.mediaId,
-    this.media,
-    this.autoPlay = true,
-    this.renditionType = GiphyRendition.fixedWidth,
-    this.resizeMode = GiphyResizeMode.cover,
-    this.showCheckeredBackground = true,
-  });
+  const GiphyMediaView(
+      {super.key,
+      this.controller,
+      this.mediaId,
+      this.media,
+      this.autoPlay = true,
+      this.renditionType = GiphyRendition.fixedWidth,
+      this.resizeMode = GiphyResizeMode.cover,
+      this.showCheckeredBackground = true,
+      this.onError});
 
   @override
   State<GiphyMediaView> createState() => _GiphyMediaViewState();
@@ -125,8 +128,22 @@ class _GiphyMediaViewState extends State<GiphyMediaView> {
   /// Sets up the method channel for communication with the native platform.
   void _onPlatformViewCreated(int viewId) {
     _channel = MethodChannel('com.giphyfluttersdk/mediaView$viewId');
+    _channel.setMethodCallHandler(_handleMethodCall);
     _isPlatformViewCreated = true;
     _updatePlatformView();
+  }
+
+  /// Handles method calls from the native platform.
+  ///
+  /// This method processes callbacks for errors.
+  Future<dynamic> _handleMethodCall(MethodCall call) async {
+    switch (call.method) {
+      case 'onError':
+        if (widget.onError != null) {
+          widget.onError!(call.arguments['error'] ?? "unknown");
+        }
+        break;
+    }
   }
 
   /// Updates the platform view with the current widget properties.

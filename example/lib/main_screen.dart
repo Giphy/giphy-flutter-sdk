@@ -188,9 +188,15 @@ class _MainScreenState extends State<MainScreen>
                             _mediaList[index].images.original!.gifUrl!),
                       )
                     : GiphyMediaView(
-                        media: _mediaList[index],
+                        mediaId: _mediaList[index].id,
                         autoPlay: true,
                         renditionType: GiphyRendition.fixedWidth,
+                        onError: (error) {
+                          setState(() {
+                            // Display a crying emoji in case of an error
+                            _mediaList[index] = GiphyMedia.fromJson({"id": "tEuZQV7AGrrv035n3c", "images": {}});
+                          });
+                        },
                       ),
           ),
         );

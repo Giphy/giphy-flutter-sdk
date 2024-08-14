@@ -70,7 +70,13 @@ public class GiphyFlutterMediaView: NSObject, FlutterPlatformView {
             guard let self = self else {
                 return
             }
-            self.media = response?.data
+            if let error = error {
+                channel?.invokeMethod("onError", arguments: [
+                    "error": error.localizedDescription
+                ])
+            } else {
+                self.media = response?.data
+            }
         }
     }
     
