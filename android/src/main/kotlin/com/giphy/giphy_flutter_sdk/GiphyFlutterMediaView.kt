@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import com.facebook.drawee.drawable.ScalingUtils
 import com.giphy.giphy_flutter_sdk.dto.GiphyFlutterResizeMode
+import com.giphy.giphy_flutter_sdk.dto.GiphyApiException
 import com.giphy.giphy_flutter_sdk.dto.toMedia
 import com.giphy.giphy_flutter_sdk.dto.toRenditionType
 import com.giphy.giphy_flutter_sdk.utils.require
@@ -97,7 +98,13 @@ internal class GiphyFlutterMediaView(
             loadedMedia = result?.data
             syncMedia()
             e?.let {
-                Log.d("Error while fetching GIF: %s", e.localizedMessage)
+                val exception = GiphyApiException(it)
+                val errorMessage = exception.errorMessage
+                channel.invokeMethod(
+                    "onError", mapOf(
+                        "error" to exception.errorMessage
+                    )
+                )
             }
         }
     }
