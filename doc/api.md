@@ -223,6 +223,7 @@ objects.
 | renditionType           | A rendition type for the view.                                                                  | [`GiphyRendition`](../lib/dto/giphy_rendition.dart)                                                                                          | `.fixedWidth` | ✅&nbsp;Android <br/> ✅&nbsp;iOS |
 | resizeMode              | Determines how to resize the image when the frame doesn't match the raw image dimensions.       | [`GiphyResizeMode`](../lib/dto/misc.dart#L9)                                                                                                        | `.Cover`      | ✅&nbsp;Android <br/> ✅&nbsp;iOS |
 | showCheckeredBackground | Enable/disable the checkered background for stickers and text media type.                       | `bool`                                                                                                                                 | `true`        | ✅&nbsp;Android <br/> ❌&nbsp;iOS |
+| onError                | A callback function that will be called when an error occurs whilst attempting to render media. | `Function(String description)? onError`                                                                              | `null`  | ✅&nbsp;Android <br/> ✅&nbsp;iOS |
 
 #### Methods (Imperative API)
 
