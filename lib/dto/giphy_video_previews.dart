@@ -22,8 +22,10 @@ class GiphyVideoPreviews {
   /// the preview asset as a nested JSON object.
   factory GiphyVideoPreviews.fromJson(Map<Object?, Object?> json) {
     return GiphyVideoPreviews(
-      fixedWidth: GiphyVideoPreviewAsset.fromJson(json['fixedWidth'] as Map<Object?, Object?>),
-      fixedHeight: GiphyVideoPreviewAsset.fromJson(json['fixedHeight'] as Map<Object?, Object?>),
+      fixedWidth: GiphyVideoPreviewAsset.fromJson(
+          json['fixedWidth'] as Map<Object?, Object?>),
+      fixedHeight: GiphyVideoPreviewAsset.fromJson(
+          json['fixedHeight'] as Map<Object?, Object?>),
     );
   }
 

@@ -34,9 +34,11 @@ class GiphyContentRequest {
 
   /// Creates a [GiphyContentRequest] for searching content.
   factory GiphyContentRequest.search(
-      {required GiphyMediaType mediaType, GiphyRating rating = GiphyRating
-          .pg13, required String searchQuery}) {
-    return GiphyContentRequest(requestType: GiphyContentRequestType.search,
+      {required GiphyMediaType mediaType,
+      GiphyRating rating = GiphyRating.pg13,
+      required String searchQuery}) {
+    return GiphyContentRequest(
+        requestType: GiphyContentRequestType.search,
         mediaType: mediaType,
         rating: rating,
         searchQuery: searchQuery);
@@ -46,7 +48,8 @@ class GiphyContentRequest {
   factory GiphyContentRequest.trending(
       {required GiphyMediaType mediaType,
       GiphyRating rating = GiphyRating.pg13}) {
-    return GiphyContentRequest(requestType: GiphyContentRequestType.trending,
+    return GiphyContentRequest(
+        requestType: GiphyContentRequestType.trending,
         mediaType: mediaType,
         rating: rating);
   }
@@ -97,10 +100,13 @@ class GiphyContentRequest {
   /// Creates a [GiphyContentRequest] instance from a JSON object.
   factory GiphyContentRequest.fromJson(Map<Object?, Object?> json) {
     return GiphyContentRequest(
-      mediaType: GiphyMediaTypeExtension.fromStringValue(json['mediaType'] as String),
-      rating: json['rating'] != null ? GiphyRatingExtension.fromStringValue(json['rating'] as String) : null,
+      mediaType:
+          GiphyMediaTypeExtension.fromStringValue(json['mediaType'] as String),
+      rating: json['rating'] != null
+          ? GiphyRatingExtension.fromStringValue(json['rating'] as String)
+          : null,
       requestType: GiphyContentRequestType.values.firstWhere(
-            (e) => e.toString().split('.').last == json['requestType'] as String?,
+        (e) => e.toString().split('.').last == json['requestType'] as String?,
         orElse: () => GiphyContentRequestType.trending,
       ),
       searchQuery: json['searchQuery'] as String? ?? '',

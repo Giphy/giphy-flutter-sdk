@@ -39,4 +39,3 @@ class GiphyVideoManagerMethodChannel extends GiphyVideoManagerPlatform {
     await _channel.invokeMethod('resume');
   }
 }
-

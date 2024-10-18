@@ -67,7 +67,10 @@ class GiphyImage {
       webPUrl: json['webPUrl'] as String?,
       webPSize: json['webPSize'] as int? ?? 0,
       mediaId: json['mediaId'] as String?,
-      renditionType: json['renditionType'] != null ? GiphyRenditionUtil.fromStringValue(json['renditionType'] as String) as GiphyRendition? : null,
+      renditionType: json['renditionType'] != null
+          ? GiphyRenditionUtil.fromStringValue(json['renditionType'] as String)
+              as GiphyRendition?
+          : null,
     );
   }
 

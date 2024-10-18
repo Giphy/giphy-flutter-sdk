@@ -1,6 +1,5 @@
 /// An enumeration representing a Giphy Rendition Type (e.g., original/preview/...)
 enum GiphyRendition {
-
   /// Original file size and file dimensions. Good for desktop use.
   original,
 
@@ -63,7 +62,6 @@ enum GiphyRendition {
 /// Certain renditions (cases of the GiphyRendition enum) are not available for Clips.
 /// To account for this limitation, we created this property specifically to work with Clips.
 enum GiphyClipsRendition {
-
   /// Original file size and file dimensions. Good for desktop use.
   original,
 

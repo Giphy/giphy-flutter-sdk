@@ -8,7 +8,7 @@ import 'package:giphy_flutter_sdk/specs/giphy_video_manager_platform_interface.d
 class GiphyVideoManager {
   /// The singleton instance of [GiphyVideoManager].
   static final GiphyVideoManager _instance =
-  GiphyVideoManager._privateConstructor();
+      GiphyVideoManager._privateConstructor();
 
   /// Private constructor for the singleton instance.
   GiphyVideoManager._privateConstructor();
@@ -37,4 +37,3 @@ class GiphyVideoManager {
     GiphyVideoManagerPlatform.instance.resume();
   }
 }
-

@@ -51,4 +51,3 @@ abstract class GiphyFlutterSdkPlatform extends PlatformInterface {
     throw UnimplementedError('configure() has not been implemented.');
   }
 }
-

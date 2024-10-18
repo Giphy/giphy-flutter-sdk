@@ -1,3 +1,16 @@
+## 1.0.1
+
+### Native SDKs
+
+- Giphy Android SDK [v2.3.15](https://github.com/Giphy/giphy-android-sdk/releases/tag/v2.3.15)
+- Giphy iOS SDK [v2.2.13](https://github.com/Giphy/giphy-ios-sdk/releases/tag/v2.2.13)
+
+### Static Analysis
+- Address Static Analysis issues
+
+### Bug Fixes
+- Add support for Xcode 16
+
 ## 1.0.0
 
 ### Native SDKs

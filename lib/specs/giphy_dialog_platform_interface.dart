@@ -97,4 +97,3 @@ abstract class GiphyDialogPlatform extends PlatformInterface {
     throw UnimplementedError('hide() has not been implemented.');
   }
 }
-

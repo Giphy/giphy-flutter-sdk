@@ -74,4 +74,3 @@ class GiphyDialogMethodChannel extends GiphyDialogPlatform {
     await _channel.invokeMethod('hide');
   }
 }
-

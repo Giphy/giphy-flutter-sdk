@@ -7,7 +7,6 @@ import 'giphy_theme.dart';
 
 /// A configuration class for Giphy settings.
 class GiphySettings {
-
   /// The theme to use for the Giphy UI.
   final GiphyTheme theme;
 
@@ -142,23 +141,22 @@ class GiphySettings {
       theme: theme ?? this.theme,
       mediaTypeConfig: mediaTypeConfig ?? this.mediaTypeConfig,
       showConfirmationScreen:
-      showConfirmationScreen ?? this.showConfirmationScreen,
+          showConfirmationScreen ?? this.showConfirmationScreen,
       rating: rating ?? this.rating,
       renditionType: renditionType ?? this.renditionType,
       clipsPreviewRenditionType:
-      clipsPreviewRenditionType ?? this.clipsPreviewRenditionType,
+          clipsPreviewRenditionType ?? this.clipsPreviewRenditionType,
       confirmationRenditionType:
-      confirmationRenditionType ?? this.confirmationRenditionType,
+          confirmationRenditionType ?? this.confirmationRenditionType,
       showCheckeredBackground:
-      showCheckeredBackground ?? this.showCheckeredBackground,
+          showCheckeredBackground ?? this.showCheckeredBackground,
       stickerColumnCount: stickerColumnCount ?? this.stickerColumnCount,
-      selectedContentType:
-      selectedContentType ?? this.selectedContentType,
+      selectedContentType: selectedContentType ?? this.selectedContentType,
       showSuggestionsBar: showSuggestionsBar ?? this.showSuggestionsBar,
       enableDynamicText: enableDynamicText ?? this.enableDynamicText,
       fileFormat: fileFormat ?? this.fileFormat,
       disableEmojiVariations:
-      disableEmojiVariations ?? this.disableEmojiVariations,
+          disableEmojiVariations ?? this.disableEmojiVariations,
     );
   }
 }

@@ -119,7 +119,8 @@ class GiphyTheme {
   final Color? retryButtonTextColor;
 
   /// Predefined automatic Giphy theme.
-  static const GiphyTheme automaticTheme = GiphyTheme._private(preset: GiphyThemePreset.automatic);
+  static const GiphyTheme automaticTheme =
+      GiphyTheme._private(preset: GiphyThemePreset.automatic);
 
   // Private constructor with optional parameters.
   const GiphyTheme._private({

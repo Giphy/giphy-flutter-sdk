@@ -7,7 +7,6 @@ enum GiphyFileFormat {
 
 /// Extension methods for [GiphyFileFormat] to convert from and to string values.
 extension GiphyFileFormatExtension on GiphyFileFormat {
-
   /// Converts a string value to a corresponding [GiphyFileFormat] enum value.
   ///
   /// Throws an [ArgumentError] if the given string does not match any [GiphyFileFormat] values.

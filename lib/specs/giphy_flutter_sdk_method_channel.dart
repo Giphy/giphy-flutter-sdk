@@ -30,4 +30,3 @@ class GiphyFlutterSdkPlatformChannel extends GiphyFlutterSdkPlatform {
     });
   }
 }
-
