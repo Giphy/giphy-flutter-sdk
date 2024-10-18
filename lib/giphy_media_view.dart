@@ -189,4 +189,3 @@ class GiphyMediaViewController {
   /// Resumes the paused animation in the associated [GiphyMediaView].
   Future<void> resume() async => _state?.resume();
 }
-

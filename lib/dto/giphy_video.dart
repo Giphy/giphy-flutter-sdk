@@ -4,7 +4,6 @@ import 'giphy_video_previews.dart';
 
 /// A class representing a Giphy video
 class GiphyVideo {
-
   /// The URL for the HLS manifest.
   final String? hlsManifestURL;
 
@@ -43,10 +42,20 @@ class GiphyVideo {
     return GiphyVideo(
       hlsManifestURL: json['hlsManifestURL'] as String?,
       dashManifestURL: json['dashManifestURL'] as String?,
-      assets: json['assets'] != null ? GiphyAssets.fromJson(json['assets'] as Map<Object?, Object?>) : null,
-      previews: json['previews'] != null ? GiphyVideoPreviews.fromJson(json['previews'] as Map<Object?, Object?>) : null,
-      captions: json['captions'] != null ? GiphyVideoCaptions.fromJson(json['captions'] as Map<Object?, Object?>) : null,
-      duration: json['duration'] != null ? (json['duration'] as num).toDouble() : null,
+      assets: json['assets'] != null
+          ? GiphyAssets.fromJson(json['assets'] as Map<Object?, Object?>)
+          : null,
+      previews: json['previews'] != null
+          ? GiphyVideoPreviews.fromJson(
+              json['previews'] as Map<Object?, Object?>)
+          : null,
+      captions: json['captions'] != null
+          ? GiphyVideoCaptions.fromJson(
+              json['captions'] as Map<Object?, Object?>)
+          : null,
+      duration: json['duration'] != null
+          ? (json['duration'] as num).toDouble()
+          : null,
     );
   }
 

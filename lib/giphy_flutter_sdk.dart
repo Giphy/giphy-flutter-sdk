@@ -24,4 +24,3 @@ class GiphyFlutterSDK {
         .configure(apiKey, verificationMode, videoCacheMaxBytes);
   }
 }
-

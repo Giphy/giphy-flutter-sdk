@@ -60,4 +60,3 @@ abstract class GiphyVideoManagerPlatform extends PlatformInterface {
     throw UnimplementedError('resume() has not been implemented.');
   }
 }
-

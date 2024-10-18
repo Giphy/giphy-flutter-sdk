@@ -24,7 +24,6 @@ enum GiphyRating {
 
 /// Extension methods for [GiphyRating] to convert from and to string values.
 extension GiphyRatingExtension on GiphyRating {
-
   /// Converts a string value to a corresponding [GiphyRating] enum value.
   ///
   /// Throws an [ArgumentError] if the given string does not match any [GiphyRating] values.

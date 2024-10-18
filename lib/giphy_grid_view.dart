@@ -185,4 +185,3 @@ class _GiphyGridViewState extends State<GiphyGridView> {
     await _channel.invokeMethod('setTheme', {'theme': widget.theme.toJson()});
   }
 }
-

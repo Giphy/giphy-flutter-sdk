@@ -18,9 +18,8 @@ enum GiphyMediaType {
 
 /// Extension methods for [GiphyMediaType] to convert from and to string values.
 extension GiphyMediaTypeExtension on GiphyMediaType {
-
   /// Converts a string value to a corresponding [GiphyMediaType].
-  /// 
+  ///
   /// Throws an [ArgumentError] if the given string does not match any of the [GiphyMediaType] values.
   ///
   /// [value] The string representation of the Giphy media type.

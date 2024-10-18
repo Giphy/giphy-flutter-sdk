@@ -45,14 +45,14 @@ class GiphyVideoView extends StatefulWidget {
   /// Constructs a GiphyVideoView.
   const GiphyVideoView(
       {super.key,
-        this.mediaId,
-        this.media,
-        this.autoPlay = true,
-        this.muted = false,
-        this.onMute,
-        this.onUnmute,
-        this.onPlaybackStateChanged,
-        this.onError});
+      this.mediaId,
+      this.media,
+      this.autoPlay = true,
+      this.muted = false,
+      this.onMute,
+      this.onUnmute,
+      this.onPlaybackStateChanged,
+      this.onError});
 
   @override
   State<GiphyVideoView> createState() => _GiphyVideoViewState();
@@ -195,4 +195,3 @@ class _GiphyVideoViewState extends State<GiphyVideoView>
     await _channel.invokeMethod('setMuted', {'muted': widget.muted});
   }
 }
-

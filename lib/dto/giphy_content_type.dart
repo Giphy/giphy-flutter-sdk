@@ -10,7 +10,6 @@ enum GiphyContentType {
 
 /// Extension methods for [GiphyContentType] to convert from and to string values.
 extension GiphyContentTypeExtension on GiphyContentType {
-
   /// Converts a string value to a corresponding [GiphyContentType] enum value.
   ///
   /// Throws an [ArgumentError] if the given string does not match any [GiphyContentType] values.
