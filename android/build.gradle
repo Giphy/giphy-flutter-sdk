@@ -32,6 +32,8 @@ buildscript {
         mavenCentral()
     }
 
+    
+
     dependencies {
         classpath 'com.android.tools.build:gradle:7.3.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -67,6 +69,10 @@ android {
     }
 
     compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
+
+    buildFeatures {
+        buildConfig true
+    }
 
     buildTypes {
         release {
