@@ -1,6 +1,6 @@
 name: giphy_flutter_sdk
 description: "A Flutter plugin for integrating Giphy SDK in Android/iOS application."
-version: 1.0.1
+version: 1.0.2
 homepage: https://github.com/Giphy/giphy-flutter-sdk
 
 environment:
@@ -15,7 +15,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

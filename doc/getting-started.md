@@ -11,7 +11,7 @@
   - Requires `minSdkVersion` 21
 - iOS:
   - iOS 13.0 or later
-  - Xcode 12 and later 
+  - Xcode 16 and later 
 
 ### Installation
 

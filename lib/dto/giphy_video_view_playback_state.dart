@@ -23,9 +23,7 @@ extension GiphyVideoViewPlaybackStateExtension on GiphyVideoViewPlaybackState {
         return 4;
       case GiphyVideoViewPlaybackState.paused:
         return 5;
-      default:
-        return 0;
-    }
+      }
   }
 
   /// Converts an integer to a corresponding [GiphyVideoViewPlaybackState] enum value.
