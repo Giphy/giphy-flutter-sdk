@@ -1,3 +1,13 @@
+## 1.0.3
+
+### Native SDKs
+
+- Giphy Android SDK [v2.3.16](https://github.com/Giphy/giphy-android-sdk/releases/tag/v2.3.16)
+- Giphy iOS SDK [v2.2.15](https://github.com/Giphy/giphy-ios-sdk/releases/tag/v2.2.15)
+
+### Bug Fixes
+- Address [The method 'toARGB32' isn't defined for the class 'Color'](https://github.com/Giphy/giphy-flutter-sdk/issues/40)
+
 ## 1.0.2
 
 ### Native SDKs
