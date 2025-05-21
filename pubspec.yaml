@@ -1,6 +1,6 @@
 name: giphy_flutter_sdk
 description: "A Flutter plugin for integrating Giphy SDK in Android/iOS application."
-version: 1.0.3
+version: 1.0.4
 homepage: https://github.com/Giphy/giphy-flutter-sdk
 
 environment:
