@@ -1,3 +1,14 @@
+## 1.0.5
+
+### Native SDKs
+
+- Giphy Android SDK [v2.3.17](https://github.com/Giphy/giphy-android-sdk/releases/tag/v2.3.17)
+- Giphy iOS SDK [v2.2.16](https://github.com/Giphy/giphy-ios-sdk/releases/tag/2.2.16)
+  
+### Features
+
+- [android] Add Edge-To-Edge support ([cb32804](https://github.com/Giphy/giphy-flutter-sdk/commit/cb3280480adb6d7abdb63e518049c75d758b0e86))
+
 ## 1.0.4
 
 ### Native SDKs
