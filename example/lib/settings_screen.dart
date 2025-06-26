@@ -232,6 +232,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   }).toList(),
                 ),
               ),
+              const Divider(),
+              SwitchListTile(
+                title: const Text('Enable Edge-to-Edge support'),
+                value: _temporarySettings.enableEdgeToEdge,
+                onChanged: (bool value) {
+                  setState(() {
+                    _temporarySettings = _temporarySettings.copyWith(
+                        enableEdgeToEdge:
+                        !_temporarySettings.enableEdgeToEdge);
+                  });
+                },
+              ),
             ],
           )),
           SafeArea(

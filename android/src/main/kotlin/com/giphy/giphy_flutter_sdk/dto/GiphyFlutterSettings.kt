@@ -34,7 +34,8 @@ fun HashMap<String, Any?>.toGPHSettings(): GPHSettings {
         enableDynamicText = this["enableDynamicText"] as? Boolean ?: false,
         enablePartnerProfiles = this["enablePartnerProfiles"] as? Boolean ?: true,
         imageFormat = (this["fileFormat"] as? String)?.toImageFormat() ?: ImageFormat.WEBP,
-        disableEmojiVariations = this["disableEmojiVariations"] as? Boolean ?: false
+        disableEmojiVariations = this["disableEmojiVariations"] as? Boolean ?: false,
+        enableEdgeToEdge = this["enableEdgeToEdge"] as? Boolean ?: false,
     )
 }
 
