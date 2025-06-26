@@ -49,6 +49,9 @@ class GiphySettings {
   /// If true, disables variations of emojis.
   final bool disableEmojiVariations;
 
+  /// If true, enables Edge-to-Edge UI Rendering in Android.
+  final bool enableEdgeToEdge;
+
   /// Constructs an instance of [GiphySettings] with the given settings.
   const GiphySettings({
     this.theme = GiphyTheme.automaticTheme,
@@ -72,6 +75,7 @@ class GiphySettings {
     this.enableDynamicText = false,
     this.fileFormat = GiphyFileFormat.webp,
     this.disableEmojiVariations = false,
+    this.enableEdgeToEdge = false,
   });
 
   /// Converts this settings object into a JSON map.
@@ -100,6 +104,7 @@ class GiphySettings {
       'enableDynamicText': enableDynamicText,
       'fileFormat': GiphyFileFormatExtension.toStringValue(fileFormat),
       'disableEmojiVariations': disableEmojiVariations,
+      'enableEdgeToEdge': enableEdgeToEdge,
     };
   }
 
@@ -118,7 +123,7 @@ class GiphySettings {
   /// [theme], [mediaTypeConfig], [showConfirmationScreen], [rating], [renditionType],
   /// [clipsPreviewRenditionType], [confirmationRenditionType], [showCheckeredBackground],
   /// [stickerColumnCount], [selectedContentType], [showSuggestionsBar], [enableDynamicText],
-  /// [fileFormat], [disableEmojiVariations].
+  /// [fileFormat], [disableEmojiVariations], [enableEdgeToEdge].
   ///
   /// Returns a new instance of [GiphySettings].
   GiphySettings copyWith({
@@ -136,6 +141,7 @@ class GiphySettings {
     bool? enableDynamicText,
     GiphyFileFormat? fileFormat,
     bool? disableEmojiVariations,
+    bool? enableEdgeToEdge,
   }) {
     return GiphySettings(
       theme: theme ?? this.theme,
@@ -157,6 +163,7 @@ class GiphySettings {
       fileFormat: fileFormat ?? this.fileFormat,
       disableEmojiVariations:
           disableEmojiVariations ?? this.disableEmojiVariations,
+      enableEdgeToEdge: enableEdgeToEdge ?? this.enableEdgeToEdge,
     );
   }
 }
