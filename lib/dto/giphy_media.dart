@@ -236,7 +236,11 @@ class GiphyMedia {
         variationCount: json['variationCount'] as int?,
         aspectRatio: json['aspectRatio'] as double? ?? 1.0,
         userDictionary: json['userDictionary'] != null
-            ? Map<String, String>.from(json['userDictionary'] as Map)
+            ? Map<String, String>.fromEntries(
+                (json['userDictionary'] as Map).entries.map(
+                      (e) => MapEntry(e.key as String, e.value.toString()),
+                    ),
+              )
             : {},
       );
 
