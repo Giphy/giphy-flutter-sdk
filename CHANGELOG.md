@@ -1,3 +1,13 @@
+## 1.0.6
+
+### Native SDKs
+
+- Giphy Android SDK [v2.4.1](https://github.com/Giphy/giphy-android-sdk/releases/tag/v2.4.1)
+- Giphy iOS SDK [v2.3.0](https://github.com/Giphy/giphy-ios-sdk/releases/tag/2.3.0)
+
+### Bug Fixes
+- Address [Selecting Emoji does not return on iOS](https://github.com/Giphy/giphy-flutter-sdk/issues/47)
+
 ## 1.0.5
 
 ### Native SDKs
