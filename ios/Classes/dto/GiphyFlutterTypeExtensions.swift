@@ -231,6 +231,10 @@ extension GiphyViewController {
         if let trayHeightMultiplier = settings["trayHeightMultiplier"] as? CGFloat {
             GiphyViewController.trayHeightMultiplier = trayHeightMultiplier
         }
+
+        if let disableEmojiVariations = settings["disableEmojiVariations"] as? Bool {
+            self.disableEmojiVariations = disableEmojiVariations
+        }
         
         let rawSelectedContentType = settings["selectedContentType"] as? String
         if let selectedContentType = GPHContentType.fromString(rawSelectedContentType) {
