@@ -116,6 +116,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   _toggleDynamicTexts();
                 },
               ),
+              SwitchListTile(
+                title: const Text('Disable Emoji Variations'),
+                value: _temporarySettings.disableEmojiVariations,
+                onChanged: (bool value) {
+                  _toggleEmojiVariations();
+                },
+              ),
               const Divider(),
               ListTile(
                 title: const Text('Rating'),
@@ -239,8 +246,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onChanged: (bool value) {
                   setState(() {
                     _temporarySettings = _temporarySettings.copyWith(
-                        enableEdgeToEdge:
-                        !_temporarySettings.enableEdgeToEdge);
+                        enableEdgeToEdge: !_temporarySettings.enableEdgeToEdge);
                   });
                 },
               ),
@@ -330,6 +336,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
     setState(() {
       _temporarySettings = _temporarySettings.copyWith(
           enableDynamicText: !_temporarySettings.enableDynamicText);
+    });
+  }
+
+  void _toggleEmojiVariations() {
+    setState(() {
+      _temporarySettings = _temporarySettings.copyWith(
+          disableEmojiVariations: !_temporarySettings.disableEmojiVariations);
     });
   }
 }

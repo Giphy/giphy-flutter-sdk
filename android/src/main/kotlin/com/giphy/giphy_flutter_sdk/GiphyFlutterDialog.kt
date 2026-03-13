@@ -1,7 +1,15 @@
 package com.giphy.giphy_flutter_sdk
 
 import android.content.Context
+import android.view.ViewGroup
+import android.view.Window
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import com.giphy.giphy_flutter_sdk.dto.toGPHSettings
 import com.giphy.giphy_flutter_sdk.dto.toHashMap
 import com.giphy.giphy_flutter_sdk.utils.getVideoPlayerFactory
@@ -70,14 +78,57 @@ class GiphyFlutterDialog : MethodChannel.MethodCallHandler {
             return
         }
         initializeDialog()
-
         gifsDialog!!.gifSelectionListener = getGifSelectionListener()
+        if (settings.enableEdgeToEdge) {
+            fragmentManager.registerFragmentLifecycleCallbacks(
+                object : FragmentManager.FragmentLifecycleCallbacks() {
+                    override fun onFragmentResumed(fm: FragmentManager, f: Fragment) {
+                        if (f === gifsDialog) {
+                            fragmentManager.unregisterFragmentLifecycleCallbacks(this)
+                            (f as? DialogFragment)?.dialog?.window?.let { dialogWindow ->
+                                applyDialogBottomInsets(dialogWindow)
+                            }
+                        }
+                    }
+                },
+                false
+            )
+        }
         gifsDialog!!.show(fragmentManager, "giphy_view")
         result.success(null)
     }
 
+    private fun applyDialogBottomInsets(dialogWindow: Window) {
+        dialogWindow.decorView.post {
+            val rootView = dialogWindow.decorView.findViewById<ViewGroup>(android.R.id.content) ?: return@post
+            val bottomPadding = ViewCompat.getRootWindowInsets(dialogWindow.decorView)
+                ?.getInsets(WindowInsetsCompat.Type.navigationBars())
+                ?.bottom ?: 0
+
+            val outerContainer = rootView.getChildAt(0) as? ViewGroup ?: return@post
+            outerContainer.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin = 0
+            }
+
+            val giphyDialogView = outerContainer.getChildAt(0) as? ViewGroup ?: return@post
+            val innerInterceptor = giphyDialogView.getChildAt(0) as? ViewGroup ?: return@post
+            val roundedConstraint = innerInterceptor.getChildAt(0) as? ViewGroup ?: return@post
+            val mediaTypeView = roundedConstraint.getChildAt(0) ?: return@post
+
+            mediaTypeView.setPadding(
+                mediaTypeView.paddingLeft,
+                mediaTypeView.paddingTop,
+                mediaTypeView.paddingRight,
+                bottomPadding
+            )
+            mediaTypeView.updateLayoutParams<ViewGroup.LayoutParams> {
+                height = mediaTypeView.height + bottomPadding
+            }
+        }
+    }
+
     private fun hide(result: MethodChannel.Result) {
-        gifsDialog!!.dismiss()
+        gifsDialog?.dismiss()
         result.success(null)
     }
 

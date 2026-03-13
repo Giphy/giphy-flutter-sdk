@@ -1,3 +1,14 @@
+## 1.0.7
+
+### Native SDKs
+
+- Giphy Android SDK [v2.4.1](https://github.com/Giphy/giphy-android-sdk/releases/tag/v2.4.1)
+- Giphy iOS SDK [v2.3.1](https://github.com/Giphy/giphy-ios-sdk/releases/tag/2.3.1)
+
+### Bug Fixes
+- Address [disableEmojiVariations does not work on iOS](https://github.com/Giphy/giphy-flutter-sdk/issues/51)
+- Address [Bottom safe area not respected / covered up by GiphyDialog on Android](https://github.com/Giphy/giphy-flutter-sdk/issues/52)
+
 ## 1.0.6
 
 ### Native SDKs
