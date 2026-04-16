@@ -1,3 +1,13 @@
+## 1.0.8
+
+### Native SDKs
+
+- Giphy Android SDK [v2.4.2](https://github.com/Giphy/giphy-android-sdk/releases/tag/v2.4.2)
+- Giphy iOS SDK [v2.3.1](https://github.com/Giphy/giphy-ios-sdk/releases/tag/2.3.1)
+
+### Bug Fixes
+- Address [Selecting Explicit Gifs and Stickers does not return on iOS](https://github.com/Giphy/giphy-flutter-sdk/issues/54)
+
 ## 1.0.7
 
 ### Native SDKs

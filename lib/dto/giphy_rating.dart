@@ -32,7 +32,7 @@ extension GiphyRatingExtension on GiphyRating {
   ///
   /// Returns the matching [GiphyRating] value.
   static GiphyRating fromStringValue(String value) {
-    switch (value) {
+    switch (value.toLowerCase().replaceAll('-', '')) {
       case 'r':
         return GiphyRating.r;
       case 'y':
