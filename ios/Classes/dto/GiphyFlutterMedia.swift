@@ -38,6 +38,9 @@ extension GPHMedia {
         dict["updateDate"] = dict["update_datetime"]
         dict["createDate"] = dict["create_datetime"]
         dict["isVideo"] = self.isVideo
+        if isEmoji {
+            dict["type"] = "emoji"
+        }
         return dict.convertingKeys(.snakeToCamel)
     }
 }

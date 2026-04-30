@@ -1,3 +1,13 @@
+## 1.0.9
+
+### Native SDKs
+
+- Giphy Android SDK [v2.4.2](https://github.com/Giphy/giphy-android-sdk/releases/tag/v2.4.2)
+- Giphy iOS SDK [v2.3.2](https://github.com/Giphy/giphy-ios-sdk/releases/tag/2.3.2)
+
+### Bug Fixes
+- Address [Some stickers are returning as GiphyMediaType.text on iOS](https://github.com/Giphy/giphy-flutter-sdk/issues/56)
+
 ## 1.0.8
 
 ### Native SDKs
