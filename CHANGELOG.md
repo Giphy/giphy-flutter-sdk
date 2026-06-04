@@ -1,3 +1,15 @@
+## 1.1.0
+
+### Build System
+- Migrate Android Gradle setup toward AGP 9 built-in Kotlin support.
+  - The plugin now uses AGP built-in Kotlin on AGP 9+ when built-in Kotlin is enabled.
+  - The plugin still falls back to the Kotlin Gradle Plugin for AGP < 9.
+  - For compatibility, AGP 9+ consumers that explicitly set `android.builtInKotlin=false` also use the Kotlin Gradle Plugin fallback. Those builds may still show AGP's KGP deprecation warning for `:giphy_flutter_sdk`.
+  - AGP 9+ consumers can keep `android.newDsl=false` for Flutter's temporary legacy DSL compatibility, but should leave built-in Kotlin enabled to avoid the SDK KGP warning.
+  - Android Java/Kotlin compilation now targets JVM 17.
+  - The Android plugin default `GiphyFlutterSDK.compileSdkVersion` is now 34.
+- Update the Android example project Gradle setup for AGP 9 and Flutter 3.44 compatibility.
+
 ## 1.0.9
 
 ### Native SDKs
