@@ -12,7 +12,10 @@ Pod::Spec.new do |s|
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Giphy Engineering' => 'developers@giphy.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+  # SwiftPM-aware sources live at giphy_flutter_sdk/Sources/giphy_flutter_sdk
+  # alongside `Package.swift`. The Pod consumer reads from the same tree so
+  # there's no duplication between the two distributions.
+  s.source_files = 'giphy_flutter_sdk/Sources/giphy_flutter_sdk/**/*'
   s.dependency 'Flutter'
   s.platform = :ios, '11.0'
 
