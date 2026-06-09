@@ -1,4 +1,4 @@
-group 'com.giphy.giphy_flutter_sdk'
+group = 'com.giphy.giphy_flutter_sdk'
 
 import org.yaml.snakeyaml.Yaml
 import java.nio.file.Files
@@ -25,16 +25,12 @@ def getVersionFromPubspec() {
 ext.sdkVersion = getVersionFromPubspec()
 
 buildscript {
-    // Buildscript is evaluated before everything else so we can't use getExtOrDefault
-    def kotlin_version = rootProject.ext.has("kotlinVersion") ? rootProject.ext.get("kotlinVersion") : project.properties["GiphyFlutterSDK.kotlinVersion"]
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'org.yaml:snakeyaml:2.2'
     }
 }
@@ -46,8 +42,27 @@ allprojects {
     }
 }
 
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+project.pluginManager.apply('com.android.library')
+
+// AGP 9 has built-in Kotlin support, while older builds still need KGP applied.
+def agpMajorVersion = 8
+try {
+    agpMajorVersion = com.android.Version.ANDROID_GRADLE_PLUGIN_VERSION.tokenize('.')[0].toInteger()
+} catch (Throwable ignored) {
+    // Very old AGP without com.android.Version: treat as legacy (needs the plugin).
+}
+def builtInKotlinDisabled = providers.gradleProperty('android.builtInKotlin').orNull == 'false'
+def appliedKotlinAndroidPlugin = agpMajorVersion < 9 || builtInKotlinDisabled
+if (appliedKotlinAndroidPlugin) {
+    project.pluginManager.apply('org.jetbrains.kotlin.android')
+} else if (!builtInKotlinDisabled) {
+    // Built-in Kotlin uses the modern compiler options DSL.
+    kotlin {
+        compilerOptions {
+            jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+        }
+    }
+}
 
 def getExt(name, prefix = 'GiphyFlutterSDK.') {
     return rootProject.ext.has(prefix + name) ? rootProject.ext.get(prefix + name) : null
@@ -63,10 +78,10 @@ def getExtOrIntegerDefault(name) {
 
 android {
     if (project.android.hasProperty("namespace")) {
-        namespace 'com.giphyfluttersdk'
+        namespace = 'com.giphyfluttersdk'
     }
 
-    compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
+    compileSdk = getExtOrIntegerDefault("compileSdkVersion")
 
     buildTypes {
         release {
@@ -75,22 +90,28 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = '1.8'
+    // Older KGP versions use the legacy Kotlin options DSL.
+    if (appliedKotlinAndroidPlugin) {
+        kotlinOptions {
+            jvmTarget = '17'
+        }
     }
 
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-        test.java.srcDirs += 'src/test/kotlin'
+    // Legacy KGP needs the Kotlin folders registered through java source dirs.
+    if (appliedKotlinAndroidPlugin) {
+        sourceSets {
+            main.java.srcDirs += 'src/main/kotlin'
+            test.java.srcDirs += 'src/test/kotlin'
+        }
     }
 
     defaultConfig {
         buildConfigField "String", "SDK_VERSION", "\"${sdkVersion}\""
-        minSdkVersion getExtOrIntegerDefault("minSdkVersion")
+        minSdk = getExtOrIntegerDefault("minSdkVersion")
     }
 
     dependencies {
@@ -100,7 +121,7 @@ android {
     }
 
     buildFeatures {
-        buildConfig true
+        buildConfig = true
     }
 
     testOptions {
