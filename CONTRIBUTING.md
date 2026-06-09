@@ -13,8 +13,8 @@ To get started with the project, run `flutter pub get` in the root directory to 
 flutter pub get
 ```
 
-To edit the Swift files, open `example/ios/Runner.xcworkspace` in XCode and find the source
-files at `Pods > Development Pods > giphy_flutter_sdk`.
+To edit the Swift files, open `example/ios/Runner.xcworkspace` in Xcode and find the package source
+files under `Flutter > giphy_flutter_sdk`, or edit them directly in `ios/giphy_flutter_sdk/Sources/giphy_flutter_sdk`.
 
 To edit the Kotlin files, open `example/android` in Android studio and find the source files at `giphy_flutter_sdk`
 under `Android`.
@@ -64,6 +64,15 @@ Dart and the native code will be reflected in the example app.
 
 - `scripts/sdk.sh bump android`: update the GIPHY Android SDK to the latest version.
 - `scripts/sdk.sh bump ios`: update the GIPHY iOS SDK to the latest version.
+- `scripts/sdk.sh bump`: increment the Flutter package patch version in `pubspec.yaml`.
+- `scripts/sdk.sh bump patch`: explicitly increment the Flutter package patch version in `pubspec.yaml`.
+- `scripts/sdk.sh bump minor`: increment the Flutter package minor version in `pubspec.yaml` and reset patch to `0`.
+- `scripts/sdk.sh bump major`: increment the Flutter package major version in `pubspec.yaml` and reset minor and patch to `0`.
+- `scripts/sdk.sh bump 1.2.3`: set the Flutter package version in `pubspec.yaml` to an exact version.
+- `scripts/sdk.sh clean`: clean generated build artifacts and caches for the SDK package and example app. This runs `flutter clean` for the root package and example app, runs `./gradlew clean` for the example Android app, and removes generated Flutter, Gradle, CocoaPods, SwiftPM, and iOS build artifacts.
+- `scripts/sdk.sh clean --with-lockfiles`: also remove `pubspec.lock`, `example/ios/Podfile.lock`, and SwiftPM `Package.resolved` files when you need fresh dependency resolution.
+- `scripts/sdk.sh publish-dry-run`: run `flutter pub publish --dry-run` from the SDK package root.
+- `scripts/sdk.sh publish`: run `flutter pub publish` from the SDK package root.
 
 ### Sending a pull request
 

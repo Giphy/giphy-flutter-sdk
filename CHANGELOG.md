@@ -2,13 +2,26 @@
 
 ### Build System
 - Migrate Android Gradle setup toward AGP 9 built-in Kotlin support.
-  - The plugin now uses AGP built-in Kotlin on AGP 9+ when built-in Kotlin is enabled.
-  - The plugin still falls back to the Kotlin Gradle Plugin for AGP < 9.
-  - For compatibility, AGP 9+ consumers that explicitly set `android.builtInKotlin=false` also use the Kotlin Gradle Plugin fallback. Those builds may still show AGP's KGP deprecation warning for `:giphy_flutter_sdk`.
-  - AGP 9+ consumers can keep `android.newDsl=false` for Flutter's temporary legacy DSL compatibility, but should leave built-in Kotlin enabled to avoid the SDK KGP warning.
-  - Android Java/Kotlin compilation now targets JVM 17.
-  - The Android plugin default `GiphyFlutterSDK.compileSdkVersion` is now 34.
+- The plugin now uses AGP built-in Kotlin on AGP 9+ when built-in Kotlin is enabled.
+- The plugin still falls back to the Kotlin Gradle Plugin for AGP < 9.
+- For compatibility, AGP 9+ consumers that explicitly set `android.builtInKotlin=false` also use the Kotlin Gradle Plugin fallback. Those builds may still show AGP's KGP deprecation warning for `:giphy_flutter_sdk`.
+- AGP 9+ consumers can keep `android.newDsl=false` for Flutter's temporary legacy DSL compatibility, but should leave built-in Kotlin enabled to avoid the SDK KGP warning.
+- Android Java/Kotlin compilation now targets JVM 17.
+- The Android plugin default `GiphyFlutterSDK.compileSdkVersion` is now 34.
 - Update the Android example project Gradle setup for AGP 9 and Flutter 3.44 compatibility.
+- Add iOS Swift Package Manager support for the plugin while keeping CocoaPods support for existing consumers.
+- Migrate the iOS example app from CocoaPods to Flutter Swift Package Manager integration.
+
+### Developer Tooling
+- Add `scripts/sdk.sh clean` to remove generated Flutter, Gradle, CocoaPods, SwiftPM, and iOS build artifacts from the SDK package and example app.
+- Update `scripts/sdk.sh bump ios` to keep the iOS `Package.swift` dependency version in sync with the podspec.
+- Add `scripts/sdk.sh bump [patch|minor|major|x.y.z]` to update the Flutter package version in `pubspec.yaml`.
+- Add `scripts/sdk.sh publish-dry-run` and `scripts/sdk.sh publish` helpers for pub.dev publishing.
+
+### Bug Fixes
+- Address [Android build fails: giphy_flutter_sdk defaults to compileSdk 33 but dependencies require compileSdk 34+](https://github.com/Giphy/giphy-flutter-sdk/issues/59)
+- Address [Migrate Android Gradle setup to AGP 9 built-in Kotlin support](https://github.com/Giphy/giphy-flutter-sdk/issues/60)
+- Address [Support for Swift Package Manager](https://github.com/Giphy/giphy-flutter-sdk/issues/61)
 
 ## 1.0.9
 
