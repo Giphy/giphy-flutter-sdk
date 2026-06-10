@@ -15,6 +15,7 @@ IOS_REPO_URL="https://api.github.com/repos/Giphy/giphy-ios-sdk/releases/latest"
 
 GRADLE_FILE_PATH="$ROOT_DIR/android/build.gradle"
 PODSPEC_PATH="$ROOT_DIR/ios/giphy_flutter_sdk.podspec"
+PACKAGE_SWIFT_PATH="$ROOT_DIR/ios/giphy_flutter_sdk/Package.swift"
 
 get_latest_release() {
     curl -s $1 | grep '"tag_name":' | sed -E 's/.*"v?([^"]+)".*/\1/' | sed 's/^[^0-9]*//' | head -1
@@ -30,6 +31,11 @@ update_podspec() {
     echo "Updated iOS SDK to version $1 in Podspec"
 }
 
+update_package_swift() {
+    sed -i '' -e "/url: \"https:\/\/github.com\/Giphy\/giphy-ios-sdk\"/,/)/s/exact: \"[^\"]*\"/exact: \"$1\"/" $PACKAGE_SWIFT_PATH
+    echo "Updated iOS SDK to version $1 in Package.swift"
+}
+
 case "$PLATFORM" in
     android)
         VERSION=$(get_latest_release $ANDROID_REPO_URL)
@@ -38,6 +44,7 @@ case "$PLATFORM" in
     ios)
         VERSION=$(get_latest_release $IOS_REPO_URL)
         update_podspec $VERSION
+        update_package_swift $VERSION
         ;;
     *)
         echo "Unsupported platform: $PLATFORM"
