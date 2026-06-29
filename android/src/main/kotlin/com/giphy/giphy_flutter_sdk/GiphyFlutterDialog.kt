@@ -33,7 +33,7 @@ class GiphyFlutterDialog : MethodChannel.MethodCallHandler {
         gifsDialog = GiphyDialogFragment.newInstance(
             settings,
             videoPlayer = getVideoPlayerFactory()
-        )
+        ).setHostHandlesBottomSafeArea(true)
     }
 
     private fun getGifSelectionListener() = object : GiphyDialogFragment.GifSelectionListener {
