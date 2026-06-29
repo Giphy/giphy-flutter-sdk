@@ -1,3 +1,11 @@
+## 1.1.1
+
+### Native SDKs
+
+- Giphy Android SDK [v2.5.1](https://github.com/Giphy/giphy-android-sdk/releases/tag/v2.5.1)
+- Giphy iOS SDK [v2.3.2](https://github.com/Giphy/giphy-ios-sdk/releases/tag/2.3.2)
+
+
 ## 1.1.0
 
 ### Build System
