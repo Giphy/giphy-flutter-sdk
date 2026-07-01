@@ -1,3 +1,13 @@
+## 1.1.2
+
+### Native SDKs
+
+- Giphy Android SDK [v2.5.1](https://github.com/Giphy/giphy-android-sdk/releases/tag/v2.5.1)
+- Giphy iOS SDK [v2.3.2](https://github.com/Giphy/giphy-ios-sdk/releases/tag/2.3.2)
+
+### Bug Fixes
+- Address [Android build fails: RecyclerView 1.4.0 requires compileSdk 35 but plugin defaults to 34](https://github.com/Giphy/giphy-flutter-sdk/issues/65)
+
 ## 1.1.1
 
 ### Native SDKs
