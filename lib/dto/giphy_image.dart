@@ -89,7 +89,10 @@ class GiphyImage {
       'webPUrl': webPUrl,
       'webPSize': webPSize,
       'mediaId': mediaId,
-      'renditionType': GiphyRenditionUtil.toStringValue(renditionType),
+      // Renditions the media doesn't have are parsed as empty images without a type.
+      'renditionType': renditionType != null
+          ? GiphyRenditionUtil.toStringValue(renditionType)
+          : null,
     };
   }
 }

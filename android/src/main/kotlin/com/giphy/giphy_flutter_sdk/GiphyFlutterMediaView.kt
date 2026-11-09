@@ -29,6 +29,8 @@ internal class GiphyFlutterMediaView(
     private val channel = MethodChannel(messenger, "com.giphyfluttersdk/mediaView$viewId")
 
     private var loadedMedia: Media? = null
+    // The media last asked for, by ID or as an object. A lookup for any other ID is stale.
+    private var requestedMediaId: String? = null
     private var autoPlay: Boolean = true
     private var renditionType = RenditionType.fixedWidth
     private var resizeMode = GiphyFlutterResizeMode.DEFAULT_MODE
@@ -90,11 +92,16 @@ internal class GiphyFlutterMediaView(
 
     @SuppressLint("LongLogTag")
     private fun setMediaWithId(mediaId: String?) {
+        requestedMediaId = mediaId
         if (mediaId == null) {
             return
         }
 
         GPHCore.gifById(mediaId) { result, e ->
+            // Ignore the answer for media that is no longer requested, or for a disposed view.
+            if (mediaId != requestedMediaId) {
+                return@gifById
+            }
             loadedMedia = result?.data
             syncMedia()
             e?.let {
@@ -110,6 +117,7 @@ internal class GiphyFlutterMediaView(
     }
 
     private fun setMedia(media: Media?) {
+        requestedMediaId = media?.id
         loadedMedia = media
         syncMedia()
     }
@@ -165,6 +173,8 @@ internal class GiphyFlutterMediaView(
     }
 
     override fun dispose() {
+        // A lookup still running must not load media into the recycled view.
+        requestedMediaId = null
         view.recycle()
         channel.setMethodCallHandler(null)
     }

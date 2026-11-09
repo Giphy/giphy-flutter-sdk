@@ -7,6 +7,9 @@ project.
 
 ### Install dependencies
 
+Developing the plugin needs Flutter 3.47.0 or newer, because the example app builds for Android with AGP 9 built-in
+Kotlin. Apps that use the plugin don't have this requirement.
+
 To get started with the project, run `flutter pub get` in the root directory to install the required dependencies for each package:
 
 ```sh
@@ -25,9 +28,9 @@ Dart and the native code will be reflected in the example app.
 ### Run the example app
 
 - To run the example application, you need to configure the GIPHY API keys. To do this,
-  you can copy the `config.example.dart` file and fill in the necessary variables:
+  you can copy the `config_example.dart` file and fill in the necessary variables:
   ```sh
-  cp example/lib/config_example.dart/ example/lib/config.dart
+  cp example/lib/config_example.dart example/lib/config.dart
   ```
 
 - To list all available devices IDs:
@@ -40,6 +43,42 @@ Dart and the native code will be reflected in the example app.
   cd example && flutter run -d YOUR_DEVICE_ID && cd ..
   ```
 
+- The iOS example uses Swift Package Manager. If you turn it off to test the CocoaPods route, Flutter generates
+  `example/ios/Podfile` from its template, which has a `target 'RunnerTests'` block. The example has no `RunnerTests`
+  target, so delete that block before running `pod install`.
+
+### Linting and tests
+
+We use the [Dart analyzer](https://dart.dev/tools/analysis) for static analysis, Dart
+[unit tests](https://docs.flutter.dev/testing/overview#unit-tests) for the plugin's Dart code, and Flutter
+[integration tests](https://docs.flutter.dev/testing/integration-tests) to test the plugin against the
+native GIPHY SDKs.
+
+Make sure your code passes the analyzer and the unit tests. Run the following to verify:
+
+```sh
+flutter analyze --no-fatal-infos
+flutter test
+```
+
+The unit tests live in `test/` and need no device. They check the messages the Dart API sends to and receives from
+the native side, and the JSON format of settings, content requests, themes and media.
+
+Also before doing a release you should run the integration tests locally, on an iOS simulator and an Android emulator:
+
+```sh
+cd example && flutter test integration_test -d YOUR_DEVICE_ID && cd ..
+```
+
+The integration tests live in `example/integration_test/` and run in the example app, so they need:
+
+- ✅ The GIPHY API keys in `example/lib/config.dart` (see [Run the example app](#run-the-example-app))
+- ✅ Network access, because they load live GIPHY content
+- ✅ A booted iOS Simulator or Android emulator (list them with `flutter devices`)
+
+Flutter tests can't tap inside native views, so each test checks what the native side reports back: grid content
+loaded, video playback state, errors. The dialog and media view tests check a screenshot instead and run on iOS only
+for now.
 
 ### Publishing to pub.dev
 

@@ -25,7 +25,10 @@ public class GiphyFlutterVideoView: NSObject, FlutterPlatformView {
     }
     
     fileprivate var videoPlayerDelegate: GiphyVideoPlayerDelegate?
-    
+
+    // The media last asked for, by ID or as an object. A lookup for any other ID is stale.
+    private var requestedMediaId: String?
+
     var media: GPHMedia? {
         didSet {
             syncMedia()
@@ -44,9 +47,31 @@ public class GiphyFlutterVideoView: NSObject, FlutterPlatformView {
     deinit {
         ViewsRegister.shared.unregisterView(view: self)
         channel?.setMethodCallHandler(nil)
-        if let videoPlayerDelegate = videoPlayerDelegate, GiphyFlutterSharedVideoPlayer.initialized {
-            GiphyFlutterSharedVideoPlayer.shared.remove(listener: videoPlayerDelegate)
-            self.videoPlayerDelegate = nil
+        let playerView = self.playerView
+        let videoPlayerDelegate = self.videoPlayerDelegate
+        if Thread.isMainThread {
+            GiphyFlutterVideoView.releasePlayer(of: playerView, delegate: videoPlayerDelegate)
+        } else {
+            DispatchQueue.main.async {
+                GiphyFlutterVideoView.releasePlayer(of: playerView, delegate: videoPlayerDelegate)
+            }
+        }
+    }
+
+    private static func releasePlayer(of playerView: GPHVideoPlayerView, delegate: GiphyVideoPlayerDelegate?) {
+        guard GiphyFlutterSharedVideoPlayer.initialized else {
+            return
+        }
+
+        let player = GiphyFlutterSharedVideoPlayer.shared
+        if let delegate = delegate {
+            player.remove(listener: delegate)
+        }
+        // The SDK's player view listens too, and the player keeps playing into it after this view is gone.
+        player.remove(listener: playerView)
+        if player.playerView == playerView {
+            // Also cancels a load that hasn't started playing yet.
+            player.stop()
         }
     }
     
@@ -55,15 +80,17 @@ public class GiphyFlutterVideoView: NSObject, FlutterPlatformView {
     }
     
     private func setMediaWithId(_ value: String?) -> Void {
+        requestedMediaId = value
         guard
             let mediaId = value
         else {
             media = nil
             return
         }
-        
+
         GiphyCore.shared.gifByID(mediaId) { [weak self] (response, error) in
-            guard let self = self else {
+            // The SDK calls back on the main queue. Ignore the answer for media that is no longer requested.
+            guard let self = self, self.requestedMediaId == mediaId else {
                 return
             }
             self.media = response?.data
@@ -91,7 +118,9 @@ public class GiphyFlutterVideoView: NSObject, FlutterPlatformView {
                 
             case "setMedia":
                 if let mediaDict = arguments["media"] as? [String: Any?] {
-                    self.media = mediaDict.toMedia()
+                    let media = mediaDict.toMedia()
+                    self.requestedMediaId = media?.id
+                    self.media = media
                     result(nil)
                 } else {
                     result(FlutterError(code: "INVALID_ARGUMENTS", message: "Expected a media dictionary", details: nil))
@@ -174,25 +203,33 @@ public class GiphyFlutterVideoView: NSObject, FlutterPlatformView {
 private class ViewsRegister {
     static let shared = ViewsRegister()
     
-    private var views: [GiphyFlutterVideoView] = []
-    
+    private struct WeakView {
+        weak var view: GiphyFlutterVideoView?
+    }
+
+    // Weak, so registering a view doesn't keep it alive: deinit unregisters it.
+    private var views: [WeakView] = []
+
     private init() {
     }
-    
+
     func registerView(view: GiphyFlutterVideoView) {
-        views.append(view)
+        views.append(WeakView(view: view))
     }
-    
+
     func unregisterView(view: GiphyFlutterVideoView) {
         views.removeAll {
-            $0 == view
+            $0.view == nil || $0.view == view
         }
     }
-    
+
     func getLatestViewWithAutoPlayback() -> GiphyFlutterVideoView? {
         return views.last {
-            $0.autoPlay && $0.media != nil
-        }
+            guard let view = $0.view else {
+                return false
+            }
+            return view.autoPlay && view.media != nil
+        }?.view
     }
 }
 

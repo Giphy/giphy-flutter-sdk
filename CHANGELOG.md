@@ -1,3 +1,40 @@
+## 2.0.0
+
+### Native SDKs
+
+- Giphy Android SDK [v2.5.2](https://github.com/Giphy/giphy-android-sdk/releases/tag/v2.5.2)
+- Giphy iOS SDK [v2.4.0](https://github.com/Giphy/giphy-ios-sdk/releases/tag/2.4.0)
+
+### Breaking Changes
+- iOS: apps now need iOS 15.0 or later and Xcode 26.4 or later (the first Xcode with the Swift 6.3 compiler), because
+  GIPHY iOS SDK 2.4.0 requires them. Apps can still be written in Swift 5 language mode or Objective-C.
+- iOS: with CocoaPods, set your Podfile's `platform :ios` to 15.0 or later.
+
+### Bug Fixes
+- Android: `GiphyVideoView.onPlaybackStateChanged` now reports `playing`, `paused` and `unknown`. Android sent these
+  states under a key the Dart side didn't read, so they all arrived as `unknown`.
+- Android: `GiphyVideoManager.pauseAll()` now reports `paused` to the video view that was playing.
+- Android: the bundled ExoPlayer video player adapter now sends `GPHVideoPlayerState.MuteChanged(true)` when the player
+  is muted, as the GIPHY Android SDK defines it, and `GiphyVideoView` reports that as `onMute`.
+  **If you use a custom video player adapter** copied from an earlier version, change
+  `MuteChanged(volume > 0)` to `MuteChanged(muted = volume == 0f)`. Otherwise `onMute` and `onUnmute` are swapped.
+- Passing a `GiphyMedia` that lacks some renditions to `GiphyMediaView(media:)` or `GiphyVideoView(media:)` no longer
+  throws "Unsupported rendition type".
+- `GiphyMediaView` and `GiphyVideoView` ignore the answer to a media lookup once they were given other media. Before,
+  a slow lookup could replace newer media, or report an error for media the view no longer shows.
+- `GiphyVideoView` pauses when the app goes to the background and plays again when it comes back. Since Flutter 3.13
+  reports the steps in between (`inactive`, `hidden`), the plugin no longer noticed the change: on iOS a clip stopped
+  in the background and didn't play again. A clip the user unmuted comes back muted and reports `onMute`.
+- iOS: `GiphyVideoView` is released once Flutter disposes it, and a clip it was playing stops. Before, a registry
+  kept every video view alive, and the shared player kept playing into a removed view.
+- Android: a disposed `GiphyVideoView` no longer gets media loaded into it by a late lookup or by
+  `GiphyVideoManager.resume()`.
+
+### Developer Tooling
+- Replace the template tests with Dart unit tests (`flutter test`) and integration tests that run the example app
+  against the native SDKs (`cd example && flutter test integration_test -d <device-id>`). See CONTRIBUTING.md.
+- The example app now needs Flutter 3.47.0 or newer. Apps using the plugin aren't affected.
+
 ## 1.1.3
 
 ### Native SDKs

@@ -1,13 +1,12 @@
 {
-  "originHash" : "354cdf549cabef7c71b61cdd7974217ae246e0048b09253acf6e1b08d5bd46e5",
   "pins" : [
     {
       "identity" : "giphy-ios-sdk",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Giphy/giphy-ios-sdk",
       "state" : {
-        "revision" : "3ba672878445c53c8cb87d57c3ae5cc1f3166b5b",
-        "version" : "2.3.2"
+        "revision" : "5d74530fce1209e75450687e2f7024d043484a95",
+        "version" : "2.4.0"
       }
     },
     {
@@ -15,10 +14,10 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/libwebp-Xcode",
       "state" : {
-        "revision" : "0d60654eeefd5d7d2bef3835804892c40225e8b2",
-        "version" : "1.5.0"
+        "revision" : "2b5256c29ff4e20f2a0d5ee863b62b1a22144434",
+        "version" : "1.6.0"
       }
     }
   ],
-  "version" : 3
+  "version" : 2
 }

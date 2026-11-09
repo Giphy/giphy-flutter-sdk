@@ -26,6 +26,8 @@ internal class GiphyFlutterVideoView(
     private val channel = MethodChannel(messenger, "com.giphyfluttersdk/videoView$viewId")
 
     private var loadedMedia: Media? = null
+    // The media last asked for, by ID or as an object. A lookup for any other ID is stale.
+    private var requestedMediaId: String? = null
     private var autoPlay: Boolean = true
     private var muted = false
     private var flutterStateSynchronized = false
@@ -45,7 +47,7 @@ internal class GiphyFlutterVideoView(
                 is GPHVideoPlayerState.Playing -> {
                     channel.invokeMethod(
                         "onPlaybackStateChanged", mapOf(
-                            "state" to GiphyFlutterVideoPlaybackState.Playing.code
+                            "code" to GiphyFlutterVideoPlaybackState.Playing.code
                         )
                     )
                 }
@@ -60,16 +62,16 @@ internal class GiphyFlutterVideoView(
 
                 is GPHVideoPlayerState.MuteChanged -> {
                     if (it.muted) {
-                        channel.invokeMethod("onUnmute", null)
-                    } else {
                         channel.invokeMethod("onMute", null)
+                    } else {
+                        channel.invokeMethod("onUnmute", null)
                     }
                 }
 
                 is GPHVideoPlayerState.Unknown -> {
                     channel.invokeMethod(
                         "onPlaybackStateChanged", mapOf(
-                            "state" to GiphyFlutterVideoPlaybackState.Unknown.code
+                            "code" to GiphyFlutterVideoPlaybackState.Unknown.code
                         )
                     )
                 }
@@ -81,12 +83,22 @@ internal class GiphyFlutterVideoView(
             if (::view.isInitialized && view.videoPlayer?.paused == true) {
                 channel.invokeMethod(
                     "onPlaybackStateChanged", mapOf(
-                        "state" to GiphyFlutterVideoPlaybackState.Paused.code
+                        "code" to GiphyFlutterVideoPlaybackState.Paused.code
                     )
                 )
             }
         } else {
             flutterStateSynchronized = false
+        }
+    }
+
+    private val pauseListener: (GPHVideoPlayerView) -> Unit = { pausedView ->
+        if (::view.isInitialized && pausedView == view) {
+            channel.invokeMethod(
+                "onPlaybackStateChanged", mapOf(
+                    "code" to GiphyFlutterVideoPlaybackState.Paused.code
+                )
+            )
         }
     }
 
@@ -103,6 +115,7 @@ internal class GiphyFlutterVideoView(
             }
         }
         view.videoPlayer = GiphyFlutterSharedVideoPlayer.gphPlayer
+        GiphyFlutterSharedVideoPlayer.addPauseListener(pauseListener)
         channel.setMethodCallHandler { call, result ->
             when (call.method) {
                 "setMediaId" -> {
@@ -152,11 +165,17 @@ internal class GiphyFlutterVideoView(
     }
 
     private fun setMediaWithId(mediaId: String?) {
+        requestedMediaId = mediaId
         if (mediaId == null) {
             return
         }
 
         GPHCore.gifById(mediaId) { result, e ->
+            // The view may have been disposed, or given other media, while the lookup ran.
+            // Loading the media then would start playback that nobody sees.
+            if (mediaId != requestedMediaId) {
+                return@gifById
+            }
             loadedMedia = result?.data ?: return@gifById
             syncMedia()
             e?.let {
@@ -166,6 +185,7 @@ internal class GiphyFlutterVideoView(
     }
 
     private fun setMedia(media: Media?) {
+        requestedMediaId = media?.id
         loadedMedia = media
         syncMedia()
     }
@@ -210,14 +230,18 @@ internal class GiphyFlutterVideoView(
     }
 
     override fun dispose() {
+        // A lookup still running must not load media into this view.
+        requestedMediaId = null
         channel.setMethodCallHandler(null)
-        if (isViewPlayerActive()) {
-            if (::view.isInitialized) {
-                view.videoPlayer?.onPause()
-            }
-        }
+        GiphyFlutterSharedVideoPlayer.removePauseListener(pauseListener)
         if (::view.isInitialized) {
+            // The view can't report anything any more, so stop listening before pausing.
             view.videoPlayer?.removeListener(playerListener)
+            if (isViewPlayerActive()) {
+                view.videoPlayer?.onPause()
+                // Otherwise GiphyFlutterSharedVideoPlayer.resume() would load the media into this disposed view.
+                view.videoPlayer?.playerView = null
+            }
         }
     }
 

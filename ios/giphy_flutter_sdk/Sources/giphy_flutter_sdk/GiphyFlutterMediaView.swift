@@ -15,7 +15,10 @@ public class GiphyFlutterMediaView: NSObject, FlutterPlatformView {
     private static let DEFAULT_RENDITION_TYPE: GPHRenditionType = .fixedWidth
     
     private var channel: FlutterMethodChannel?
-    
+
+    // The media last asked for, by ID or as an object. A lookup for any other ID is stale.
+    private var requestedMediaId: String?
+
     private var media: GPHMedia? {
         didSet {
             syncMediaViewSource()
@@ -59,15 +62,17 @@ public class GiphyFlutterMediaView: NSObject, FlutterPlatformView {
     }
     
     private func setMediaWithId(_ value: String?) -> Void {
+        requestedMediaId = value
         guard
             let mediaId = value
         else {
             media = nil
             return
         }
-        
+
         GiphyCore.shared.gifByID(mediaId) { [weak self] (response, error) in
-            guard let self = self else {
+            // The SDK calls back on the main queue. Ignore the answer for media that is no longer requested.
+            guard let self = self, self.requestedMediaId == mediaId else {
                 return
             }
             if let error = error {
@@ -114,7 +119,9 @@ public class GiphyFlutterMediaView: NSObject, FlutterPlatformView {
                 
             case "setMedia":
                 if let mediaDict = arguments["media"] as? [String: Any?] {
-                    self.media = mediaDict.toMedia()
+                    let media = mediaDict.toMedia()
+                    self.requestedMediaId = media?.id
+                    self.media = media
                     result(nil)
                 } else {
                     result(FlutterError(code: "INVALID_ARGUMENTS", message: "Expected a media dictionary", details: nil))

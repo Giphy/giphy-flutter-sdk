@@ -5,10 +5,8 @@ import PackageDescription
 let package = Package(
     name: "giphy_flutter_sdk",
     platforms: [
-        // Giphy iOS SDK 2.x requires iOS 13.0. The legacy podspec declares
-        // iOS 11.0 — kept there for backward compatibility with consumers
-        // who pre-date the SPM transition.
-        .iOS("13.0")
+        // Giphy iOS SDK 2.4.0 and later require iOS 15.0, as does the podspec.
+        .iOS("15.0")
     ],
     products: [
         .library(
@@ -23,7 +21,7 @@ let package = Package(
         // already imports, so no source changes needed.
         .package(
             url: "https://github.com/Giphy/giphy-ios-sdk",
-            exact: "2.3.2"
+            exact: "2.4.0"
         )
     ],
     targets: [
