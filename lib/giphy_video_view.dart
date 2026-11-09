@@ -63,7 +63,9 @@ class _GiphyVideoViewState extends State<GiphyVideoView>
     with WidgetsBindingObserver {
   late MethodChannel _channel;
   bool _isPlatformViewCreated = false;
-  AppLifecycleState? _lastAppState;
+
+  /// Whether the videos were paused because the app left the foreground.
+  bool _pausedInBackground = false;
 
   @override
   void initState() {
@@ -80,17 +82,18 @@ class _GiphyVideoViewState extends State<GiphyVideoView>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    if (_lastAppState == AppLifecycleState.resumed &&
-        state == AppLifecycleState.paused) {
-      // App is transitioning from foreground to background
+    // Flutter reports every step in between (inactive and, since Flutter 3.13, hidden),
+    // so compare with what was done to the videos, not with the previous step.
+    if (state == AppLifecycleState.paused && !_pausedInBackground) {
+      // App moved to the background
+      _pausedInBackground = true;
       GiphyVideoManager.instance.pauseAll();
-    } else if (_lastAppState == AppLifecycleState.paused &&
-        state == AppLifecycleState.resumed) {
-      // App is transitioning from background to foreground
+    } else if (state == AppLifecycleState.resumed && _pausedInBackground) {
+      // App is back in the foreground
+      _pausedInBackground = false;
       GiphyVideoManager.instance.resume();
       GiphyVideoManager.instance.muteAll();
     }
-    _lastAppState = state;
   }
 
   @override

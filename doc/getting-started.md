@@ -10,8 +10,22 @@
     to [androidx](https://developer.android.com/jetpack/androidx/)
   - Requires `minSdkVersion` 21
 - iOS:
-  - iOS 13.0 or later
-  - Xcode 16 and later 
+  - iOS 15.0 or later
+  - Xcode 26.4 or later (it includes the Swift 6.3 compiler). Your app's code can still use Swift 5 language mode or
+    Objective-C.
+  - With CocoaPods, a Podfile `platform :ios, '15.0'` or later. With Flutter older than 3.47 and Xcode 27, also raise
+    the deployment target of every pod in the Podfile's `post_install` block: the GIPHY SDK depends on the `libwebp`
+    pod, which declares iOS 9.0, and Xcode 27 refuses to build it. Flutter 3.47 and later do this on their own.
+    ```ruby
+    post_install do |installer|
+      installer.pods_project.targets.each do |target|
+        flutter_additional_ios_build_settings(target)
+        target.build_configurations.each do |config|
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+        end
+      end
+    end
+    ```
 
 ### Installation
 
